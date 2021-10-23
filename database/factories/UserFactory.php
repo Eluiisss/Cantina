@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Nre;
+use App\Models\UserType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -20,14 +22,25 @@ class UserFactory extends Factory
      *
      * @return array
      */
+
+    
     public function definition()
     {
+        $cursos = ["1º" , "2º"];
+        $ciclos = [ "DAW" , "DAM"];
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->Name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            //'NRE' =>$this->faker->regexify('[1-9]{10}[A-Z]{1}'),
+            'phone' =>$this->faker->phoneNumber(),
+            //'usertype'=>rand(0, 1),
+            'banned' =>rand(0, 1),
+            'password' => 'changeme', // password
+            'class' => $cursos[rand(0,sizeof($cursos)-1)] . $ciclos[rand(0,sizeof($ciclos)-1)] ,
             'remember_token' => Str::random(10),
+            'NRE' => Nre::factory()->create()->id,
+            'usertype' =>UserType::all()->random()->id,
+           
         ];
     }
 
@@ -45,3 +58,4 @@ class UserFactory extends Factory
         });
     }
 }
+
