@@ -19,10 +19,10 @@
                 Clase
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Tlf
+                Estado
               </th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Estado
+                Tlf
               </th>
               <th scope="col" class="relative px-6 py-3">
                 Acciones
@@ -72,7 +72,7 @@
                 {{$row->phone}}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" class="text-red-600 hover:text-red-900">Borrar</a>
+                <a href="{{ route('users.destroy', ['id' => $row->id]) }}" class="text-red-600 hover:text-red-900">Borrar</a>
                 <a href="#" class="text-indigo-600 hover:text-indigo-900">Editar</a>
               </td>
             </tr>

@@ -23,4 +23,6 @@ Route::get('/food', [ArticlesController::class, 'index']);
 
 Route::get('/users', [UserController::class, 'index']);
 
+Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->name('users.destroy');
+
 
