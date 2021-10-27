@@ -38,8 +38,8 @@ class UserFactory extends Factory
             'password' => 'changeme', // password
             'class' => $cursos[rand(0,sizeof($cursos)-1)] . $ciclos[rand(0,sizeof($ciclos)-1)] ,
             'remember_token' => Str::random(10),
-            'NRE' => Nre::factory()->create()->id,
-            'usertype' =>UserType::all()->random()->id,
+            'nre_id' => Nre::factory()->create()->id,
+            'user_type_id' =>UserType::all()->random()->id,
            
         ];
     }

@@ -14,7 +14,7 @@ class CreateNresTable extends Migration
     public function up()
     {
         Schema::create('nres', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nre');
             $table->timestamps();
         });
