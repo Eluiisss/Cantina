@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
@@ -14,28 +16,27 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-      //
+        $articles = Article::query()
+            ->with('nutrition', 'category')
+            ->orderBy('id', 'DESC')
+            ->paginate();
+
+        return view('articles.index', compact('articles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function create(Article $article)
     {
-        //
+        return view('articles.create', [
+            'article' => $article,
+            'categories' => Category::orderBy('name')->get(),
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(CreateArticleRequest $request)
     {
-        //
+        $request->createNewArticle();
+        return redirect(route('articles.index'));
     }
 
     /**

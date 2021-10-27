@@ -34,13 +34,18 @@ class ArticleSeeder extends Seeder
         ]);
 
         Article::factory()->create([
+            'id' => 1,
             'nutrition_id' => $nutritionPizza->id,
-            'categories_id' => $categorySnack->id,
+            'category_id' => $categorySnack->id,
             'name' => "Pizza",
             'stock' => 12,
             'price' => 1.75,
             'discount' => 0,
             'created_at' => now()
+        ]);
+
+        $nutritionPizza->update([
+            'article_id' => 1,
         ]);
 
         foreach (range(0,30) as $i){
@@ -55,10 +60,14 @@ class ArticleSeeder extends Seeder
       $nutrition = Nutrition::factory()->create([
             'created_at' => $date
         ]);
-        Article::factory()->create([
+       $article = Article::factory()->create([
             'nutrition_id' => $nutrition->id,
-            'categories_id' => $this->categories->random(),
+            'category_id' => $this->categories->random(),
             'created_at' => $date
+        ]);
+
+        $nutrition->update([
+            'article_id' => $article->id,
         ]);
     }
 }

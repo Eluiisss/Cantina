@@ -19,9 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/food', [ArticlesController::class, 'index']);
+Route::get('/food', [ArticlesController::class, 'index'])->name('articles.index');
+Route::get('/food/create', [ArticlesController::class, 'create'])->name('articles.create');
+Route::post('/food/', [ArticlesController::class, 'store'])->name('articles.store');
 
-Route::get('/users', [UserController::class, 'index']);
+Route::get('/users', [UserController::class, 'index'])->name('users.index');;
 
 Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->name('users.destroy');
 
