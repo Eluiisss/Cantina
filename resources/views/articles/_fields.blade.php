@@ -6,7 +6,7 @@
     <div class="w-full lg:w-12/12 px-4">
         <div class="relative w-full mb-3">
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_name">
-                Nombre del prodcuto
+                Nombre del producto
             </label>
             <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_name" type="text" placeholder="Nombre del prodcuto" value="{{ old('article_name', $article->name) }}">
@@ -53,6 +53,20 @@
                    name="article_discount" type="number" min="0" max="100"  placeholder="0% - 100%" value="{{ old('article_discount', $article->discount ?? 0) }}">
         </div>
     </div>
+    <div class="w-full lg:w-12/12 px-4">
+        <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                Foto
+            </label>
+            <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-blue-300 group'>
+                <div class='flex flex-col items-center justify-center pt-7'>
+                    <svg class="w-10 h-10 text-blue-400 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <p class='text-sm text-gray-400 group-hover:text-blue-600 pt-1 tracking-wider'>Añadir foto</p>
+                </div>
+                <input type='file' class="hidden" />
+            </label>
+        </div>
+    </div>
 
 </div>
 
@@ -68,7 +82,7 @@
                 Calorías
             </label>
             <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   name="article_calories" type="number" min="0" max="5000" step="0.1" placeholder="Ej. 1000 kcal" value="{{ old('article_calories', optional($article->nutrition)->calories) }}">
+                   name="article_calories" type="number" min="0" max="5000" step="0.01" placeholder="Ej. 1000 kcal" value="{{ old('article_calories', optional($article->nutrition)->calories) }}">
         </div>
     </div>
     <div class="w-full lg:w-4/12 px-4">
@@ -77,7 +91,7 @@
                 Sal
             </label>
             <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   name="article_sodium" type="number" min="0" max="500" step="0.1" placeholder="Ej. 2.5g" value="{{ old('article_sodium', optional($article->nutrition)->sodium) }}">
+                   name="article_sodium" type="number" min="0" max="500" step="0.01" placeholder="Ej. 2.5g" value="{{ old('article_sodium', optional($article->nutrition)->sodium) }}">
         </div>
     </div>
     <div class="w-full lg:w-4/12 px-4">
@@ -86,7 +100,7 @@
                 Proteínas
             </label>
             <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   name="article_proteins" type="number" min="0" max="200" step="0.1" placeholder="Ej. 100g" value="{{ old('article_proteins', optional($article->nutrition)->proteins) }}">
+                   name="article_proteins" type="number" min="0" max="200" step="0.01" placeholder="Ej. 100g" value="{{ old('article_proteins', optional($article->nutrition)->proteins) }}">
         </div>
     </div>
     <div class="w-full lg:w-6/12 px-4">

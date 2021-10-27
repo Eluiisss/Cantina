@@ -19,9 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/food', [ArticlesController::class, 'index'])->name('articles.index');
+Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');
 Route::get('/food/create', [ArticlesController::class, 'create'])->name('articles.create');
 Route::post('/food/', [ArticlesController::class, 'store'])->name('articles.store');
+Route::get('/food/{article}/edit', [ArticlesController::class, 'edit'])->name('articles.edit');
+Route::put('/food/{article}', [ArticlesController::class, 'update'])->name('articles.update');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');;
 
