@@ -114,7 +114,8 @@
                     </div>
                 @endif
                 <div class="md:grid md:grid-cols-6 md:space-y-2 space-y-1 p-4">
-                    <a href="{{ url()->previous() }}" class="bg-blue-500 text-white text-center active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                    <a href="{{ (url()->previous() == route('articles.edit', $article->id))?  route('articles.index') : url()->previous() }}"
+                       class="bg-blue-500 text-white text-center active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
                         Volver
                     </a>
                 </div>

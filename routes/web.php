@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,14 @@ Route::delete('/food/{id}', [ArticlesController::class, 'destroy'])->name('artic
 Route::get('/food/trash', [ArticlesController::class, 'index'])->name('articles.trashed');
 Route::patch('/food/{article}/trash', [ArticlesController::class, 'trash'])->name('articles.trash');
 Route::get('/food/{id}/restore', [ArticlesController::class, 'restore'])->name('articles.restore');
+
+Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
+Route::get('/categories/{category}/show', [CategoriesController::class, 'show'])->name('categories.show');
+Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
+Route::post('/categories/', [CategoriesController::class, 'store'])->name('categories.store');
+Route::get('/categories/{category}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
+Route::put('/categories/{category}', [CategoriesController::class, 'update'])->name('categories.update');
+Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');;
 
