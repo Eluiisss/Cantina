@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\User;
+use App\Models\{Nre, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,7 +12,10 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_confirm_password_screen_can_be_rendered()
     {
-        $user = User::factory()->create();
+        $nre = Nre::factory()->create();
+        $user = User::factory()->create([
+            'nre_id' => $nre->id,
+        ]);
 
         $response = $this->actingAs($user)->get('/confirm-password');
 
@@ -21,10 +24,13 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_can_be_confirmed()
     {
-        $user = User::factory()->create();
+        $nre = Nre::factory()->create();
+        $user = User::factory()->create([
+            'nre_id' => $nre->id,
+        ]);
 
         $response = $this->actingAs($user)->post('/confirm-password', [
-            'password' => 'secret',
+            'password' => 'password',
         ]);
 
         $response->assertRedirect();
@@ -33,7 +39,10 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_is_not_confirmed_with_invalid_password()
     {
-        $user = User::factory()->create();
+        $nre = Nre::factory()->create();
+        $user = User::factory()->create([
+            'nre_id' => $nre->id,
+        ]);
 
         $response = $this->actingAs($user)->post('/confirm-password', [
             'password' => 'wrong-password',

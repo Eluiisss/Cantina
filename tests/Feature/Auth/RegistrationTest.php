@@ -20,14 +20,9 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register()
     {
-        //$this->withoutExceptionHandling();
-        
-        $nre = Nre::create([
-            'nre' => '1888714',
-        ]);
+        $nre = Nre::factory()->create();
         $response = $this->post('/register', [
-            'first_name' => 'Test',
-            'last_name' => 'User',
+            'name' => 'Test User',
             'nre' => $nre->nre,
             'email' => 'test@example.com',
             'password' => 'password',
@@ -40,15 +35,11 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_cannot_register_if_nre_doesnt_exist()
     {
-        //$this->withoutExceptionHandling();
-        
-        $nre = Nre::create([
-            'nre' => '1888714',
-        ]);
-        $response = $this->post('/register', [
-            'first_name' => 'Test',
-            'last_name' => 'User',
-            'nre' => '1888715',
+        Nre::factory()->create(['nre' => '1889417']);
+
+        $this->post('/register', [
+            'name' => 'Test User',
+            'nre' => '1991234',
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',

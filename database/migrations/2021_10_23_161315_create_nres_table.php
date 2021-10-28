@@ -14,7 +14,7 @@ class CreateNresTable extends Migration
     public function up()
     {
         Schema::create('nres', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nre');
             $table->timestamps();
         });
@@ -22,6 +22,7 @@ class CreateNresTable extends Migration
 
     /**
      * Reverse the migrations.
+     *
      *
      * @return void
      */

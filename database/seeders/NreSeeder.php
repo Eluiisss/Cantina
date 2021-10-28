@@ -14,6 +14,8 @@ class NreSeeder extends Seeder
      */
     public function run()
     {
-        Nre::factory()->times(30)->create();
+        Nre::factory()->create(['nre' => '1889417']);
+
+        Nre::factory()->times(50)->create();
     }
 }

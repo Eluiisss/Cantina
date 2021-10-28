@@ -12,25 +12,11 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- First Name -->
+            <!-- Name -->
             <div>
-                <x-label for="first_name" :value="__('Nombre')" />
+                <x-label for="name" :value="__('Name')" />
 
-                <x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus />
-            </div>
-
-            <!-- Last Name -->
-            <div class="mt-4">
-                <x-label for="last_name" :value="__('Apellidos')" />
-
-                <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required />
-            </div>
-
-            <!-- NRE -->
-            <div class="mt-4">
-                <x-label for="nre" :value="__('NRE (Número Regional de Estudiante)')" />
-
-                <x-input id="nre" class="block mt-1 w-full" type="text" name="nre" :value="old('nre')" required />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
             <!-- Email Address -->
@@ -42,7 +28,7 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Contraseña')" />
+                <x-label for="password" :value="__('Password')" />
 
                 <x-input id="password" class="block mt-1 w-full"
                                 type="password"
@@ -52,7 +38,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirme su contraseña')" />
+                <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"

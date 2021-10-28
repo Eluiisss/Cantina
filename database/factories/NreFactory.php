@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Nre;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
 class NreFactory extends Factory
 {
     /**
@@ -23,7 +22,7 @@ class NreFactory extends Factory
     public function definition()
     {
         return [
-            'nre' =>$this->faker->regexify('[1-9]{10}[A-Z]{1}'),
+            'nre' =>$this->faker->regexify('/^[1-2]{1}[1-9]{7}$'),
         ];
     }
 }
