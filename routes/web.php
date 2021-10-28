@@ -22,8 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/users', [UserController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('users');
+Route::get('/users', [UserController::class, 'index'])->middleware(['guest'])->name('users.index');
+
+Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->name('users.destroy');
 
 require __DIR__.'/auth.php';
