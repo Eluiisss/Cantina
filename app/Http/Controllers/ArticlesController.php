@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
@@ -19,6 +20,7 @@ class ArticlesController extends Controller
     {
         $articles = Article::query()
             ->with('nutrition', 'category')
+            ->onlyTrashedIf(request()->routeIs('articles.trashed'))
             ->orderBy('id', 'DESC')
             ->paginate();
 
@@ -61,14 +63,32 @@ class ArticlesController extends Controller
         return redirect(route('articles.show', ['article' => $article]));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Article $article
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Article $article)
+    public function trash(Article $article)
     {
-        //
+        DB::transaction(function () use($article) {
+            $article->nutrition()->delete();
+            $article->delete();
+        });
+
+        return redirect(route('articles.index'));
+    }
+
+    public function restore($id)
+    {
+        $article = Article::onlyTrashed()->where('id', $id)->firstOrFail();
+
+        DB::transaction(function () use($article) {
+            $article->nutrition()->restore();
+            $article->restore();
+        });
+
+        return redirect(route('articles.index'));
+    }
+
+    public function destroy($id)
+    {
+        $article = Article::onlyTrashed()->where('id', $id)->firstOrFail();
+        $article->forceDelete();
+        return redirect()->route('articles.trashed');
     }
 }

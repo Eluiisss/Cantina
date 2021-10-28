@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->unsignedBigInteger('nutrition_id');
-            $table->foreign('nutrition_id')->references('id')->on('nutrition');
+            $table->foreign('nutrition_id')->references('id')->on('nutrition')->onDelete('cascade');
 
             $table->string('name', 20);
             $table->integer('stock');

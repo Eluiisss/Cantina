@@ -26,6 +26,11 @@ Route::get('/food/create', [ArticlesController::class, 'create'])->name('article
 Route::post('/food/', [ArticlesController::class, 'store'])->name('articles.store');
 Route::get('/food/{article}/edit', [ArticlesController::class, 'edit'])->name('articles.edit');
 Route::put('/food/{article}', [ArticlesController::class, 'update'])->name('articles.update');
+Route::delete('/food/{id}', [ArticlesController::class, 'destroy'])->name('articles.destroy');
+
+Route::get('/food/trash', [ArticlesController::class, 'index'])->name('articles.trashed');
+Route::patch('/food/{article}/trash', [ArticlesController::class, 'trash'])->name('articles.trash');
+Route::get('/food/{id}/restore', [ArticlesController::class, 'restore'])->name('articles.restore');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');;
 
