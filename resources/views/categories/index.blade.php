@@ -6,6 +6,7 @@
 
     <section class="text-gray-600">
         <div class="container px-5 py-24 mx-auto">
+            <h2 class="text-4xl mb-5">{{trans('categories.title.index')}}</h2>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -72,7 +73,7 @@
                                 {{$categories->links()}}
                             @else
                                 <p class="text-left md:text-center text-blueGray-700 text-xl">
-                                    Sin datos
+                                    {{trans('ui_elements.lists.empty')}}
                                 </p>
                             @endif
                         </div>

@@ -6,6 +6,7 @@
 
     <section class="text-gray-600">
         <div class="container px-5 py-24 mx-auto">
+            <h2 class="text-4xl mb-5">{{trans('articles.title.index')}}</h2>
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -53,7 +54,16 @@
                                         <img src="{{$row->image}}" class="object-contain h-28 w-full object-scale-down">
                                     </td>
                                     <td class="px-2 py-4 text-sm font-medium text-gray-900  whitespace-nowrap">{{$row->name}}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{$row->price}} €</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                            @if($row->discount>0)
+                                                            {{round(($row->price)-(($row->price * $row->discount)/100), 2) . " € "}}
+                                                            <span class="line-through text-red-600">
+                                                            {{$row->price . " € "}}
+                                                             </span>
+                                                            @else
+                                                            {{$row->price}}€
+                                                            @endif
+                                    </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{$row->stock}} unidades</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{optional($row->nutrition)->is_allergy? 'Si': 'No'}}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{$row->category->name}}</td>
@@ -107,7 +117,7 @@
                             {{$articles->links()}}
                         @else
                                     <p class="text-left md:text-center text-blueGray-700 text-xl">
-                                        Sin datos
+                                        {{trans('ui_elements.lists.empty')}}
                                     </p>
                         @endif
                         </div>

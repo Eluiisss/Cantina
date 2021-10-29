@@ -20,7 +20,7 @@ class ArticlesController extends Controller
         $articles = Article::query()
             ->with('nutrition', 'category')
             ->onlyTrashedIf(request()->routeIs('articles.trashed'))
-            ->orderBy('id', 'DESC')
+            ->orderBy('name')
             ->paginate();
 
         return view('articles.index', compact('articles'));

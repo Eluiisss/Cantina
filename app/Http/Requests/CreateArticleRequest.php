@@ -43,19 +43,7 @@ class CreateArticleRequest extends FormRequest
     {
         DB::transaction(function (){
 
-            $nutrition = Nutrition::create([
-                'is_veg' => $this->article_veg,
-                'is_allergy' => $this->article_allergy,
-                'calories' => $this->article_calories,
-                'sodium' =>  $this->article_sodium,
-                'proteins' => $this->article_proteins,
-                'ingredients_description' => $this->article_ingredients_description,
-                'allergy_description' => $this->article_allergy_description,
-                'created_at' => now()
-            ]);
-
            $article =  Article::create([
-                'nutrition_id' => $nutrition->id,
                 'category_id' => $this->article_category,
                 'name' => $this->article_name,
                 'stock' => $this->article_stock,
@@ -65,8 +53,16 @@ class CreateArticleRequest extends FormRequest
                 'created_at' => now()
             ]);
 
-            $nutrition->update([
+             Nutrition::create([
                 'article_id' => $article->id,
+                'is_veg' => $this->article_veg,
+                'is_allergy' => $this->article_allergy,
+                'calories' => $this->article_calories,
+                'sodium' =>  $this->article_sodium,
+                'proteins' => $this->article_proteins,
+                'ingredients_description' => $this->article_ingredients_description,
+                'allergy_description' => $this->article_allergy_description,
+                'created_at' => now()
             ]);
         });
     }

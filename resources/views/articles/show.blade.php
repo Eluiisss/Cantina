@@ -38,9 +38,14 @@
                         Precio
                     </p>
                     <p>
-                        {{$article->price}}€
                         @if($article->discount>0)
+                            {{round((($article->price) - ($article->price * $article->discount)/100), 2) . " € "}}
+                            <span class="line-through text-red-600">
+                                {{$article->price . " € "}}
+                            </span>
                             (Descuento {{$article->discount}}%)
+                        @else
+                            {{$article->price}}€
                         @endif
                     </p>
                 </div>
