@@ -32,7 +32,6 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'phone' => $this->faker->phoneNumber(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role' => 'user',
             'class' => $courses[rand(0,sizeof($courses)-1)] . $cycles[rand(0,sizeof($cycles)-1)],
             'banned' => 0,
             'remember_token' => Str::random(10),

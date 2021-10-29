@@ -22,7 +22,7 @@ class NreFactory extends Factory
     public function definition()
     {
         return [
-            'nre' =>$this->faker->regexify('/^[1-2]{1}[1-9]{7}$'),
+            'nre' =>$this->faker->regexify('/^[1-2]{1}[1-9]{6}$'),
         ];
     }
 }

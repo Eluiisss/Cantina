@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/users', [UserController::class, 'index'])->middleware(['guest'])->name('users.index');
+Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
 
 Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->name('users.destroy');
 
