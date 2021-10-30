@@ -13,7 +13,7 @@ class CategoriesController extends Controller
     {
         $categories = Category::query()
             ->with('articles')
-            ->orderBy('id', 'DESC')
+            ->orderBy('name')
             ->paginate();
 
         return view('categories.index', compact('categories'));
