@@ -36,9 +36,10 @@ class UserSeeder extends Seeder
 
     public function createAdmins()
     {
+        $adminNre = $this->nres->firstWhere('nre', '1889417');
         $eluis = User::create([
             'name' => 'José Luis Nicolás',
-            'nre_id' => $this->nres->firstWhere('nre', '1889417')->id,
+            'nre_id' => $adminNre->id,
             'email' => 'joseluisnicolasnr@gmail.com',
             'email_verified_at' => now(),
             'phone' => '656238544',
@@ -48,10 +49,14 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
+        $adminNre->update([
+            'user_id' => $eluis->id,
+        ]);
 
+        $adminNre = $this->nres->firstWhere('nre', '1928721');
         $manuel = User::create([
             'name' => 'Manuel Martínez',
-            'nre_id' => $this->nres->firstWhere('nre', '1928721')->id,
+            'nre_id' => $adminNre->id,
             'email' => 'manuelmcw@gmail.com',
             'email_verified_at' => now(),
             'phone' => '656805944',
@@ -61,10 +66,14 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
+        $adminNre->update([
+            'user_id' => $manuel->id,
+        ]);
 
+        $adminNre = $this->nres->firstWhere('nre', '1642291');
         $eduardo = User::create([
             'name' => 'Eduardo Noguera',
-            'nre_id' => $this->nres->firstWhere('nre', '1642291')->id,
+            'nre_id' => $adminNre->id,
             'email' => 'eduardo.nogueraga@gmail.com',
             'email_verified_at' => now(),
             'phone' => '656123455',
@@ -74,6 +83,9 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
+        $adminNre->update([
+            'user_id' => $eduardo->id,
+        ]);
 
         $eluis->attachRole($this->roles->firstWhere('name', 'administrator')->id);
         $manuel->attachRole($this->roles->firstWhere('name', 'administrator')->id);
@@ -82,10 +94,15 @@ class UserSeeder extends Seeder
 
     public function createRandomUser()
     {
+        $userNre = $this->nres->where('user_id', null)->random();
         $user = User::factory()->create([
-            'nre_id' => $this->nres->random()->id,
+            'nre_id' => $userNre->id,
         ]);
 
+        $userNre->update([
+            'user_id' => $user->id,
+            'updated_at' => now(),
+        ]);
         $user->attachRole($this->roles->firstWhere('name', 'user')->id);
     }
 }

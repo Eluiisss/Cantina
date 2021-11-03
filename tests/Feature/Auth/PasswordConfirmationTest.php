@@ -39,6 +39,8 @@ class PasswordConfirmationTest extends TestCase
 
     public function test_password_is_not_confirmed_with_invalid_password()
     {
+        $this->handleValidationExceptions();
+
         $nre = Nre::factory()->create();
         $user = User::factory()->create([
             'nre_id' => $nre->id,

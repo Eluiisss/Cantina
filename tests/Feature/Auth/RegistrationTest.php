@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Models\Nre;
+use App\Models\{Nre, User};
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -44,6 +44,31 @@ class RegistrationTest extends TestCase
             'password' => 'password',
             'password_confirmation' => 'password',
         ]);
+
+        $this->assertGuest();
+    }
+
+    public function test_new_users_cannot_have_the_same_associated_nre()
+    {
+        $this->handleValidationExceptions();
+        
+        $nre = Nre::factory()->create();
+        $user = User::factory()->create([
+            'nre_id' => $nre->id,
+        ]);
+        $nre->update([
+            'user_id' => $user->id,
+            'updated_at' => now(),
+        ]);
+
+        $this->post('/register', [
+            'name' => 'Test User',
+            'nre' => $nre->nre,
+            'email' => 'test@example.com',
+            'phone' => '652381947',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ])->assertSessionHasErrors();
 
         $this->assertGuest();
     }

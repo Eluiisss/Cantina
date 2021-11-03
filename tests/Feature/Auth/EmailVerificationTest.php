@@ -52,6 +52,8 @@ class EmailVerificationTest extends TestCase
 
     public function test_email_is_not_verified_with_invalid_hash()
     {
+        $this->withExceptionHandling();
+        
         $nre = Nre::factory()->create();
         $user = User::factory()->create([
             'nre_id' => $nre->id,
