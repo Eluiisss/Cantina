@@ -37,6 +37,8 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_not_authenticate_with_invalid_password()
     {
+        $this->handleValidationExceptions();
+
         $nre = Nre::factory()->create();
         $user = User::factory()->create([
             'nre_id' => $nre->id,

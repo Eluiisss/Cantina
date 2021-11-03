@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\Nutrition;
 use Illuminate\Database\Seeder;
 
 class ArticleSeeder extends Seeder
@@ -22,7 +21,17 @@ class ArticleSeeder extends Seeder
 
         $categorySnack = Category::query()->where('name', "Snacks")->first();
 
-        $nutritionPizza = Nutrition::factory()->create([
+       $article =  Article::factory()->create([
+            'id' => 1,
+            'category_id' => $categorySnack->id,
+            'name' => "Pizza",
+            'stock' => 12,
+            'price' => 1.75,
+            'discount' => 0,
+            'created_at' => now()
+        ]);
+
+        $article->nutrition()->update([
             'is_veg' => false,
             'is_allergy' =>false,
             'calories' => 300.27,
@@ -30,17 +39,7 @@ class ArticleSeeder extends Seeder
             'proteins' => 126.6,
             'ingredients_description' => "Harina de trigo, Proteina animal, Edulcorante E346, Uranio empobrecido, Agua del Mar Menor",
             'allergy_description' => "",
-            'created_at' => now()
-        ]);
-
-        Article::factory()->create([
-            'nutrition_id' => $nutritionPizza->id,
-            'categories_id' => $categorySnack->id,
-            'name' => "Pizza",
-            'stock' => 12,
-            'price' => 1.75,
-            'discount' => 0,
-            'created_at' => now()
+            'created_at' => now(),
         ]);
 
         foreach (range(0,30) as $i){
@@ -52,12 +51,12 @@ class ArticleSeeder extends Seeder
     {
       $date = now()->subDays(rand(0,60));
 
-      $nutrition = Nutrition::factory()->create([
+       $article = Article::factory()->create([
+            'category_id' => $this->categories->random(),
             'created_at' => $date
         ]);
-        Article::factory()->create([
-            'nutrition_id' => $nutrition->id,
-            'categories_id' => $this->categories->random(),
+
+        $article->nutrition()->update([
             'created_at' => $date
         ]);
     }

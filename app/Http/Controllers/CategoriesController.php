@@ -2,84 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $categories = Category::query()
+            ->with('articles')
+            ->orderBy('name')
+            ->paginate();
+
+        return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function create(Category $category)
     {
-        //
+        return view('categories.create', [
+            'category' => $category,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(CreateCategoryRequest $request)
     {
-        //
+       $request->createNewCategory();
+        return redirect(route('categories.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Category $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Category $category)
     {
-        //
+        return view('categories.show', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Category $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Category $category)
     {
-        //
+        return view('categories.edit', [
+            'category' => $category,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $request->updateCategory($category);
+        return redirect(route('categories.show', ['category' => $category]));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
+    public function destroy( $id)
     {
-        //
+        $category = Category::query()->where('id', $id)->firstOrFail();
+        abort_if($category->articles()->exists(), 400, 'No puedes borrar una categoría con articulos');
+        $category->forceDelete();
+        return redirect()->route('categories.index');
     }
 }

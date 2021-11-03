@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('banned');
             $table->rememberToken();
             $table->timestamps();
+
             $table->softDeletes();
         });
     }

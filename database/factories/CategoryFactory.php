@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' =>  Str::ucfirst($this->faker->word(rand(1,3))),
+            'name' =>  Str::ucfirst($this->faker->unique()->word(rand(1,3))),
             'description' => $this->faker->sentence(rand(0,5)),
             'image' => $this->faker->imageUrl,
         ];

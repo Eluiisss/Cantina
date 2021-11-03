@@ -35,6 +35,8 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_cannot_register_if_nre_doesnt_exist()
     {
+        $this->handleValidationExceptions();
+
         Nre::factory()->create(['nre' => '1889417']);
 
         $this->post('/register', [
@@ -51,7 +53,7 @@ class RegistrationTest extends TestCase
     public function test_new_users_cannot_have_the_same_associated_nre()
     {
         $this->handleValidationExceptions();
-        
+
         $nre = Nre::factory()->create();
         $user = User::factory()->create([
             'nre_id' => $nre->id,

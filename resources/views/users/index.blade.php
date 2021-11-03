@@ -1,4 +1,6 @@
+
 @extends('layouts.guest')
+
 
 @section('title','Home')
 

@@ -3,18 +3,25 @@
 namespace Database\Factories;
 
 use App\Models\Article;
+use App\Models\Nutrition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 class ArticleFactory extends Factory
 {
-    protected $model = Article::class;
-
     /**
      * Define the model's default state.
      *
      * @return array
      */
+    protected $model = Article::class;
+
+    public function configure(){
+        return $this->afterCreating(function ($article) {
+            $article->nutrition()->save(Nutrition::factory()->make());
+        });
+    }
+
     public function definition()
     {
         return [

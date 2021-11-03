@@ -35,7 +35,7 @@ class UserFactory extends Factory
             'class' => $courses[rand(0,sizeof($courses)-1)] . $cycles[rand(0,sizeof($cycles)-1)],
             'banned' => 0,
             'remember_token' => Str::random(10),
-        ];
+            ];
     }
 
     /**
