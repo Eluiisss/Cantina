@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Nre::class)->withDefault();
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
