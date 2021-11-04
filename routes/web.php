@@ -28,6 +28,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
 Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->name('users.destroy');
+Route::get('/users/{user}/show', [UserController::class, 'show'])->name('users.show');
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
 
 Route::get('/food', [ArticlesController::class, 'index'])->name('articles.index');
 Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');
