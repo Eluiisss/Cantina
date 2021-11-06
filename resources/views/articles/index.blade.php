@@ -56,7 +56,7 @@
                                     <td class="px-2 py-4 text-sm font-medium text-gray-900  whitespace-nowrap">{{$row->name}}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                             @if($row->discount>0)
-                                                            {{round(($row->price)-(($row->price * $row->discount)/100), 2) . " € "}}
+                                                            {{$row->discounted_price}}€
                                                             <span class="line-through text-red-600">
                                                             {{$row->price . " € "}}
                                                              </span>

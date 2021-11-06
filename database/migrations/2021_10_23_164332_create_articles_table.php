@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->string('name', 20);
             $table->integer('stock');
             $table->double('price');
+            $table->double('discounted_price');
             $table->double('discount');
             $table->string('image');
             $table->softDeletes();

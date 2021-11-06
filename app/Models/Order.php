@@ -13,7 +13,9 @@ class Order extends Model
 
     public function articles()
     {
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Article::class)
+            ->withTimestamps()
+            ->withPivot(['quantity']);
     }
 
     public function user()
