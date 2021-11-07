@@ -11,7 +11,6 @@
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
       <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-        @if ($articles->isNotEmpty())
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
@@ -85,11 +84,6 @@
             <!-- More people... -->
           </tbody>
         </table>
-        @else
-                  <p class="text-left md:text-center text-blueGray-700 text-xl">
-                      {{trans('ui_elements.lists.empty')}}
-                  </p>
-      @endif
       </div>
     </div>
   </div>
