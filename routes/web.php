@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
-Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->name('users.destroy');
+Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->middleware(['role:administrator|employee'])->name('users.destroy');
 Route::get('/users/{user}/show', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
