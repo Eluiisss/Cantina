@@ -23,6 +23,7 @@ class OrderFactory extends Factory
             'order_code' => $this->faker->randomLetter.$this->faker->numerify('###'),
             'order_status' => $orderStatus,
             'payment_status' => ($orderStatus == 'recogido')? 'ya_pagado': 'sin_pagar',
+            'payment_date' => ($orderStatus == 'recogido')? now(): null,
         ];
     }
 

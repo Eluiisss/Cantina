@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $orders = Order::query()
+            ->orderBy('created_at')
+            ->with('user', 'articles')
+            ->paginate();
+
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -46,7 +47,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('orders.show', compact('order'));
     }
 
     /**

@@ -45,6 +45,7 @@ class UpdateArticleRequest extends FormRequest
             'name' => $this->article_name,
             'stock' => $this->article_stock,
             'price' => $this->article_price,
+            'discounted_price' => round(($this->article_price)-(($this->article_price * $this->article_discount)/100), 2),
             'discount' => $this->article_discount,
             'image' => "https://via.placeholder.com/640x480.png/000011?text=" . $this->article_name . "",
             'updated_at' => now()

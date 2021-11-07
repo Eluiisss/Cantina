@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,13 @@ Route::get('/users/{user}/show', [UserController::class, 'show'])->name('users.s
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
+Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
+Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');
+Route::get('/orders/create', [OrdersController::class, 'create'])->name('orders.create');
+Route::post('/orders/', [OrdersController::class, 'store'])->name('orders.store');
+Route::get('/orders/{order}/edit', [OrdersController::class, 'edit'])->name('orders.edit');
+Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
+Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 
 Route::get('/food', [ArticlesController::class, 'index'])->name('articles.index');
 Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');
