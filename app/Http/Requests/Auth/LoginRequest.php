@@ -29,8 +29,21 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'string', 'email', 'exists:users,email'],
             'password' => ['required', 'string'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'El email es obligatorio.',
+            'email.string' => 'El email debe ser de carácter alfanumérico.',
+            'email.email' => 'El email introducido no es válido.',
+            'email.exists' => 'El email introducido no existe en nuestra Base de Datos.',
+
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.string' => 'La contraseña debe ser de carácter alfanumérico.',
         ];
     }
 

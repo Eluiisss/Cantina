@@ -54,7 +54,7 @@ class RegisterRequest extends FormRequest
 
             'email.required' => 'El email es obligatorio.',
             'email.string' => 'El email debe ser de caracter alfanumérico.',
-            'email.email' => 'El email debe ser válido.',
+            'email.email' => 'El email introducido no es válido.',
             'email.max' => 'El email no debe sobrepasar los 255 caracteres.',
             'email.unique' => 'El email introducido ya existe en nuestra Base de Datos.',
 
@@ -77,9 +77,9 @@ class RegisterRequest extends FormRequest
                 'user_id' => $user->id,
                 'updated_at' => now(),
             ]);
-    
+
             event(new Registered($user));
-    
+
             Auth::login($user);
         });
     }

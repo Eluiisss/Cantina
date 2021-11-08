@@ -51,6 +51,7 @@ class UserSeeder extends Seeder
         ]);
         $adminNre->update([
             'user_id' => $eluis->id,
+            'updated_at' => now(),
         ]);
 
         $adminNre = $this->nres->firstWhere('nre', '1928721');
@@ -68,6 +69,7 @@ class UserSeeder extends Seeder
         ]);
         $adminNre->update([
             'user_id' => $manuel->id,
+            'updated_at' => now(),
         ]);
 
         $adminNre = $this->nres->firstWhere('nre', '1642291');
@@ -85,6 +87,7 @@ class UserSeeder extends Seeder
         ]);
         $adminNre->update([
             'user_id' => $eduardo->id,
+            'updated_at' => now(),
         ]);
 
         $eluis->attachRole($this->roles->firstWhere('name', 'administrator')->id);

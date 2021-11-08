@@ -35,6 +35,41 @@ class AuthenticationTest extends TestCase
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
+    public function test_users_can_not_authenticate_with_invalid_email()
+    {
+        $this->handleValidationExceptions();
+
+        $nre = Nre::factory()->create();
+        User::factory()->create([
+            'nre_id' => $nre->id,
+        ]);
+
+        $this->post('/login', [
+            'email' => 'pepito.com',
+            'password' => 'password',
+        ]);
+
+        $this->assertGuest();
+    }
+
+    public function test_users_can_not_authenticate_if_email_doesnt_exist()
+    {
+        $this->handleValidationExceptions();
+
+        $nre = Nre::factory()->create();
+        User::factory()->create([
+            'email' => 'pepito1@mail.es',
+            'nre_id' => $nre->id,
+        ]);
+
+        $this->post('/login', [
+            'email' => 'pepito2@mail.es',
+            'password' => 'password',
+        ]);
+
+        $this->assertGuest();
+    }
+
     public function test_users_can_not_authenticate_with_invalid_password()
     {
         $this->handleValidationExceptions();
