@@ -12,7 +12,6 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
-
     <div class="flex h-screen bg-white" x-data="{ open: false }">
         <div class="overflow-hidden bg-gray-100" :class="open ? '' : 'hidden'">
             <div class="flex flex-col w-screen md:w-96">
@@ -51,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="{{ route('users.index') }}">
+                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="{{ route('articles.index') }}">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M18.06 22.99H19.72C20.56 22.99 21.25 22.35 21.35 21.53L23 5.05H18V1H16.03V5.05H11.06L11.36 7.39C13.07 7.86 14.67 8.71 15.63 9.65C17.07 11.07 18.06 12.54 18.06 14.94V22.99ZM1 21.99V21H16.03V21.99C16.03 22.54 15.58 22.99 15.02 22.99H2.01C1.45 22.99 1 22.54 1 21.99ZM16.03 14.99C16.03 6.99 1 6.99 1 14.99H16.03ZM1.02 17H16.02V19H1.02V17Z" fill="#004467"/>
                                         </svg>
@@ -59,7 +58,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="{{ route('users.index') }}">
+                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="{{ route('categories.index') }}">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 13H4C3.45 13 3 13.45 3 14V20C3 20.55 3.45 21 4 21H20C20.55 21 21 20.55 21 20V14C21 13.45 20.55 13 20 13ZM7 19C5.9 19 5 18.1 5 17C5 15.9 5.9 15 7 15C8.1 15 9 15.9 9 17C9 18.1 8.1 19 7 19ZM20 3H4C3.45 3 3 3.45 3 4V10C3 10.55 3.45 11 4 11H20C20.55 11 21 10.55 21 10V4C21 3.45 20.55 3 20 3ZM7 9C5.9 9 5 8.1 5 7C5 5.9 5.9 5 7 5C8.1 5 9 5.9 9 7C9 8.1 8.1 9 7 9Z" fill="#004467"/>
                                         </svg>
@@ -67,7 +66,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="{{ route('users.index') }}">
+                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="#">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M22.6999 19L13.5999 9.9C14.4999 7.6 13.9999 4.9 12.0999 3C10.0999 0.999997 7.09994 0.599997 4.69994 1.7L8.99994 6L5.99994 9L1.59994 4.7C0.399939 7.1 0.899939 10.1 2.89994 12.1C4.79994 14 7.49994 14.5 9.79994 13.6L18.8999 22.7C19.2999 23.1 19.8999 23.1 20.2999 22.7L22.5999 20.4C23.0999 20 23.0999 19.3 22.6999 19Z" fill="#004467"/>
                                         </svg>
@@ -108,7 +107,6 @@
                                     </a>
                                 </li>
                             </ul>
-
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <div class="pt-28 pb-1 flex flex-col items-center">
@@ -120,13 +118,11 @@
                                     <span class="pt-2 font-light text-xs">CERRAR SESIÓN</span>
                                 </div>
                             </form>
-
                         </nav>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="flex flex-col flex-1 w-0 overflow-hidden">
             <div class="px-1 mt-20 absolute z-10 bg-gray-100 rounded-r-xl shadow-lg">
                 <button class="focus:outline-none focus:shadow-outline" :class="open ? 'hidden md:block' : ''" x-on:click="open = ! open">
@@ -151,8 +147,6 @@
                 </div>
             </main>
         </div>
-
     </div>
-
 </body>
 </html>
