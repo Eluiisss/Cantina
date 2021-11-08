@@ -32,6 +32,8 @@ Route::get('/users/delete/{id}', [UserController::class , 'destroy'])->middlewar
 Route::get('/users/{user}/show', [UserController::class, 'show'])->name('users.show');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+Route::get('/users/bann/{id}', [UserController::class, 'bann'])->middleware(['role:administrator|employee'])->name('users.bann');
+Route::get('/users/unBann/{id}', [UserController::class, 'unBann'])->middleware(['role:administrator|employee'])->name('users.unBann');
 
 Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');

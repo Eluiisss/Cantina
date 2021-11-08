@@ -111,7 +111,39 @@ class ListUsersTest extends TestCase
         $response->assertDontSee('AAUserPage1');
 
     }
-    
+
+
+     /** @test  */
+    public function admin_can_unbann_banned_user_from_index(){
+        $nre = Nre::factory()->create();
+        $userAd = User::factory()->create([
+            'name' => 'User1',
+            'nre_id' => $nre->id,
+            'banned' => 0,
+        ]);
+        $admin = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+            'description' => 'User allowed to see the index of users', // optional
+        ]);
+        $userAd->attachRole($admin); 
+        $this->assertDatabaseHas('users', [
+            'name' => $userAd->name,
+            'banned' => 0
+        ]);
+
+        $response = $this->actingAs($userAd)->get(route('users.unBann', ['id' => $userAd->id]));
+        $response->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'name' => $userAd->name,
+            'banned' => 1
+        ]);
+      
+
+
+    }
+
     public function createRandomUser()
     {
         $userNre = Nre::factory()->create();
@@ -124,5 +156,7 @@ class ListUsersTest extends TestCase
             'updated_at' => now(),
         ]);
     }
+    
+
 
 }

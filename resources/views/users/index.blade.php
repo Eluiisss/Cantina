@@ -57,14 +57,14 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 @if ($row->banned)
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    Habilitado
+                    <a href="{{ route('users.bann', ['id' => $row->id]) }}" class="text-red-600 hover:text-red-900">Habilitado</a>
                   </span>
 
 
                 @else
 
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                  Baneado
+                  <a href="{{ route('users.unBann', ['id' => $row->id]) }}" class="text-red-600 hover:text-red-900">Baneado</a>
                 </span>
 
                 @endif
