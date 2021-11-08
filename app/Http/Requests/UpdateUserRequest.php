@@ -12,7 +12,7 @@ class UpdateUSerRequest extends FormRequest
     {
         return [
             'user_name' => ['required','min:2', 'max:20'],
-            'user_phone' => ['required'],
+            'user_phone' => ['required','min:9','max:9'],
             'user_email' => ['required','email'],
             'user_class' => ['required'],
             //'user_banned' => ['required','boolean'],
@@ -37,7 +37,7 @@ class UpdateUSerRequest extends FormRequest
         $user->update([
             'name' => $this->user_name,
             'phone' => $this->user_phone,
-            'class' => $this->user_mail,
+            'class' => $this->user_class,
             'email' => $this->user_email,
             'updated_at' => now()
         ]);

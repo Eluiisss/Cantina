@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Nuevo usuario')
+@section('title', 'Editar usuario')
 
 @section('content')
     @include('shared._errors')
@@ -10,7 +10,7 @@
                 <div class="rounded-t bg-white mb-0 px-6 py-6">
                     <div class="text-center flex justify-between">
                         <h6 class="text-blueGray-700 text-xl font-bold">
-                            {{ trans('users.edit.title') }}
+                            @yield('title')
                         </h6>
                     </div>
                 </div>
