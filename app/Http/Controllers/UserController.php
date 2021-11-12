@@ -47,16 +47,9 @@ class UserController extends Controller
 
     public function bann($id){
         $user = User::find($id);
-        $user->banned = 0;
+        $user->banned = !$user->banned;
         $user->save();
         return redirect('users')->with('success','user banned');
-    }
-
-    public function unBann($id){
-        $user = User::find($id);
-        $user->banned = 1;
-        $user->save();
-        return redirect('users')->with('success','user unbanned');
     }
 
 }

@@ -5,7 +5,7 @@ return [
         'index' => 'Listado pedidos',
     ],
     'create' => [
-        'title' => 'Nueva pedido'
+        'title' => 'Nuevo pedido'
     ],
     'edit' => [
         'title' => 'Editar pedido'

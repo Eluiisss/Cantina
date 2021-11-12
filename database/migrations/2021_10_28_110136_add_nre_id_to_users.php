@@ -15,7 +15,7 @@ class AddNreIdToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('nre_id')->after('name');
-            $table->foreign('nre_id')->references('id')->on('nres');
+            $table->foreign('nre_id')->references('id')->on('nres')->onDelete('cascade');
         });
     }
 
