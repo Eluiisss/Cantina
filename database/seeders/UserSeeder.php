@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'phone' => '656238544',
             'password' => bcrypt('Eluiisss'),
             'class' => '2ºDAW',
-            'banned' => 0,
+            'banned' => 1,
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
             'phone' => '656805944',
             'password' => bcrypt('M4NUK-W'),
             'class' => '2ºDAW',
-            'banned' => 0,
+            'banned' => 1,
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
@@ -86,7 +86,7 @@ class UserSeeder extends Seeder
             'phone' => '656123455',
             'password' => bcrypt('eduardonogueraga'),
             'class' => '2ºDAW',
-            'banned' => 0,
+            'banned' => 1,
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
@@ -105,6 +105,7 @@ class UserSeeder extends Seeder
         $userNre = $this->nres->where('user_id', null)->random();
         $user = User::factory()->create([
             'nre_id' => $userNre->id,
+            'banned' => rand(0,1),
         ]);
 
         $userNre->update([
@@ -118,6 +119,7 @@ class UserSeeder extends Seeder
         $userNre = $this->nres->where('user_id', null)->random();
         $user = User::factory()->create([
             'nre_id' => $userNre->id,
+            'banned' => rand(0,1),
         ]);
 
         $userNre->update([

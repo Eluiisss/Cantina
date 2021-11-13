@@ -23,9 +23,9 @@
                     <option value="{{ $value }}" {{ request('role') === $value ? 'selected' : '' }}>{{ $text }}</option>
                 @endforeach
             </select>
-            <select name="orderBy" id="orderBy" class="w-28 h-7 p-0 md:w-36 md:h-9 text-3xs text-center main-color-blue-bg main-color-yellow-text border-transparent rounded-sm">
+            <select name="order" id="order" class="w-28 h-7 p-0 md:w-36 md:h-9 text-3xs text-center main-color-blue-bg main-color-yellow-text border-transparent rounded-sm">
                 @foreach(trans('users.orderBy') as $value => $text)
-                    <option value="{{ $value }}" {{ request('orderBy') === $value ? 'selected' : '' }}>{{ $text }}</option>
+                    <option value="{{ $value }}" {{ request('order') === $value ? 'selected' : '' }}>{{ $text }}</option>
                 @endforeach
             </select>
             <div class="grid justify-items-end inline-block">
