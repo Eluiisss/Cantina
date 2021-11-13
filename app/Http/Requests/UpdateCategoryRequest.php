@@ -4,7 +4,9 @@ namespace App\Http\Requests;
 
 use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
 
 class UpdateCategoryRequest extends FormRequest
 {
@@ -20,6 +22,7 @@ class UpdateCategoryRequest extends FormRequest
                                 'max:20',
                                 ],
             'category_description' => ['nullable', 'min:10', 'max:2000'],
+            'category_image' => ['nullable', 'image','mimes:jpg,png,jpeg']
         ];
     }
 
@@ -37,12 +40,33 @@ class UpdateCategoryRequest extends FormRequest
 
     public function updateCategory(Category $category)
     {
+        $picName = null;
+        if($this->hasFile('category_image')){
+            $picName = time() ."-". Str::slug($this->category_name) . "." . $this->file('category_image')->extension();
+
+            $categoryDirectory = storage_path() . '/app/public/img/categories/';
+            if (!file_exists($categoryDirectory)) {
+                mkdir($categoryDirectory, 0755);
+            }
+            $picPath = $categoryDirectory . $picName;
+
+            Image::make($this->file('category_image'))
+                ->resize(1024, null, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save($picPath);
+        }
+
         $category->update([
             'name' => $this->category_name,
             'description' => $this->category_description,
-            'image' => "https://via.placeholder.com/640x480.png/000011?text=" . $this->category_name . "",
         ]);
 
+        if($picName!= null){
+            $category->update([
+                'image' => $picName,
+            ]);
+        }
 
     }
 }

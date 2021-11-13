@@ -51,7 +51,11 @@
                                 <tr class="{{ $loop->index %2 == 0? "bg-white" : "bg-gray-200"}}">
                                     <td class="px-2 py-4 text-sm font-medium text-gray-900  whitespace-nowrap">{{$row->id}}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                        <img src="{{$row->image}}" class="object-contain h-28 w-full object-scale-down">
+                                        @if($row->image)
+                                            <img src="{{asset('storage/img/articles/'. $row->image)}}" class="object-contain h-28 w-full object-scale-down">
+                                        @else
+                                            <img src="{{URL::asset('img/no_picture.jpg')}}" class="object-contain h-28 w-full object-scale-down">
+                                        @endif
                                     </td>
                                     <td class="px-2 py-4 text-sm font-medium text-gray-900  whitespace-nowrap">{{$row->name}}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">

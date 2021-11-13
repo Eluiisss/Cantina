@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-                    <form method="post" action="{{ route('articles.store') }}">
+                    <form method="post" action="{{ route('articles.store') }}" enctype="multipart/form-data">
                         @include('articles._fields')
                         <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="submit">
                             Crear

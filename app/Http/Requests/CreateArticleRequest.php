@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Models\Nutrition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class CreateArticleRequest extends FormRequest
 {
@@ -24,6 +26,7 @@ class CreateArticleRequest extends FormRequest
             'article_allergy' => ['required','boolean'],
             'article_ingredients_description' => 'required|string|max:3000',
             'article_allergy_description' => ['required_if:article_allergy,1','string','max:3000', 'nullable'],
+            'article_image' => ['nullable', 'image','mimes:jpg,png,jpeg']
         ];
     }
 
@@ -43,6 +46,23 @@ class CreateArticleRequest extends FormRequest
     {
         DB::transaction(function (){
 
+            $picName = null;
+            if($this->hasFile('article_image')){
+                $picName = time() ."-". Str::slug($this->article_name) . "." . $this->file('article_image')->extension();
+
+                $articleDirectory = storage_path() . '/app/public/img/articles/';
+                if (!file_exists($articleDirectory)) {
+                    mkdir($articleDirectory, 0755);
+                }
+                $picPath = $articleDirectory . $picName;
+
+                Image::make($this->file('article_image'))
+                    ->resize(1024, null, function ($constraint){
+                        $constraint->aspectRatio();
+                    })
+                    ->save($picPath);
+            }
+
            $article =  Article::create([
                 'category_id' => $this->article_category,
                 'name' => $this->article_name,
@@ -50,7 +70,7 @@ class CreateArticleRequest extends FormRequest
                 'price' => $this->article_price,
                 'discounted_price' => round(($this->article_price)-(($this->article_price * $this->article_discount)/100), 2),
                 'discount' => $this->article_discount,
-                'image' => "https://via.placeholder.com/640x480.png/000011?text=" . $this->article_name . "",
+                'image' => $picName,
                 'created_at' => now()
             ]);
 
