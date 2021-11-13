@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 //use App\Http\Requests\CreateUser;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
+use App\Models\{User,Sortable,UserFilter};
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,6 +12,7 @@ class UserController extends Controller
     public function index(){
 
         $users = User::query()
+            ->applyFilters()
             ->paginate();
 
 
