@@ -18,6 +18,6 @@ class NreSeeder extends Seeder
         Nre::factory()->create(['nre' => '1928721']);
         Nre::factory()->create(['nre' => '1642291']);
 
-        Nre::factory()->times(50)->create();
+        Nre::factory()->times(100)->create();
     }
 }

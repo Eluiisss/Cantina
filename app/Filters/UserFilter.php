@@ -2,8 +2,7 @@
 
 namespace App\Filters;
 
-use App\Login;
-use App\Sortable;
+use App\Models\{Sortable,User};
 use App\Rules\SortableColumn;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +24,7 @@ class UserFilter extends QueryFilter
     {
         return [
             'search' => 'filled',
+            'role' => 'in:user,employee,administrator',
             'order' => [new SortableColumn(['name', 'email'])],
         ];
     }
@@ -34,6 +34,12 @@ class UserFilter extends QueryFilter
         return $query->whereRaw('name like ?', "%$search%")
             ->orWhere('email', 'like', "%$search%");
     }
+
+    public function role($query, $role)
+    {
+        return $query->whereRoleIs($role);
+    }
+
 
     public function order($query, $value)
     {

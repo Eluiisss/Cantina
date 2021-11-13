@@ -26,6 +26,11 @@ class UserSeeder extends Seeder
         foreach (range(1, 49) as $i) {
             $this->createRandomUser();
         }
+
+        foreach (range(1, 10) as $i) {
+            $this->createRandomEmployee();
+        }
+
     }
 
     public function fetchRelations()
@@ -108,4 +113,18 @@ class UserSeeder extends Seeder
         ]);
         $user->attachRole($this->roles->firstWhere('name', 'user')->id);
     }
+    public function createRandomEmployee()
+    {
+        $userNre = $this->nres->where('user_id', null)->random();
+        $user = User::factory()->create([
+            'nre_id' => $userNre->id,
+        ]);
+
+        $userNre->update([
+            'user_id' => $user->id,
+            'updated_at' => now(),
+        ]);
+        $user->attachRole($this->roles->firstWhere('name', 'employee')->id);
+    }
+
 }
