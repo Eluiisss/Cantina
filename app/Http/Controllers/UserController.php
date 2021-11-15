@@ -12,21 +12,13 @@ class UserController extends Controller
     public function index(){
 
         $users = User::query()
+            ->onlyTrashedIf(request()->routeIs('users.trashed'))
             //->whereRoleIs('user')
             ->applyFilters()
             ->paginate();
 
 
         return view('users.index', compact('users'));
-    }
-
-    public function destroy($id){
-
-        $user = User::find($id);
-
-        $user->delete();
-
-        return redirect('users')->with('success','user deleted successfully');
     }
 
     public function show(User $user)
@@ -52,6 +44,35 @@ class UserController extends Controller
         $user->banned = !$user->banned;
         $user->save();
         return redirect('users')->with('success','user banned');
+    }
+
+    public function trash(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('users.index');
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->where('id', $id)->firstOrFail();
+
+        $user->restore();
+
+        return redirect()->route('users.trashed');
+    }
+
+    public function destroy($id){
+
+        $user = User::onlyTrashed()->where('id', $id)->firstOrFail();
+
+        $user->nre->update([
+            'user_id' => null
+        ]);
+        $user->save();
+        $user->forceDelete();
+
+        return redirect()->route('users.trashed');
     }
 
 }

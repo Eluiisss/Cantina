@@ -34,9 +34,21 @@ class UpdateCategoryTest extends TestCase
     /** @test  */
     public function it_shows_the_edit_user_page()
     {
+        $admin = User::factory()->create([
+            'name' => 'User1',
+            'nre_id' => Nre::factory()->create()->id,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+            'description' => 'User allowed to see the index of users', // optional
+        ]);
+        $admin->attachRole($adminRole);
+
         $user = $this->createRandomUser();
-        
-        $this->get(route('users.edit', ['user' => $user]))
+
+        $this->actingAs($admin)->get(route('users.edit', ['user' => $user]))
             ->assertStatus(200)
             ->assertSee('Editar Usuario')
             ->assertSee($user->name);
@@ -45,6 +57,18 @@ class UpdateCategoryTest extends TestCase
      /** @test  */
     function an_user_can_be_updated()
     {
+        $admin = User::factory()->create([
+            'name' => 'User1',
+            'nre_id' => Nre::factory()->create()->id,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+            'description' => 'User allowed to see the index of users', // optional
+        ]);
+        $admin->attachRole($adminRole);
+
         $userNre = Nre::factory()->create();
         $oldUser = User::factory()->create([
             'nre_id' => $userNre->id,
@@ -58,7 +82,7 @@ class UpdateCategoryTest extends TestCase
             'user_id' => $oldUser->id,
             'updated_at' => now(),
         ]);
-      
+
         $this->assertDatabaseHas('users', [
             'name' => 'Usuario test',
             'phone' => '666666666',
@@ -66,7 +90,7 @@ class UpdateCategoryTest extends TestCase
             'class' => '2º DAW',
         ]);
 
-        $this->from(route('users.edit', ['user' => $oldUser]))
+        $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
             ->put(route('users.update', ['user' => $oldUser]), $this->withData([
                 'user_phone' => '777777777',
                 'user_email' =>'newusertTest@mail.es',
@@ -86,6 +110,18 @@ class UpdateCategoryTest extends TestCase
         $this->handleValidationExceptions();
         $this->withExceptionHandling();
 
+        $admin = User::factory()->create([
+            'name' => 'User1',
+            'nre_id' => Nre::factory()->create()->id,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+            'description' => 'User allowed to see the index of users', // optional
+        ]);
+        $admin->attachRole($adminRole);
+
         $userNre = Nre::factory()->create();
         $oldUser = User::factory()->create([
             'nre_id' => $userNre->id,
@@ -97,12 +133,12 @@ class UpdateCategoryTest extends TestCase
             'user_id' => $oldUser->id,
             'updated_at' => now(),
         ]);
-      
+
         $this->assertDatabaseHas('users', [
             'phone' => '666666666',
         ]);
 
-        $this->from(route('users.edit', ['user' => $oldUser]))
+        $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
             ->put(route('users.update', ['user' => $oldUser]), $this->withData([
                 'user_phone' => 'formato incrrecto de telefono',
             ]))->assertSessionHasErrors('user_phone')
@@ -110,7 +146,7 @@ class UpdateCategoryTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'phone' => '666666666',
-           
+
         ]);
     }
      /** @test  */
@@ -119,6 +155,18 @@ class UpdateCategoryTest extends TestCase
         $this->handleValidationExceptions();
         $this->withExceptionHandling();
 
+        $admin = User::factory()->create([
+            'name' => 'User1',
+            'nre_id' => Nre::factory()->create()->id,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+            'description' => 'User allowed to see the index of users', // optional
+        ]);
+        $admin->attachRole($adminRole);
+
         $userNre = Nre::factory()->create();
         $oldUser = User::factory()->create([
             'nre_id' => $userNre->id,
@@ -130,12 +178,12 @@ class UpdateCategoryTest extends TestCase
             'user_id' => $oldUser->id,
             'updated_at' => now(),
         ]);
-      
+
         $this->assertDatabaseHas('users', [
             'email' =>'usertTest@mail.es',
         ]);
 
-        $this->from(route('users.edit', ['user' => $oldUser]))
+        $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
             ->put(route('users.update', ['user' => $oldUser]), $this->withData([
                 'user_email' =>'email no valido',
             ]))->assertSessionHasErrors('user_email')
@@ -143,9 +191,9 @@ class UpdateCategoryTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'email' =>'usertTest@mail.es',
-           
+
         ]);
     }
 
-    
+
 }

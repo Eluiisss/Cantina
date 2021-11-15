@@ -1,4 +1,6 @@
 /* Body extra fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 body {
     font-family: 'Poppins', sans-serif !important;
 }
@@ -49,7 +51,7 @@ body {
     color: #FFC000;
 }
 
-/* Texts */
+/* Text */
 
     /* Smaller font-sizes for 'xs' */
     .text-2xs {
@@ -60,3 +62,15 @@ body {
         font-size: 0.5rem;
         line-height: 0.5rem;
     }
+
+/* Animations */
+@media (min-width: 992px) {
+
+    .extend-width:hover {
+        width: 8.75rem;
+    }
+    .extend-width:hover p {
+        display: block;
+    }
+
+}
