@@ -65,7 +65,11 @@
                             @foreach ($order->articles as $article)
                                 <li class="grid grid-cols-6 gap-2 border-b-1">
                                     <div class="col-span-1 self-center">
-                                        <img src="{{$article->image}}" alt="Product" class="rounded w-full">
+                                        @if($article->image)
+                                            <img src="{{asset('storage/img/articles/'. $article->image)}}" alt="Product" class="rounded w-full">
+                                        @else
+                                            <img src="{{URL::asset('img/no_picture.jpg')}}" alt="Product" class="rounded w-full">
+                                        @endif
                                     </div>
                                     <div class="flex flex-col col-span-3 pt-2">
                                         <span class="text-gray-600 text-md font-semi-bold">

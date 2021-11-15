@@ -8,7 +8,7 @@
         <div class="min-h-screen flex items-center justify-center px-4">
             <div class="max-w-5xl  bg-white w-full rounded-lg shadow-xl">
                 <div class="flex max-h-md mb-5 bg-white shadow-lg rounded-lg overflow-hidden">
-                    <div class="w-1/3 bg-cover" style="background-image: url('{{$article->image}}')"></div>
+                    <div class="w-1/3 bg-cover" style="background-image: url('{{ $article->image? asset('storage/img/articles/'. $article->image): URL::asset('img/no_picture.jpg')}}')"></div>
                     <div class="w-2/3 p-4">
                         <h1 class="text-gray-900 font-bold text-2xl">{{$article->name}}</h1>
                         <p class="mt-2 text-gray-600 text-sm">{{$article->category->name}}</p>

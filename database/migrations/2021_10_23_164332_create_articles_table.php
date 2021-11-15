@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->double('price');
             $table->double('discounted_price');
             $table->double('discount');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

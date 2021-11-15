@@ -5,6 +5,10 @@ namespace App\Http\Requests;
 use App\Models\Article;
 use App\Models\Nutrition;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class UpdateArticleRequest extends FormRequest
 {
@@ -23,6 +27,7 @@ class UpdateArticleRequest extends FormRequest
             'article_allergy' => ['required','boolean'],
             'article_ingredients_description' => 'required|string|max:3000',
             'article_allergy_description' => ['required_if:article_allergy,1','string','max:3000', 'nullable'],
+            'category_image' => ['nullable', 'image','mimes:jpg,png,jpeg'],
         ];
     }
 
@@ -40,26 +45,49 @@ class UpdateArticleRequest extends FormRequest
 
     public function updateArticle(Article $article)
     {
-        $article->update([
-            'category_id' => $this->article_category,
-            'name' => $this->article_name,
-            'stock' => $this->article_stock,
-            'price' => $this->article_price,
-            'discounted_price' => round(($this->article_price)-(($this->article_price * $this->article_discount)/100), 2),
-            'discount' => $this->article_discount,
-            'image' => "https://via.placeholder.com/640x480.png/000011?text=" . $this->article_name . "",
-            'updated_at' => now()
-        ]);
+        DB::transaction(function () use ($article){
+            $picName = null;
+            if($this->hasFile('article_image')){
+                $picName = time() ."-". Str::slug($this->article_name) . "." . $this->file('article_image')->extension();
 
-        $article->nutrition()->update([
-            'is_veg' => $this->article_veg,
-            'is_allergy' => $this->article_allergy,
-            'calories' => $this->article_calories,
-            'sodium' =>  $this->article_sodium,
-            'proteins' => $this->article_proteins,
-            'ingredients_description' => $this->article_ingredients_description,
-            'allergy_description' => $this->article_allergy_description,
-            'updated_at' => now()
-        ]);
+                $articleDirectory = storage_path() . '/app/public/img/articles/';
+                if (!file_exists($articleDirectory)) {
+                    mkdir($articleDirectory, 0755);
+                }
+                $picPath = $articleDirectory . $picName;
+
+                Image::make($this->file('article_image'))
+                    ->resize(1024, null, function ($constraint){
+                        $constraint->aspectRatio();
+                    })->save($picPath);
+            }
+
+            $article->update([
+                'category_id' => $this->article_category,
+                'name' => $this->article_name,
+                'stock' => $this->article_stock,
+                'price' => $this->article_price,
+                'discounted_price' => round(($this->article_price)-(($this->article_price * $this->article_discount)/100), 2),
+                'discount' => $this->article_discount,
+                'updated_at' => now()
+            ]);
+
+            if($picName != null){
+                $article->update([
+                    'image' => $picName,
+                ]);
+            }
+
+            $article->nutrition()->update([
+                'is_veg' => $this->article_veg,
+                'is_allergy' => $this->article_allergy,
+                'calories' => $this->article_calories,
+                'sodium' =>  $this->article_sodium,
+                'proteins' => $this->article_proteins,
+                'ingredients_description' => $this->article_ingredients_description,
+                'allergy_description' => $this->article_allergy_description,
+                'updated_at' => now()
+            ]);
+        });
     }
 }

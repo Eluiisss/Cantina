@@ -29,6 +29,7 @@ class ArticleSeeder extends Seeder
             'price' => 1.75,
             'discounted_price' => 1.75,
             'discount' => 0,
+            'image' => "pizza.jpg",
             'created_at' => now()
         ]);
 

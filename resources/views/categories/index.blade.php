@@ -3,7 +3,6 @@
 @section('title', 'Categories')
 
 @section('content')
-
     <section class="text-gray-600">
         <div class="container px-5 py-24 mx-auto">
             <h2 class="text-4xl mb-5">{{trans('categories.title.index')}}</h2>
@@ -37,7 +36,11 @@
                                         <tr class="{{ $loop->index %2 == 0? "bg-white" : "bg-gray-200"}}">
                                             <td class="px-2 py-4 text-sm font-medium text-gray-900  whitespace-nowrap">{{$row->id}}</td>
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                <img src="{{$row->image}}" class="object-contain h-28 w-full object-scale-down">
+                                                @if($row->image)
+                                                    <img src="{{asset('storage/img/categories/'. $row->image)}}" class="object-contain h-28 w-full object-scale-down">
+                                                @else
+                                                    <img src="{{URL::asset('img/no_picture.jpg')}}" class="object-contain h-28 w-full object-scale-down">
+                                                @endif
                                             </td>
                                             <td class="px-2 py-4 text-sm font-medium text-gray-900  whitespace-nowrap">{{$row->name}}</td>
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{$row->description ?(Str::limit(($row->description), 20, '...')): "Sin descripción"}}</td>

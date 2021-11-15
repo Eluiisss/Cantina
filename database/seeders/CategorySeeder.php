@@ -17,12 +17,14 @@ class CategorySeeder extends Seeder
         Category::factory()->create([
             'name' => "Snacks",
             'description' => "Patatas y eso",
+            'image' => "cat-snacks.jpg",
             'created_at' => now()
         ]);
 
         Category::factory()->create([
             'name' => "Bebidas",
             'description' => "La coquita y el aguita",
+            'image' => "cat-bebidas.jpg",
             'created_at' => now()
         ]);
 
