@@ -104,7 +104,7 @@
     </div>
   </div>
     <div class="py-3 px-1">
-        {{$users->links()}}
+        {{$users->appends($_GET)->links()}}
     </div>
 </div>
 
