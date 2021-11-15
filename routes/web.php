@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,10 @@ Route::get('/users/unBann/{id}', [UserController::class, 'unBann'])->middleware(
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{article}/show', [ShopController::class, 'show'])->name('shop.show');
+
+
+Route::get('/addToCart/{id}', [ArticlesController::class, 'addToCart'])->name('article.addToCart');
+Route::get('/cart', [ArticlesController::class, 'cart'])->name('article.cart');
 
 Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');
