@@ -42,7 +42,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         $picName = null;
         if($this->hasFile('category_image')){
-            $picName = time() ."-". Str::slug($this->category_name) . "." . $this->file('category_image')->extension();
+            $picName = substr(time(), 0, -1) ."-". Str::slug($this->category_name) . "." . $this->file('category_image')->extension();
 
             $categoryDirectory = storage_path() . '/app/public/img/categories/';
             if (!file_exists($categoryDirectory)) {

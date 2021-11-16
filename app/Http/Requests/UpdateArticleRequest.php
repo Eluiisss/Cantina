@@ -27,7 +27,7 @@ class UpdateArticleRequest extends FormRequest
             'article_allergy' => ['required','boolean'],
             'article_ingredients_description' => 'required|string|max:3000',
             'article_allergy_description' => ['required_if:article_allergy,1','string','max:3000', 'nullable'],
-            'category_image' => ['nullable', 'image','mimes:jpg,png,jpeg'],
+            'article_image' => ['nullable', 'image','mimes:jpg,png,jpeg'],
         ];
     }
 
@@ -48,7 +48,7 @@ class UpdateArticleRequest extends FormRequest
         DB::transaction(function () use ($article){
             $picName = null;
             if($this->hasFile('article_image')){
-                $picName = time() ."-". Str::slug($this->article_name) . "." . $this->file('article_image')->extension();
+                $picName = substr(time(), 0, -1) ."-". Str::slug($this->article_name) . "." . $this->file('article_image')->extension();
 
                 $articleDirectory = storage_path() . '/app/public/img/articles/';
                 if (!file_exists($articleDirectory)) {

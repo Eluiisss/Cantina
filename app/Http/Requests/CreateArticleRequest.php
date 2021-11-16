@@ -48,7 +48,7 @@ class CreateArticleRequest extends FormRequest
 
             $picName = null;
             if($this->hasFile('article_image')){
-                $picName = time() ."-". Str::slug($this->article_name) . "." . $this->file('article_image')->extension();
+                $picName = substr(time(), 0, -1) ."-". Str::slug($this->article_name) . "." . $this->file('article_image')->extension();
 
                 $articleDirectory = storage_path() . '/app/public/img/articles/';
                 if (!file_exists($articleDirectory)) {

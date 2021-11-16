@@ -4,6 +4,7 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Article;
 use App\Models\Category;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -41,11 +42,13 @@ class CreateArticleTest extends TestCase
     public function it_creates_a_new_article()
     {
         $category = Category::factory()->create(['name' => 'Comida']);
+        $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
          $this->from(route('articles.create'))
-            ->post(route('articles.store', $this->withData([
-                'article_category' => $category->id
-            ])))->assertRedirect(route('articles.index'));
+            ->post(route('articles.store'), $this->withData([
+                'article_category' => $category->id,
+                'article_image' => $file,
+            ]))->assertRedirect(route('articles.index'));
 
          $article = Article::query()->whereName('Pizza')->first();
 
@@ -54,6 +57,7 @@ class CreateArticleTest extends TestCase
             'stock' => 12,
             'price' => 1.75,
             'discount' => 0,
+            'image' => substr(time(), 0, -1).'-pizza.jpg'
         ]);
 
         $this->assertDatabaseHas('nutrition', [
@@ -66,7 +70,43 @@ class CreateArticleTest extends TestCase
             'ingredients_description' => "Ingredientes de pizza Harina, Jamón",
             'allergy_description' => null,
         ]);
+
+        $this->assertTrue(file_exists( storage_path() . '/app/public/img/articles/' .$article->image));
+        $this->assertTrue( getimagesize(storage_path() . '/app/public/img/articles/' .$article->image)[0] == 1024);
+        unlink(storage_path().'/app/public/img/articles/' .$article->image);
     }
+
+    /** @test  */
+    public function the_article_image_field_is_nullable()
+    {
+        $category = Category::factory()->create(['name' => 'Comida']);
+        $this->from(route('articles.create'))
+            ->post(route('articles.store'), $this->withData([
+                'article_category' => $category->id,
+                'article_image' => null
+            ]))->assertRedirect(route('articles.index'));
+
+        $this->assertDatabaseHas('articles', [
+            'image' => null,
+        ]);
+    }
+
+    /** @test  */
+    public function the_article_image_must_be_an_image()
+    {
+        $image = UploadedFile::fake()->create('image.pdf', 1000);
+        $this->assertFieldToFail('article_image', $image);
+    }
+
+    /** @test  */
+    public function the_article_image_mimes_must_be_valid()
+    {
+        $imageGIF =  UploadedFile::fake()->image('image.gif', 100, 100);
+        $imageSVG =  UploadedFile::fake()->image('image.svg', 100, 100);
+        $this->assertFieldToFail('article_image', $imageGIF);
+        $this->assertFieldToFail('article_image', $imageSVG);
+    }
+
 
     /** @test  */
     public function the_allergy_description_is_required_when_allergy_field_is_true()

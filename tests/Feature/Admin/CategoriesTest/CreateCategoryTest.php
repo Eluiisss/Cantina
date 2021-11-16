@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin\CategoriesTest;
 
 use App\Models\Category;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -26,15 +27,56 @@ class CreateCategoryTest extends TestCase
     /** @test  */
     public function it_creates_a_new_category()
     {
+        $file = UploadedFile::fake()->image('image.jpg', 100, 100);
+
+
         $this->from(route('categories.create'))
-            ->post(route('categories.store', $this->withData()))
-            ->assertRedirect(route('categories.index'));
+            ->post(route('categories.store'),  $this->withData([
+                'category_image' => $file
+            ]))->assertRedirect(route('categories.index'));
 
         $this->assertDatabaseHas('categories', [
-            'name' => "Bebidas",
-            'description' => "Categoría de bebidas",
+            'name' => 'Bebidas',
+            'description' => 'Categoría de bebidas',
+            'image' => substr(time(), 0, -1).'-bebidas.jpg'
+        ]);
+        $category = Category::first();
+
+        $this->assertTrue(file_exists( storage_path() . '/app/public/img/categories/' .$category->image));
+        $this->assertTrue( getimagesize(storage_path() . '/app/public/img/categories/' .$category->image)[0] == 1024);
+        unlink(storage_path().'/app/public/img/categories/' .$category->image);
+
+    }
+
+    /** @test  */
+    public function the_category_image_field_is_nullable()
+    {
+        $this->from(route('categories.create'))
+            ->post(route('categories.store'), $this->withData([
+                'category_image' => null
+            ]))->assertRedirect(route('categories.index'));
+
+        $this->assertDatabaseHas('categories', [
+            'image' => null,
         ]);
     }
+
+    /** @test  */
+    public function the_category_image_must_be_an_image()
+    {
+        $image = UploadedFile::fake()->create('image.pdf', 1000);
+        $this->assertFieldToFail('category_image', $image);
+    }
+
+    /** @test  */
+    public function the_category_image_mimes_must_be_valid()
+    {
+        $imageGIF =  UploadedFile::fake()->image('image.gif', 100, 100);
+        $imageSVG =  UploadedFile::fake()->image('image.svg', 100, 100);
+        $this->assertFieldToFail('category_image', $imageGIF);
+        $this->assertFieldToFail('category_image', $imageSVG);
+    }
+
 
     /** @test  */
     public function the_category_description_field_is_nullable()
@@ -53,7 +95,7 @@ class CreateCategoryTest extends TestCase
     /** @test  */
     public function the_category_name_field_must_be_valid()
     {
-        $this->isRequiredField('category_name', "B3B1DAS123");
+        $this->assertFieldToFail('category_name', "B3B1DAS123");
     }
 
     /** @test  */

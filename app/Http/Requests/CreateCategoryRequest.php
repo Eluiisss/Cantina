@@ -12,6 +12,7 @@ class CreateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
+
             'category_name' => ['required', 'unique:categories,name', 'regex:/^[a-zA-ZáéíóúñÑ\s]+$/', 'min:3', 'max:20'],
             'category_description' => ['nullable', 'min:10', 'max:2000'],
             'category_image' => ['nullable', 'image','mimes:jpg,png,jpeg']
@@ -34,7 +35,7 @@ class CreateCategoryRequest extends FormRequest
     {
         $picName = null;
         if($this->hasFile('category_image')){
-            $picName = time() ."-". Str::slug($this->category_name) . "." . $this->file('category_image')->extension();
+            $picName = substr(time(), 0, -1) ."-". Str::slug($this->category_name) . "." . $this->file('category_image')->extension();
 
             $categoryDirectory = storage_path() . '/app/public/img/categories/';
             if (!file_exists($categoryDirectory)) {

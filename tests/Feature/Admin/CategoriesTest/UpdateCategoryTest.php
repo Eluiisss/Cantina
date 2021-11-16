@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin\CategoriesTest;
 
 use App\Models\Category;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -31,16 +32,58 @@ class UpdateCategoryTest extends TestCase
         $this->assertDatabaseHas('categories', [
             'name' => $oldCategory->name,
             'description' => $oldCategory->description,
+            'image' => $oldCategory->image,
         ]);
+        $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
         $this->from(route('categories.edit', ['category' => $oldCategory]))
-            ->put(route('categories.update', ['category' => $oldCategory]), $this->withData())
+            ->put(route('categories.update', ['category' => $oldCategory]), $this->withData([
+                'category_image' => $file
+            ]))
             ->assertRedirect(route('categories.show', ['category' => $oldCategory]));
 
         $this->assertDatabaseHas('categories', [
             'name' => "Bebidas",
             'description' => "Categoría de bebidas",
+            'image' => substr(time(), 0, -1).'-bebidas.jpg'
         ]);
+
+        $category = Category::first();
+
+        $this->assertTrue(file_exists( storage_path() . '/app/public/img/categories/' .$category->image));
+        $this->assertTrue( getimagesize(storage_path() . '/app/public/img/categories/' .$category->image)[0] == 1024);
+        unlink(storage_path().'/app/public/img/categories/' .$category->image);
+    }
+
+    /** @test  */
+    public function the_category_image_field_can_be_nullable_after_updating()
+    {
+        $category = Category::factory()->create(['image' => 'cat-bebidas.jpg']);
+
+        $this->from(route('categories.edit', ['category' => $category]))
+            ->put(route('categories.update', ['category' => $category]), $this->withData([
+                'category_image' => null,
+            ]))->assertRedirect(route('categories.show', ['category' => $category]));
+
+        $this->assertDatabaseHas('categories', [
+            'image' => 'cat-bebidas.jpg',
+        ]);
+    }
+
+    /** @test  */
+    public function the_category_image_must_be_an_image_after_updating()
+    {
+        $image = UploadedFile::fake()->create('image.pdf', 1000);
+        $this->assertFieldToFail('category_image', $image);
+    }
+
+    /** @test  */
+    public function the_category_image_mimes_must_be_valid_after_updating()
+    {
+        $imageGIF =  UploadedFile::fake()->image('image.gif', 100, 100);
+        $imageSVG =  UploadedFile::fake()->image('image.svg', 100, 100);
+        $this->assertFieldToFail('category_image', $imageGIF);
+        $this->assertFieldToFail('category_image', $imageSVG);
     }
 
     /** @test  */

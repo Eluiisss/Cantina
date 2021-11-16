@@ -4,6 +4,7 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Article;
 use App\Models\Category;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -41,14 +42,15 @@ class UpdateArticleTest extends TestCase
     }
 
     /** @test */
-    function a_article_can_be_updated()
+    function an_article_can_be_updated()
     {
         $oldCategory = Category::factory()->create();
         $article = Article::factory()->create([
             'name' => 'Croissant',
             'stock' => 20,
             'price' => 3.75,
-            'category_id' => $oldCategory->id
+            'category_id' => $oldCategory->id,
+            'image' => 'croissant.jpg'
         ]);
 
         $article->nutrition()->update([
@@ -61,6 +63,7 @@ class UpdateArticleTest extends TestCase
             'name' => 'Croissant',
             'stock' => 20,
             'price' => 3.75,
+            'image' => 'croissant.jpg'
         ]);
 
         $this->assertDatabaseHas('nutrition', [
@@ -71,10 +74,12 @@ class UpdateArticleTest extends TestCase
         ]);
 
         $category = Category::factory()->create(['name' => 'Comida']);
+        $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
         $this->from(route('articles.edit', ['article' => $article]))
             ->put(route('articles.update', ['article' => $article]), $this->withData([
-                'article_category' => $category->id
+                'article_category' => $category->id,
+                'article_image' => $file
             ]))->assertRedirect(route('articles.show', ['article' => $article]));
 
         $this->assertDatabaseHas('articles', [
@@ -82,6 +87,7 @@ class UpdateArticleTest extends TestCase
             'stock' => 12,
             'price' => 1.75,
             'discount' => 0,
+            'image' => substr(time(), 0, -1).'-pizza.jpg'
         ]);
 
         $this->assertDatabaseHas('nutrition', [
@@ -94,8 +100,50 @@ class UpdateArticleTest extends TestCase
             'ingredients_description' => "Ingredientes de pizza Harina, Jamón",
             'allergy_description' => null,
         ]);
+
+        $article = Article::query()->whereName('Pizza')->first();
+
+        $this->assertTrue(file_exists( storage_path() . '/app/public/img/articles/' .$article->image));
+        $this->assertTrue( getimagesize(storage_path() . '/app/public/img/articles/' .$article->image)[0] == 1024);
+        unlink(storage_path().'/app/public/img/articles/' .$article->image);
     }
 
+    /** @test  */
+    public function the_article_image_field_is_nullable_after_updating()
+    {
+        $this->handleValidationExceptions();
+
+        $oldCategory = Category::factory()->create();
+        $article = Article::factory()->create([
+            'category_id' => $oldCategory->id,
+            'image' => 'croissant.jpg'
+        ]);
+        $this->from(route('articles.edit', ['article' => $article]))
+            ->put(route('articles.update', ['article' => $article]), $this->withData([
+                'article_category' => $oldCategory->id,
+                'article_image' => null
+            ]))->assertRedirect(route('articles.show', ['article' => $article]));
+
+        $this->assertDatabaseHas('articles', [
+            'image' => 'croissant.jpg'
+        ]);
+    }
+
+    /** @test  */
+    public function the_article_image_must_be_an_image_after_updating()
+    {
+        $image = UploadedFile::fake()->create('image.pdf', 1000);
+        $this->assertFieldToFail('article_image', $image);
+    }
+
+    /** @test  */
+    public function the_article_image_mimes_must_be_valid_after_updating()
+    {
+        $imageGIF =  UploadedFile::fake()->image('image.gif', 100, 100);
+        $imageSVG =  UploadedFile::fake()->image('image.svg', 100, 100);
+        $this->assertFieldToFail('article_image', $imageGIF);
+        $this->assertFieldToFail('article_image', $imageSVG);
+    }
 
     /** @test  */
     public function the_allergy_description_is_required_when_allergy_field_is_true_after_updating()
