@@ -114,11 +114,11 @@ class CreateArticleTest extends TestCase
         $this->handleValidationExceptions();
 
         $this->from(route('articles.create'))
-            ->post(route('articles.store', $this->withData([
-                'article_allergy' => true,
+            ->post(route('articles.store'), $this->withData([
+                'article_allergy' => 1,
                 'article_allergy_description' => null
-            ])))->assertSessionHasErrors(['article_allergy_description'])
-                ->assertRedirect(route('articles.create'));
+            ]))->assertSessionHasErrors(['article_allergy_description'])
+            ->assertRedirect(route('articles.create'));
     }
 
     /** @test  */
@@ -127,11 +127,11 @@ class CreateArticleTest extends TestCase
         $category = Category::factory()->create(['name' => 'Comida']);
 
         $this->from(route('articles.create'))
-            ->post(route('articles.store', $this->withData([
+            ->post(route('articles.store'), $this->withData([
                 'article_category' => $category->id,
-                'article_allergy' => false,
+                'article_allergy' => 0,
                 'article_allergy_description' => null
-            ])))->assertRedirect(route('articles.index'));
+            ]))->assertRedirect(route('articles.index'));
 
         $this->assertDatabaseHas('nutrition', [
             'is_allergy' => 0,
