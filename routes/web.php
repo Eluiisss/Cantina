@@ -47,6 +47,7 @@ Route::get('/addToCart/{id}', [ArticlesController::class, 'addToCart'])->name('a
 Route::get('/cart', [ArticlesController::class, 'cart'])->name('article.cart');
 
 Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
+Route::get('/manageOrders', [OrdersController::class, 'manageOrders'])->name('orders.manage');
 Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');
 Route::get('/orders/create', [OrdersController::class, 'create'])->name('orders.create');
 Route::post('/orders/', [OrdersController::class, 'store'])->name('orders.store');

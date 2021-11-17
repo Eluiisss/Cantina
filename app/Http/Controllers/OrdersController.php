@@ -18,6 +18,16 @@ class OrdersController extends Controller
         return view('orders.index', compact('orders'));
     }
 
+    public function manageOrders()
+    {
+        $orders = Order::query()
+            ->orderBy('created_at')
+            ->with('user', 'articles')
+            ->get();
+
+        return view('orders.manage', compact('orders'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

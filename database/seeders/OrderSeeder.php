@@ -20,7 +20,7 @@ class OrderSeeder extends Seeder
     {
         $this->users = User::inRandomOrder()->pluck('id');
 
-        foreach (range(0,50) as $i){
+        foreach (range(0,15) as $i){
             $articles = Article::inRandomOrder()->take(rand(1,2))->pluck('id');
             $this->createRandomOrders($articles);
         }
@@ -28,7 +28,7 @@ class OrderSeeder extends Seeder
 
     public function createRandomOrders($articles)
     {
-        $date = now()->subDays(rand(0,60));
+        $date = now()->subMinutes(rand(0,35));
 
         $order = Order::factory()->create([
             'user_id' => $this->users->random(),
