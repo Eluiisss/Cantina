@@ -29,7 +29,7 @@
             @foreach ($users as $row)
             <tr>
                 <td class="px-4 py-4 whitespace-nowrap" x-data="{ open: false }">
-                    <button class="cursor-pointer md:cursor-default" x-on:click="open = !open">
+                    <button class="cursor-pointer md:cursor-default" @click="open = !open">
                         <div class="flex items-center">
                             <div class="flex-shrink-0 h-10 w-10">
                                 <img class="h-10 w-10 rounded-full" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
@@ -66,7 +66,12 @@
                         </div>
                     </button>
 
-                    <div class="md:hidden" x-show="open" x-transition>
+                    <div class="md:hidden" x-show="open"  x-transition:enter="transition ease-out duration-300"
+                                                          x-transition:enter-start="opacity-100 transform -translate-x-full"
+                                                          x-transition:enter-end="opacity-100 transform translate-x-0"
+                                                          x-transition:leave="transition ease-in duration-300"
+                                                          x-transition:leave-start="opacity-100 transform translate-x-0"
+                                                          x-transition:leave-end="opacity-100 transform -translate-x-full">
                         @include('users._actions')
                     </div>
 

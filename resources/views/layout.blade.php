@@ -12,10 +12,16 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body>
+<body class="bg-gray-100">
     <div class="flex h-screen bg-white" x-data="{ open: false }">
-        <div class="overflow-hidden bg-gray-100" :class="open ? '' : 'hidden'">
-            <div class="flex flex-col w-screen md:w-96">
+        <div class="overflow-hidden bg-gray-100">
+            <div class="flex flex-col w-screen h-screen md:w-96"  x-show="open"
+                                                 x-transition:enter="transition ease-out duration-500"
+                                                 x-transition:enter-start="opacity-100 transform -translate-x-full"
+                                                 x-transition:enter-end="opacity-100 transform translate-x-0"
+                                                 x-transition:leave="transition ease-in duration-500"
+                                                 x-transition:leave-start="opacity-100 transform translate-x-0"
+                                                 x-transition:leave-end="opacity-100 transform -translate-x-full">
                 <div class="flex flex-col flex-grow pt-4 overflow-hidden border-r">
                     <div class="px-6 text-right">
                         <button class="md:hidden focus:outline-none focus:shadow-outline text-right font-light text-xs main-color-blue-text" x-on:click="open = ! open">
@@ -108,20 +114,22 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <div class="pt-28 pb-1 flex flex-col items-center">
-                                    <button type="submit" class="inline-flex items-center p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-red-700 focus:shadow-outline" white="" 70="">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13 3H11V13H13V3ZM17.83 5.17L16.41 6.59C17.99 7.86 19 9.81 19 12C19 15.87 15.87 19 12 19C8.13 19 5 15.87 5 12C5 9.81 6.01 7.86 7.58 6.58L6.17 5.17C4.23 6.82 3 9.26 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 9.26 19.77 6.82 17.83 5.17Z" fill="white"/>
-                                        </svg>
-                                    </button>
-                                    <span class="pt-2 font-light text-sm text-red-700">Cerrar sesión</span>
-                                </div>
-                            </form>
                         </nav>
                     </div>
                 </div>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <div class="pb-10 flex flex-col items-center">
+                        <button type="submit" class="block inline-flex items-center p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-red-700 focus:shadow-outline" white="" 70="">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 3H11V13H13V3ZM17.83 5.17L16.41 6.59C17.99 7.86 19 9.81 19 12C19 15.87 15.87 19 12 19C8.13 19 5 15.87 5 12C5 9.81 6.01 7.86 7.58 6.58L6.17 5.17C4.23 6.82 3 9.26 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 9.26 19.77 6.82 17.83 5.17Z" fill="white"/>
+                            </svg>
+                        </button>
+                        <span class="pt-2 font-light text-sm text-red-700">Cerrar sesión</span>
+                    </div>
+                </form>
+
             </div>
         </div>
         <div class="flex flex-col flex-1 w-0 overflow-hidden">
