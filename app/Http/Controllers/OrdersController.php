@@ -20,12 +20,7 @@ class OrdersController extends Controller
 
     public function manageOrders()
     {
-        $orders = Order::query()
-            ->orderBy('created_at')
-            ->with('user', 'articles')
-            ->get();
-
-        return view('orders.manage', compact('orders'));
+        return view('orders.manage');
     }
 
     /**

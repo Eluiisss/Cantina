@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @livewireStyles
 </head>
 <body class="bg-gray-100">
     <div class="flex h-screen bg-white" x-data="{ open: false }">
@@ -162,5 +163,6 @@
             </main>
         </div>
     </div>
+    @livewireScripts
 </body>
 </html>

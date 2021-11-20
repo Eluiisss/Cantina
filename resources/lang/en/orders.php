@@ -21,6 +21,9 @@ return [
         'collected' => 'RECOGIDO',
         'cancel' => 'NO RECOGIDO',
         'report' => 'REPORTAR',
+        'clientDataHeader' => 'Datos del cliente',
+        'selectOrder' => 'Selecciona un pedido',
+        'selectOrderDetailed' => ' Seleccione un pedido del listado para ver sus detalles y procesarlo',
         'filters'=> [
             'order' => ['all' => 'Todos', 'pendiente' => 'Solo pendientes', 'recogido' => 'Recogidos', 'no_recogido' => 'No recogidos'],
         ],

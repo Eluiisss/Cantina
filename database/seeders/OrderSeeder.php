@@ -20,7 +20,7 @@ class OrderSeeder extends Seeder
     {
         $this->users = User::inRandomOrder()->pluck('id');
 
-        foreach (range(0,15) as $i){
+        foreach (range(0,100) as $i){
             $articles = Article::inRandomOrder()->take(rand(1,2))->pluck('id');
             $this->createRandomOrders($articles);
         }

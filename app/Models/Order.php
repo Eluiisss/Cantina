@@ -22,4 +22,15 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new OrderQuery($query);
+    }
 }
