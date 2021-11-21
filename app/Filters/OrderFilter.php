@@ -10,6 +10,7 @@ class OrderFilter extends QueryFilter
     {
         return [
             'search' => 'filled',
+            'orderStatus' => 'in:no_recogido,pendiente,recogido',
         ];
     }
 
@@ -23,4 +24,8 @@ class OrderFilter extends QueryFilter
         });
     }
 
+    public function orderStatus($query, $status)
+    {
+        return $query->where('order_status', $status);
+    }
 }
