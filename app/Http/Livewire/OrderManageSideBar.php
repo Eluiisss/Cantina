@@ -21,7 +21,12 @@ class OrderManageSideBar extends Component
 
     protected $listeners = [
         'loadMore' => 'loadMore',
+        'orderSelected' => 'orderSelected'
     ];
+
+    public function orderSelected($id){
+        $this->select = $id;
+    }
 
     public function loadMore()
     {

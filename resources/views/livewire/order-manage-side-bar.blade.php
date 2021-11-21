@@ -17,19 +17,14 @@
         <ul class="mt-6">
             @if ($orders->isNotEmpty())
                 @foreach ($orders as $row)
-                    <li x-data="{ select: false }"
-                        x-on:click="select = ! select"
-                        {{--                    x-bind:class="select ? 'bg-yellow-100' : 'hover:bg-indigo-100'"--}}
-                        x-on:click.away="select = false"
-                        class="py-5 px-5 transition p-4 border-l-8
+                    <li wire:click="$emit('orderSelected', {{$row->id}})" class="py-5 px-5 transition p-4 border-l-8 {{$select==$row->id?'bg-yellow-100':'hover:bg-indigo-100'}}
                     @if ($row->order_status == 'pendiente')
                             border-red-600
                     @elseif ($row->order_status == 'no_recogido')
                             border-yellow-500
                     @else
                             border-gray-200
-                    @endif"
-                        wire:click="$emit('orderSelected', {{$row->id}})">
+                    @endif">
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg font-semibold">PEDIDO: {{ucfirst($row->order_code)}}
                                 @if ($row->order_status =='recogido')
@@ -49,7 +44,7 @@
                     </li>
                 @endforeach
                 @if($orders->hasMorePages())
-                    <li x-data="{
+                    <div x-data="{
                             observe () {
                                 let observer = new IntersectionObserver((entries) => {
                                     entries.forEach(entry => {
@@ -65,7 +60,7 @@
                         }"
                         x-init="observe">
                         @include('shared._loading')
-                    </li>
+                    </div>
                 @endif
             @else
                 <li class="py-5  px-5 transition p-4 border-r-8 border-yellow-600">
