@@ -1,18 +1,18 @@
-<x-guest-layout>
+<x-app-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            <a href="/" class="focus:outline-none text-center">
+                <x-application-logo />
             </a>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+            {{ __('¡Muchas gracias por registrarte! Antes de comenzar, ¿puedes verificar tu correo electrónico haciendo click en el correo que te acabamos de envíar? Si no has recibido el email, te enviaremos uno nuevo lo antes posible.') }}
         </div>
 
         @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+            <div class="mb-4 font-medium text-sm main-color-blue-text">
+                {{ __('Un nuevo link de verificación ha sido enviado a la dirección de correo proporcionada durante su registro.') }}
             </div>
         @endif
 
@@ -22,7 +22,7 @@
 
                 <div>
                     <x-button>
-                        {{ __('Resend Verification Email') }}
+                        {{ __('Reenviar el email de verificación') }}
                     </x-button>
                 </div>
             </form>
@@ -30,10 +30,10 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    {{ __('Log Out') }}
+                <button type="submit" class="underline text-sm main-color-blue-text">
+                    {{ __('Cerrar sesión') }}
                 </button>
             </form>
         </div>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

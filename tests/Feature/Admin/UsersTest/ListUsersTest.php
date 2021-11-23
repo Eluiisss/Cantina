@@ -37,7 +37,7 @@ class ListUsersTest extends TestCase
         ]);
         $user->attachRole($admin);
 
-        $response = $this->actingAs($user)->get('/users');
+        $response = $this->actingAs($user)->get('/admin/users');
 
         $response->assertStatus(200);
 

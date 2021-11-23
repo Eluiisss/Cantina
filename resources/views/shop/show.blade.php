@@ -1,9 +1,4 @@
-@extends('clientsLayout')
-
-@section('title', 'ShowProduct')
-
-@section('content')
-
+<x-app-layout>
     <section>
         <div class="min-h-screen flex items-center justify-center px-4">
             <div class="max-w-5xl  bg-white w-full rounded-lg shadow-xl">
@@ -14,7 +9,7 @@
                         <p class="mt-2 text-gray-600 text-sm">{{$article->category->name}}</p>
                         <div class="flex item-center justify-between mt-3">
                             <h1 class="text-gray-700 font-bold text-xl">€{{number_format($article->discounted_price,2)}}</h1>
-                             <button class="px-3 py-2 bg-blue-800 text-white text-xs font-bold uppercase rounded">Añadir al carrito</button> 
+                             <button class="px-3 py-2 bg-blue-800 text-white text-xs font-bold uppercase rounded">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -28,5 +23,4 @@
             </div>
         </div>
     </section>
-
-@endsection
+</x-app-layout>

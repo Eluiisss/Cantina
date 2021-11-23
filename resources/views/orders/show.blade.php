@@ -1,9 +1,4 @@
-@extends('layout')
-
-@section('title', 'Order')
-
-@section('content')
-
+<x-app-layout>
     <section>
         <div class="min-h-screen flex items-center justify-center px-4">
 
@@ -148,5 +143,4 @@
             </div>
         </div>
     </section>
-
-@endsection
+</x-app-layout>

@@ -1,9 +1,4 @@
-@extends('layout')
-
-@section('title', 'Orders')
-
-@section('content')
-
+<x-app-layout>
     <section class="text-gray-600">
         <div class="container px-5 py-24 mx-auto">
             <h2 class="text-4xl mb-5">{{trans('orders.title.index')}}</h2>
@@ -67,5 +62,4 @@
             </div>
         </div>
     </section>
-
-@endsection
+</x-app-layout>

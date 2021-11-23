@@ -30,8 +30,8 @@ class DeleteUsersTest extends TestCase
             'deleted_at' => null
         ]);
 
-        $this->actingAs($admin)->patch("users/{$user->id}/papelera")
-            ->assertRedirect('users');
+        $this->actingAs($admin)->patch("/admin/users/{$user->id}/papelera")
+            ->assertRedirect('/admin/users');
 
         $user->refresh();
         $this->assertTrue($user->trashed());
@@ -56,8 +56,8 @@ class DeleteUsersTest extends TestCase
             'deleted_at' => now()
         ]);
 
-        $this->actingAs($admin)->delete("/users/delete/{$user->id}")
-            ->assertRedirect('users/papelera');
+        $this->actingAs($admin)->delete("/admin/users/delete/{$user->id}")
+            ->assertRedirect('/admin/users/papelera');
 
         $this->assertDatabaseMissing('users', [
             'id' => $user->id,
@@ -85,7 +85,7 @@ class DeleteUsersTest extends TestCase
             'deleted_at' => null
         ]);
 
-        $this->actingAs($admin)->delete("/users/delete/{$user->id}")
+        $this->actingAs($admin)->delete("/admin/users/delete/{$user->id}")
             ->assertStatus(404);
 
         $this->assertDatabaseHas('users', [
@@ -115,8 +115,8 @@ class DeleteUsersTest extends TestCase
             'deleted_at' => now()
         ]);
 
-        $this->actingAs($admin)->put("/users/{$user->id}/papelera")
-            ->assertRedirect('users/papelera');
+        $this->actingAs($admin)->put("/admin/users/{$user->id}/papelera")
+            ->assertRedirect('/admin/users/papelera');
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,

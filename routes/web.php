@@ -20,28 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
-Route::delete('/users/delete/{id}', [UserController::class , 'destroy'])->middleware(['role:administrator|employee'])->name('users.destroy');
-Route::get('/users/papelera', [UserController::class , 'index'])->middleware(['role:administrator|employee'])->name('users.trashed');
-Route::get('/users/{user}/show', [UserController::class, 'show'])->middleware(['role:administrator|employee'])->name('users.show');
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['role:administrator|employee'])->name('users.edit');
-Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['role:administrator|employee'])->name('users.update');
-Route::get('/users/bann/{id}', [UserController::class, 'bann'])->middleware(['role:administrator|employee'])->name('users.bann');
-Route::put('/users/{id}/papelera', [UserController::class, 'restore'])->middleware(['role:administrator|employee'])->name('users.restore');
-Route::patch('/users/{user}/papelera', [UserController::class, 'trash'])->middleware(['role:administrator|employee'])->name('users.trash');
+Route::get('/', [ShopController::class, 'index'])->name('home');
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{article}/show', [ShopController::class, 'show'])->name('shop.show');
-
 
 Route::get('/addToCart/{id}', [ArticlesController::class, 'addToCart'])->name('article.addToCart');
 Route::get('/cart', [ArticlesController::class, 'cart'])->name('article.cart');
@@ -73,5 +55,17 @@ Route::post('/categories/', [CategoriesController::class, 'store'])->name('categ
 Route::get('/categories/{category}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
 Route::put('/categories/{category}', [CategoriesController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
+    Route::delete('/users/delete/{id}', [UserController::class , 'destroy'])->middleware(['role:administrator|employee'])->name('users.destroy');
+    Route::get('/users/papelera', [UserController::class , 'index'])->middleware(['role:administrator|employee'])->name('users.trashed');
+    Route::get('/users/{user}/show', [UserController::class, 'show'])->middleware(['role:administrator|employee'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['role:administrator|employee'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['role:administrator|employee'])->name('users.update');
+    Route::get('/users/bann/{id}', [UserController::class, 'bann'])->middleware(['role:administrator|employee'])->name('users.bann');
+    Route::put('/users/{id}/papelera', [UserController::class, 'restore'])->middleware(['role:administrator|employee'])->name('users.restore');
+    Route::patch('/users/{user}/papelera', [UserController::class, 'trash'])->middleware(['role:administrator|employee'])->name('users.trash');
+});
 
 require __DIR__.'/auth.php';

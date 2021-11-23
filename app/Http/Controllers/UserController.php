@@ -43,7 +43,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->banned = !$user->banned;
         $user->save();
-        return redirect('users')->with('success','user banned');
+        return redirect()->route('users.index')->with('success','user banned');
     }
 
     public function trash(User $user)

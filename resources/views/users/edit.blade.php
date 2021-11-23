@@ -1,8 +1,4 @@
-@extends('layout')
-
-@section('title', 'Editar usuario')
-
-@section('content')
+<x-app-layout>
     @include('shared._errors')
     <section class=" py-1 bg-blueGray-50">
         <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
@@ -29,6 +25,4 @@
             </div>
         </div>
     </section>
-
-
-@endsection
+</x-app-layout>
