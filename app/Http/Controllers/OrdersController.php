@@ -18,6 +18,11 @@ class OrdersController extends Controller
         return view('orders.index', compact('orders'));
     }
 
+    public function manageOrders()
+    {
+        return view('orders.manage');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
