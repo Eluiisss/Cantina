@@ -1,8 +1,4 @@
-@extends('layout')
-
-@section('title', 'Orders Manage')
-
-@section('content')
+<x-app-layout>
     <main class="flex w-full h-auto shadow-lg rounded-3xl">
         <section class="flex flex-col pt-3 w-4/12 bg-gray-50">
             @livewire('order-manage-side-bar')
@@ -11,4 +7,4 @@
             @livewire('order-manage-detail-view')
         </section>
     </main>
-@endsection
+</x-app-layout>
