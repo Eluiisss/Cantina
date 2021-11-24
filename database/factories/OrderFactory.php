@@ -31,4 +31,51 @@ class OrderFactory extends Factory
     {
         return ['pendiente', 'recogido','no_recogido'];
     }
+
+    public function readyToCollect()
+    {
+        return $this->state(function ($faker) {
+            return [
+                'order_status' => 'pendiente',
+            ];
+        });
+    }
+
+    public function collected()
+    {
+        return $this->state(function ($faker) {
+            return [
+                'order_status' => 'recogido',
+            ];
+        });
+    }
+
+    public function notCollected()
+    {
+        return $this->state(function ($faker) {
+            return [
+                'order_status' => 'no_recogido',
+            ];
+        });
+    }
+
+    public function alreadyPayed()
+    {
+        return $this->state(function ($faker) {
+            return [
+                'payment_status' => 'ya_pagado',
+                'payment_date' => now(),
+            ];
+        });
+    }
+
+    public function notPayedYet()
+    {
+        return $this->state(function ($faker) {
+            return [
+                'payment_status' => 'sin_pagar',
+                'payment_date' => null,
+            ];
+        });
+    }
 }
