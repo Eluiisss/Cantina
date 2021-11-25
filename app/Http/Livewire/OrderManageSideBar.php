@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Order;
-use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class OrderManageSideBar extends Component
@@ -12,6 +11,7 @@ class OrderManageSideBar extends Component
     public $paginate = 10;
     public $search;
     public $orderStatus;
+    public $daily = true;
 
 
     protected $queryString = [
@@ -37,14 +37,14 @@ class OrderManageSideBar extends Component
     {
         $filters = [
             'search' => $this->search,
-            'orderStatus' => $this->orderStatus
+            'orderStatus' => $this->orderStatus,
+            'dailyOrders' => $this->daily
         ];
 
         $orders = Order::query()
             ->with('user', 'articles')
             ->applyFilters($filters)
             ->orderBy('created_at')
-            ->whereDate('created_at', Carbon::today())
             ->paginate($this->paginate);
 
         return view('livewire.order-manage-side-bar',

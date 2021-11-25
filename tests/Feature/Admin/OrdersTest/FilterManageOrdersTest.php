@@ -19,6 +19,7 @@ class FilterManageOrdersTest extends TestCase
         $this->get(route('orders.manage'))
             ->assertStatus(200)
             ->assertSee(trans('orders.manage.filters.order'));
+        Livewire::test(OrderManageSideBar::class)->assertSet('daily', true);
     }
 
     /** @test */
@@ -46,6 +47,24 @@ class FilterManageOrdersTest extends TestCase
             return  (true == $orders->contains($notCollected))
                 && (false == $orders->contains($readyToCollect))
                 && (false == $orders->contains($collected));
+        });
+    }
+
+    /** @test */
+    public function it_filters_by_daily_check()
+    {
+        $userPepe = $this->createUser('Pepe López');
+
+        $newerOrder = Order::factory()->create(['user_id' => $userPepe->id, 'created_at' => now()]);
+        $oldOrder = Order::factory()->create(['user_id' => $userPepe->id, 'created_at' => now()->subDays(10)]);
+
+        Livewire::test(OrderManageSideBar::class)->set('daily', true)->assertViewHas('orders', function ($orders) use ($newerOrder, $oldOrder){
+            return  (true == $orders->contains($newerOrder))
+                && (false == $orders->contains($oldOrder));
+        });
+
+        Livewire::test(OrderManageSideBar::class)->set('daily', false)->assertViewHas('orders', function ($orders) use ($newerOrder, $oldOrder){
+            return  (true == $orders->contains($oldOrder) && $orders->contains($newerOrder));
         });
     }
 

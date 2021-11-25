@@ -24,6 +24,7 @@ return [
         'clientDataHeader' => 'Datos del cliente',
         'selectOrder' => 'Selecciona un pedido',
         'selectOrderDetailed' => ' Seleccione un pedido del listado para ver sus detalles y procesarlo',
+        'dailyCheck' => 'Solo pedidos diarios',
         'filters'=> [
             'order' => ['all' => 'Pedidos (Todos)', 'pendiente' => 'Solo pendientes', 'recogido' => 'Recogidos', 'no_recogido' => 'No recogidos'],
             'payment' => ['all' => 'Pago (Todos)','sin_pagar' => 'Sin pagar', 'ya_pagado' => 'Pagado'],

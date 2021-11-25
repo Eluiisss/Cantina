@@ -4,13 +4,20 @@
             <input class="rounded-lg p-4 bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 w-full"
                    name="search" wire:model.debounce.150ms="search" value="{{ request('search') }}" placeholder="{{ trans('orders.manage.search')}}" />
         </label>
-        <label class="px-3 mt-2">
+        <div class="px-3 mt-2 py-2 my-3">
             <select name="orderStatus" wire:model="orderStatus" class="rounded-lg p-4  main-color-blue-bg main-color-yellow-text transition duration-200 focus:outline-none focus:ring-2 w-1/2">
                 @foreach(trans('orders.manage.filters.order') as $value => $text)
                     <option value="{{ $value }}">{{ $text }}</option>
                 @endforeach
             </select>
-        </label>
+        </div>
+        <div class="px-3 pt-1 my-2">
+            <div class="flex items-start items-center mb-4 mx-2">
+                <input id="dailyOrders" type="checkbox" wire:model="daily"
+                       class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">
+                <label for="dailyOrders" class="text-sm ml-3 font-medium text-gray-900">{{trans('orders.manage.dailyCheck')}}</label>
+            </div>
+        </div>
     </div>
 
     <div class="h-screen overflow-y-scroll">
