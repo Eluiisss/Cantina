@@ -2,20 +2,16 @@
 
 namespace Tests\Feature\Admin\OrdersTest;
 
+use Admin\OrdersTest\BaseOrdersTest;
 use App\Models\Article;
-use App\Models\Category;
-use App\Models\Nre;
 use App\Models\Order;
-use App\Models\Role;
-use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ListOrdersTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, BaseOrdersTest;
 
-    protected $role;
 
     /** @test  */
     public function it_shows_the_orders_list(){
@@ -120,32 +116,5 @@ class ListOrdersTest extends TestCase
         $response->assertDontSee('A123');
         $response->assertDontSee('B234');
 
-    }
-
-    private function createUser()
-    {
-        $nre = Nre::factory()->create();
-        $user = User::factory()->create([
-            'nre_id' => $nre->id,
-        ]);
-        $user->attachRole($this->role);
-        return $user;
-    }
-
-    private function createArticles(): void
-    {
-        $category = Category::factory()->create();
-        Article::factory()->times(20)->create([
-            'category_id' => $category->id
-        ]);
-    }
-
-    private function createUserRole(): void
-    {
-        $this->role = Role::create([
-            'name' => 'user',
-            'display_name' => 'User ',
-            'description' => 'User is not allowed to manage and edit other users',
-        ]);
     }
 }

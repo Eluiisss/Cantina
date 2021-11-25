@@ -4,20 +4,14 @@ namespace Tests\Feature\Admin\OrdersTest;
 
 use Admin\OrdersTest\BaseOrdersTest;
 use App\Http\Livewire\OrderManageSideBar;
-use App\Models\Nre;
 use App\Models\Order;
-use App\Models\Role;
-use App\Models\User;
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FilterManageOrdersTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected $role;
+    use RefreshDatabase, BaseOrdersTest;
 
     /** @test */
     public function it_loads_the_manage_orders_list_page_with_filters()
@@ -86,27 +80,4 @@ class FilterManageOrdersTest extends TestCase
 
     }
 
-    private function createUser($name, $email = null)
-    {
-        $nre = Nre::factory()->create();
-        $user = User::factory()->create([
-            'name' => $name,
-            'nre_id' => $nre->id,
-            'class' => '2ºDAM',
-            'email' => $email ?? (Str::snake($name).'@mail.com'),
-            'phone' => '656238544',
-
-        ]);
-        $user->attachRole($this->role);
-        return $user;
-    }
-
-    private function createUserRole(): void
-    {
-        $this->role = Role::create([
-            'name' => 'user',
-            'display_name' => 'User ',
-            'description' => 'User is not allowed to manage and edit other users',
-        ]);
-    }
 }

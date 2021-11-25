@@ -2,18 +2,16 @@
 
 namespace Tests\Feature\Admin\OrdersTest;
 
+use Admin\OrdersTest\BaseOrdersTest;
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\Nre;
 use App\Models\Order;
-use App\Models\Role;
-use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShowOrderTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, BaseOrdersTest;
 
     /** @test */
     public function it_displays_a_404_error_if_the_order_is_not_found()
@@ -28,7 +26,7 @@ class ShowOrderTest extends TestCase
     {
 
         $this->createUserRole();
-        $user = $this->createUser();
+        $user = $this->createUser("Pepe Garcia", "pepe@gmail.com");
 
         $category = Category::factory()->create([
             'name' => 'Snacks'
@@ -78,33 +76,9 @@ class ShowOrderTest extends TestCase
                 '1.00',
                 '2.75',
                 'Pepe Garcia',
-                '2ºDAW',
+                '2ºDAM',
                 'pepe@gmail.com',
                 '656238544',
             ]);
-
-    }
-
-    private function createUser()
-    {
-        $nre = Nre::factory()->create();
-        $user = User::factory()->create([
-            'name' => 'Pepe Garcia',
-            'nre_id' => $nre->id,
-            'email' => 'pepe@gmail.com',
-            'phone' => '656238544',
-            'class' => '2ºDAW',
-        ]);
-        $user->attachRole($this->role);
-        return $user;
-    }
-
-    private function createUserRole(): void
-    {
-        $this->role = Role::create([
-            'name' => 'user',
-            'display_name' => 'User ',
-            'description' => 'User is not allowed to manage and edit other users',
-        ]);
     }
 }
