@@ -25,7 +25,8 @@ return [
         'selectOrder' => 'Selecciona un pedido',
         'selectOrderDetailed' => ' Seleccione un pedido del listado para ver sus detalles y procesarlo',
         'filters'=> [
-            'order' => ['all' => 'Todos', 'pendiente' => 'Solo pendientes', 'recogido' => 'Recogidos', 'no_recogido' => 'No recogidos'],
+            'order' => ['all' => 'Pedidos (Todos)', 'pendiente' => 'Solo pendientes', 'recogido' => 'Recogidos', 'no_recogido' => 'No recogidos'],
+            'payment' => ['all' => 'Pago (Todos)','sin_pagar' => 'Sin pagar', 'ya_pagado' => 'Pagado'],
         ],
     ],
 ];

@@ -11,6 +11,7 @@ class OrderFilter extends QueryFilter
         return [
             'search' => 'filled',
             'orderStatus' => 'in:no_recogido,pendiente,recogido',
+            'paymentStatus' =>'in:sin_pagar,ya_pagado'
         ];
     }
 
@@ -27,5 +28,10 @@ class OrderFilter extends QueryFilter
     public function orderStatus($query, $status)
     {
         return $query->where('order_status', $status);
+    }
+
+    public function paymentStatus($query, $status)
+    {
+        return $query->where('payment_status', $status);
     }
 }
