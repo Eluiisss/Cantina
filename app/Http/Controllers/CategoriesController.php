@@ -14,6 +14,7 @@ class CategoriesController extends Controller
         $categories = Category::query()
             ->with('articles')
             ->orderBy('name')
+            ->applyFilters()
             ->paginate();
 
         return view('categories.index', compact('categories'));

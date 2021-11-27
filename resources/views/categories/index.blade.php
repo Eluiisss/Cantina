@@ -2,12 +2,13 @@
     <section class="text-gray-600">
         <div class="container px-5 py-24 mx-auto">
             <h2 class="text-4xl mb-5">{{trans('categories.title.index')}}</h2>
+            @include('categories._filters')
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div class="overflow-hidden sm:rounded">
                             <div>
-                                <a href="{{route('categories.create')}}" class="bg-blue-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                <a href="{{route('categories.create')}}" class="main-color-blue-bg main-color-yellow-text font-bold uppercase text-xs px-4 py-2  mr-2 ease-linear transition-all duration-150">
                                     Nueva categoría
                                 </a>
                             </div>
