@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Shop;
 use App\Models\User;
 use Laravel\Cashier\Exceptions\IncompletePayment;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Session;
 use Stripe;
 
@@ -18,12 +19,13 @@ class ShopController extends Controller
      */
     public function index()
     {
+        $cart = Cart::content();
         $articles = Article::query()
             ->with('nutrition', 'category')
             ->where('stock','>', 0)
             ->orderBy('name')
             ->paginate();
-        return view('shop.index', compact('articles'));
+        return view('shop.index', compact('articles','cart'));
     }
 
     public function show(Article $article)
