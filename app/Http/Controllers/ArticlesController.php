@@ -10,41 +10,47 @@ use Illuminate\Support\Facades\DB;
 
 class ArticlesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $articles = Article::query()
-            ->with('nutrition', 'category')
-            ->onlyTrashedIf(request()->routeIs('articles.trashed'))
+            ->with('category')
+            ->with(['nutrition' => function ($q) {
+                $q->withTrashed();
+            }])->onlyTrashedIf(request()->routeIs('articles.trashed'))
             ->orderBy('name')
+            ->applyFilters()
             ->paginate();
 
-        return view('articles.index', compact('articles'));
+        return view('articles.index', [
+            'view' => request()->routeIs('articles.trashed') ? 'trash' : 'index',
+            'articles'=> $articles,
+            'categories' => Category::query()
+                            ->with('articles')
+                            ->whereHas('articles')
+                            ->orderBy('name', 'ASC')->get(),
+            ]);
     }
 
-    public function cart()  
+    public function cart()
     {
-        return view('articles.cart');  
+        return view('articles.cart');
     }
 
     public function addToCart($id)
     {
         $article = Article::find($id);
-   
+
         if(!$article) {
-   
+
             abort(404);
-   
+
         }
-        $cart = session()->get('cart');  
-   
+        $cart = session()->get('cart');
+
         // vacio
         if(!$cart) {
-   
+
             $cart = [
                     $id => [
                         "name" => $article->name,
@@ -53,23 +59,23 @@ class ArticlesController extends Controller
                         //"image" => $article->image
                     ]
             ];
-   
+
             session()->put('cart', $cart);
-   
+
             return redirect()->back()->with('success', 'added to cart successfully!');
         }
-   
+
         // no vacio
         if(isset($cart[$id])) {
-   
+
             $cart[$id]['quantity']++;
-   
+
             session()->put('cart', $cart); // this code put article of choose in cart
-   
+
             return redirect()->back()->with('success', 'article added to cart successfully!');
-   
+
         }
-   
+
         // primer articulo de ese tipo
         $cart[$id] = [
             "name" => $article->name,
@@ -77,11 +83,11 @@ class ArticlesController extends Controller
             "price" => $article->discounted_price,
             //"image" => $article->image
         ];
-   
+
         session()->put('cart', $cart);
-   
+
         return redirect()->back()->with('success', 'Añadido correctamente');
-        
+
     }
 
     public function updateCart(Request $request)

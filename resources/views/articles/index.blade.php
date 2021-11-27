@@ -1,23 +1,24 @@
 <x-app-layout>
     <section class="text-gray-600">
         <div class="container px-5 py-24 mx-auto">
-            <h2 class="text-4xl mb-5">{{trans('articles.title.index')}}</h2>
+            <h2 class="text-4xl mb-5">{{$view == 'index' ? trans('articles.title.index'): trans('articles.title.trash')}}</h2>
+             @include('articles._filters')
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div class="overflow-hidden sm:rounded">
                             @if(!request()->routeIs('articles.trashed'))
                             <div>
-                            <a href="{{ route('articles.create') }}" class="bg-blue-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                            <a href="{{ route('articles.create') }}" class="main-color-blue-bg main-color-yellow-text font-bold uppercase text-xs px-4 py-2  mr-2 ease-linear transition-all duration-150">
                                     Añadir nuevo producto
                             </a>
-                            <a href="{{ route('articles.trashed') }}" class="bg-blue-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                            <a href="{{ route('articles.trashed') }}" class="main-color-blue-bg main-color-yellow-text font-bold uppercase text-xs px-4 py-2 transition-all duration-150">
                                 Ver papelera
                             </a>
                             </div>
                             @else
                                 <div>
-                                <a href="{{ route('articles.index') }}" class="bg-blue-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                <a href="{{ route('articles.index') }}" class="main-color-blue-bg main-color-yellow-text font-bold uppercase text-xs px-4 py-2  mr-2 ease-linear transition-all duration-150">
                                     Volver
                                 </a>
                                 </div>
@@ -31,7 +32,8 @@
                                     <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> Nombre </th>
                                     <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> Precio </th>
                                     <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> Stock </th>
-                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> ¿Alergenos? </th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> ¿Vegetariano? </th>
+                                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> ¿Libre de alérgenos? </th>
                                     <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "> Categoria </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Edit</span>
@@ -64,7 +66,20 @@
                                                             @endif
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{$row->stock}} unidades</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{optional($row->nutrition)->is_allergy? 'Si': 'No'}}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-{{optional($row->nutrition)->is_veg?"green":"red"}}-600"
+                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="{{optional($row->nutrition)->is_veg? "M5 13l4 4L19 7":"M6 18L18 6M6 6l12 12"}}" />
+                                        </svg>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-{{optional($row->nutrition)->is_allergy?"red":"green"}}-600"
+                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="{{optional($row->nutrition)->is_allergy?"M6 18L18 6M6 6l12 12" :"M5 13l4 4L19 7"}}" />
+                                        </svg>
+                                    </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{$row->category->name}}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-right  whitespace-nowrap">
                                     @if(request()->routeIs('articles.trashed'))
