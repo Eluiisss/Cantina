@@ -31,8 +31,8 @@ Route::get('/cart', [ArticlesController::class, 'cart'])->name('article.cart');
 Route::get('/checkout',[ShopController::class, 'checkout'])->middleware(['role:user|administrator'])->name('shop.checkout');
 Route::post('/payment',[ShopController::class, 'paymentAction'])->middleware(['role:user|administrator'])->name('shop.payment');
 
-Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
-Route::get('/manageOrders', [OrdersController::class, 'manageOrders'])->name('orders.manage');
+Route::get('/orders', [OrdersController::class, 'index'])->middleware(['role:employee|administrator'])->name('orders.index');
+Route::get('/manageOrders', [OrdersController::class, 'manageOrders'])->middleware(['role:employee|administrator'])->name('orders.manage');
 Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');
 Route::get('/orders/create', [OrdersController::class, 'create'])->name('orders.create');
 Route::post('/orders/', [OrdersController::class, 'store'])->name('orders.store');
@@ -40,25 +40,25 @@ Route::get('/orders/{order}/edit', [OrdersController::class, 'edit'])->name('ord
 Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
 Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 
-Route::get('/food', [ArticlesController::class, 'index'])->name('articles.index');
+Route::get('/food', [ArticlesController::class, 'index'])->middleware(['role:employee|administrator'])->name('articles.index');
 Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');
-Route::get('/food/create', [ArticlesController::class, 'create'])->name('articles.create');
-Route::post('/food/', [ArticlesController::class, 'store'])->name('articles.store');
-Route::get('/food/{article}/edit', [ArticlesController::class, 'edit'])->name('articles.edit');
-Route::put('/food/{article}', [ArticlesController::class, 'update'])->name('articles.update');
-Route::delete('/food/{id}', [ArticlesController::class, 'destroy'])->name('articles.destroy');
+Route::get('/food/create', [ArticlesController::class, 'create'])->middleware(['role:employee|administrator'])->name('articles.create');
+Route::post('/food/', [ArticlesController::class, 'store'])->middleware(['role:employee|administrator'])->name('articles.store');
+Route::get('/food/{article}/edit', [ArticlesController::class, 'edit'])->middleware(['role:employee|administrator'])->name('articles.edit');
+Route::put('/food/{article}', [ArticlesController::class, 'update'])->middleware(['role:employee|administrator'])->name('articles.update');
+Route::delete('/food/{id}', [ArticlesController::class, 'destroy'])->middleware(['role:employee|administrator'])->name('articles.destroy');
 
-Route::get('/food/trash', [ArticlesController::class, 'index'])->name('articles.trashed');
-Route::patch('/food/{article}/trash', [ArticlesController::class, 'trash'])->name('articles.trash');
-Route::get('/food/{id}/restore', [ArticlesController::class, 'restore'])->name('articles.restore');
+Route::get('/food/trash', [ArticlesController::class, 'index'])->middleware(['role:employee|administrator'])->name('articles.trashed');
+Route::patch('/food/{article}/trash', [ArticlesController::class, 'trash'])->middleware(['role:employee|administrator'])->name('articles.trash');
+Route::get('/food/{id}/restore', [ArticlesController::class, 'restore'])->middleware(['role:employee|administrator'])->name('articles.restore');
 
-Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
-Route::get('/categories/{category}/show', [CategoriesController::class, 'show'])->name('categories.show');
-Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');
-Route::post('/categories/', [CategoriesController::class, 'store'])->name('categories.store');
-Route::get('/categories/{category}/edit', [CategoriesController::class, 'edit'])->name('categories.edit');
-Route::put('/categories/{category}', [CategoriesController::class, 'update'])->name('categories.update');
-Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
+Route::get('/categories', [CategoriesController::class, 'index'])->middleware(['role:employee|administrator'])->name('categories.index');
+Route::get('/categories/{category}/show', [CategoriesController::class, 'show'])->middleware(['role:employee|administrator'])->name('categories.show');
+Route::get('/categories/create', [CategoriesController::class, 'create'])->middleware(['role:employee|administrator'])->name('categories.create');
+Route::post('/categories/', [CategoriesController::class, 'store'])->middleware(['role:employee|administrator'])->name('categories.store');
+Route::get('/categories/{category}/edit', [CategoriesController::class, 'edit'])->middleware(['role:employee|administrator'])->name('categories.edit');
+Route::put('/categories/{category}', [CategoriesController::class, 'update'])->middleware(['role:employee|administrator'])->name('categories.update');
+Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])->middleware(['role:employee|administrator'])->name('categories.destroy');
 
 Route::prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
