@@ -12,10 +12,29 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript">
+        //On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        window.onload = function() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+            }
+        };
+        const toggleDarkMode = function() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                localStorage.theme = 'light'
+                document.documentElement.classList.remove('dark')
+                // Whenever the user explicitly chooses light mode
+            } else {
+                localStorage.theme = 'dark'
+                document.documentElement.classList.add('dark')
+                // Whenever the user explicitly chooses dark mode
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
 <div class="flex h-screen bg-white" x-data="{ open: false }">
-    <div class="bg-gray-100">
+    <div class="bg-gray-100 dark:bg-gray-800">
         <div class="flex flex-col w-screen h-screen md:w-96"  x-show="open"
              x-transition:enter="transition ease-out duration-500"
              x-transition:enter-start="opacity-100 transform -translate-x-full"
@@ -24,7 +43,12 @@
              x-transition:leave-start="opacity-100 transform translate-x-0"
              x-transition:leave-end="opacity-100 transform -translate-x-full">
             <div class="flex flex-col flex-grow pt-4 border-r">
-                <div class="px-6 text-right">
+                <div class="flex justify-between px-6">
+                    <button x-data onclick="toggleDarkMode()" class="focus:outline-none focus:shadow-outline">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 15.31L23.31 12L20 8.69V4H15.31L12 0.690002L8.69 4H4V8.69L0.690002 12L4 15.31V20H8.69L12 23.31L15.31 20H20V15.31ZM12 18V6C15.31 6 18 8.69 18 12C18 15.31 15.31 18 12 18Z" fill="#004467"/>
+                        </svg>
+                    </button>
                     <button class="md:hidden focus:outline-none focus:shadow-outline text-right font-light text-xs main-color-blue-text uppercase" x-on:click="open = ! open">
                         Volver
                         <svg width="57" height="8" viewBox="0 0 57 8" fill="none" xmlns="http://www.w3.org/2000/svg">
