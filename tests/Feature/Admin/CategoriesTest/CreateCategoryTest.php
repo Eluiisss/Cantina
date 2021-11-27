@@ -19,7 +19,7 @@ class CreateCategoryTest extends TestCase
     /** @test  */
     public function it_shows_the_create_category_page()
     {
-        $this->get(route('categories.create'))
+        $this->actingAs($this->getAdmin())->get(route('categories.create'))
             ->assertStatus(200)
             ->assertSee('Nueva categoría');
     }
@@ -30,7 +30,7 @@ class CreateCategoryTest extends TestCase
         $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
 
-        $this->from(route('categories.create'))
+        $this->actingAs($this->getAdmin())->from(route('categories.create'))
             ->post(route('categories.store'),  $this->withData([
                 'category_image' => $file
             ]))->assertRedirect(route('categories.index'));
@@ -51,7 +51,7 @@ class CreateCategoryTest extends TestCase
     /** @test  */
     public function the_category_image_field_is_nullable()
     {
-        $this->from(route('categories.create'))
+        $this->actingAs($this->getAdmin())->from(route('categories.create'))
             ->post(route('categories.store'), $this->withData([
                 'category_image' => null
             ]))->assertRedirect(route('categories.index'));
@@ -81,7 +81,7 @@ class CreateCategoryTest extends TestCase
     /** @test  */
     public function the_category_description_field_is_nullable()
     {
-        $this->from(route('categories.create'))
+        $this->actingAs($this->getAdmin())->from(route('categories.create'))
             ->post(route('categories.store'), $this->withData([
                 'category_description' => null
             ]))->assertRedirect(route('categories.index'));
@@ -123,7 +123,7 @@ class CreateCategoryTest extends TestCase
 
         Category::factory()->create(['name' => 'Snacks']);
 
-        $this->from(route('categories.create'))
+        $this->actingAs($this->getAdmin())->from(route('categories.create'))
             ->post(route('categories.store'), $this->withData([
                 'category_name' => 'Snacks'
             ]))->assertSessionHasErrors('category_name')
@@ -151,7 +151,7 @@ class CreateCategoryTest extends TestCase
     {
         $this->handleValidationExceptions();
 
-        $this->from(route('categories.create'))
+        $this->actingAs($this->getAdmin())->from(route('categories.create'))
             ->post(route('categories.store'), $this->withData([
                 $field => $value
             ]))->assertSessionHasErrors([$field])

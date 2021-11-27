@@ -24,7 +24,7 @@ class DeleteTeamTest extends TestCase
             'category_id' => $category->id
         ]);
 
-        $this->patch(route('articles.trash', ['article' => $articleTrashed]))
+        $this->actingAs($this->getAdmin())->patch(route('articles.trash', ['article' => $articleTrashed]))
         ->assertRedirect(route('articles.index'));
 
         $this->assertSoftDeleted('articles',[
@@ -35,7 +35,7 @@ class DeleteTeamTest extends TestCase
             'article_id' => $articleTrashed->id,
         ]);
 
-        $this->get(route('articles.index'))
+        $this->actingAs($this->getAdmin())->get(route('articles.index'))
             ->assertOk()
             ->assertSee($article->name)
             ->assertDontSee($articleTrashed->name)
@@ -61,7 +61,7 @@ class DeleteTeamTest extends TestCase
             'deleted_at'=> now(),
         ]);
 
-        $this->delete(route('articles.destroy', ['id' => $article->id]))
+        $this->actingAs($this->getAdmin())->delete(route('articles.destroy', ['id' => $article->id]))
             ->assertRedirect(route('articles.trashed'));
 
         $this->assertDatabaseEmpty('articles');
@@ -79,7 +79,7 @@ class DeleteTeamTest extends TestCase
             'category_id' => $category->id,
         ]);
 
-        $this->delete(route('articles.destroy', ['id' => $articleNotTrashed->id]))->assertStatus(404);
+        $this->actingAs($this->getAdmin())->delete(route('articles.destroy', ['id' => $articleNotTrashed->id]))->assertStatus(404);
 
         $this->assertDatabaseHas('articles', [
             'id' => $articleNotTrashed->id,

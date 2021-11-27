@@ -14,7 +14,7 @@ class FilterOrdersTest extends TestCase
     /** @test */
     public function it_loads_the_orders_list_page_with_filters()
     {
-        $this->get(route('orders.index'))
+        $this->actingAs($this->getAdmin())->get(route('orders.index'))
             ->assertStatus(200)
             ->assertSee(trans('orders.manage.filters.order'))
             ->assertSee(trans('orders.manage.filters.payment'));
@@ -24,6 +24,8 @@ class FilterOrdersTest extends TestCase
     /** @test */
     public function it_filters_the_order_status()
     {
+        $this->actingAs($this->getAdmin());
+
         $userPepe = $this->createUser('Pepe López');
 
         $collected = Order::factory()->collected()->create(['user_id' => $userPepe->id,]);
@@ -52,6 +54,8 @@ class FilterOrdersTest extends TestCase
     /** @test */
     public function it_filters_the_order_payment()
     {
+        $this->actingAs($this->getAdmin());
+
         $userPepe = $this->createUser('Pepe López');
 
         $payed = Order::factory()->alreadyPayed()->create(['user_id' => $userPepe->id,]);
@@ -71,6 +75,8 @@ class FilterOrdersTest extends TestCase
 
     /** @test */
     public function it_filters_the_order_status_and_search(){
+
+        $this->actingAs($this->getAdmin());
         $userPepe = $this->createUser('Pepe López');
 
         $collectedFirst = Order::factory()->collected()->create(['user_id' => $userPepe->id,'order_code' => 'h167',]);

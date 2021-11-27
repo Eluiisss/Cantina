@@ -34,7 +34,7 @@ class UpdateArticleTest extends TestCase
                 'category_id' => $category->id
             ]);
 
-        $this->get(route('articles.edit', ['article' => $article]))
+        $this->actingAs($this->getAdmin())->get(route('articles.edit', ['article' => $article]))
             ->assertStatus(200)
             ->assertSee('Editar prodcuto')
             ->assertViewCollection('categories')
@@ -76,7 +76,7 @@ class UpdateArticleTest extends TestCase
         $category = Category::factory()->create(['name' => 'Comida']);
         $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
-        $this->from(route('articles.edit', ['article' => $article]))
+        $this->actingAs($this->getAdmin())->from(route('articles.edit', ['article' => $article]))
             ->put(route('articles.update', ['article' => $article]), $this->withData([
                 'article_category' => $category->id,
                 'article_image' => $file
@@ -118,7 +118,7 @@ class UpdateArticleTest extends TestCase
             'category_id' => $oldCategory->id,
             'image' => 'croissant.jpg'
         ]);
-        $this->from(route('articles.edit', ['article' => $article]))
+        $this->actingAs($this->getAdmin())->from(route('articles.edit', ['article' => $article]))
             ->put(route('articles.update', ['article' => $article]), $this->withData([
                 'article_category' => $oldCategory->id,
                 'article_image' => null
@@ -155,7 +155,7 @@ class UpdateArticleTest extends TestCase
             'category_id' => $oldCategory->id
         ]);
 
-        $this->from(route('articles.edit', ['article' => $article]))
+        $this->actingAs($this->getAdmin())->from(route('articles.edit', ['article' => $article]))
             ->put(route('articles.update', ['article' => $article]), $this->withData([
                 'article_allergy' => 1,
                 'article_allergy_description' => null
@@ -174,7 +174,7 @@ class UpdateArticleTest extends TestCase
             'category_id' => $oldCategory->id
         ]);
 
-        $this->from(route('articles.edit', ['article' => $article]))
+        $this->actingAs($this->getAdmin())->from(route('articles.edit', ['article' => $article]))
             ->put(route('articles.update', ['article' => $article]), $this->withData([
                 'article_allergy' => 0,
                 'article_allergy_description' => null,
@@ -405,7 +405,7 @@ class UpdateArticleTest extends TestCase
             'category_id' => $category->id
         ]);
 
-        $this->from(route('articles.edit', ['article' => $article]))
+        $this->actingAs($this->getAdmin())->from(route('articles.edit', ['article' => $article]))
             ->put(route('articles.update', ['article' => $article]), $this->withData([
                 $field => $value
             ]))->assertSessionHasErrors([$field])

@@ -15,7 +15,7 @@ class DeleteCategoryTest extends TestCase
     function it_deletes_a_category()
     {
         $category = Category::factory()->create();
-        $response = $this->delete(route('categories.destroy', ['id' => $category->id]));
+        $response = $this->actingAs($this->getAdmin())->delete(route('categories.destroy', ['id' => $category->id]));
         $response->assertRedirect(route('categories.index'));
         $this->assertDatabaseEmpty('categories');
     }
@@ -28,7 +28,7 @@ class DeleteCategoryTest extends TestCase
         $category = Category::factory()->create();
         Article::factory()->times(3)->create(['category_id' => $category->id]);
 
-        $response = $this->delete(route('categories.destroy', ['id' => $category->id]));
+        $response = $this->actingAs($this->getAdmin())->delete(route('categories.destroy', ['id' => $category->id]));
         $response->assertStatus(400);
 
         $this->assertDatabaseHas('categories', [

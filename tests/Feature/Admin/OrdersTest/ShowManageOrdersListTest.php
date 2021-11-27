@@ -21,6 +21,7 @@ class ShowManageOrdersListTest extends TestCase
     /** @test  */
     public function show_the_orders_in_the_side_bar()
     {
+        $this->actingAs($this->getAdmin());
         $this->createUserRole();
         $this->createArticles();
 
@@ -80,7 +81,8 @@ class ShowManageOrdersListTest extends TestCase
     /** @test  */
     public function it_shows_a_default_message_when_are_no_orders()
     {
-        $response = $this->get(route('orders.manage'));
+
+        $response = $this->actingAs($this->getAdmin())->get(route('orders.manage'));
         $response->assertStatus(200)
             ->assertSee('Sin pedidos');
     }
@@ -88,6 +90,7 @@ class ShowManageOrdersListTest extends TestCase
     /** @test  */
     public function show_the_order_detail_in_the_details_view()
     {
+        $this->actingAs($this->getAdmin());
         $this->createUserRole();
         $this->createArticles();
 
@@ -137,6 +140,7 @@ class ShowManageOrdersListTest extends TestCase
     /** @test  */
     public function it_change_the_details_when_order_are_focused()
     {
+        $this->actingAs($this->getAdmin());
         $this->createUserRole();
         $this->createArticles();
 
@@ -223,6 +227,7 @@ class ShowManageOrdersListTest extends TestCase
     /** @test  */
     public function it_loads_more_orders_when_scroll_down_event_is_fired()
     {
+        $this->actingAs($this->getAdmin());
         $this->createUserRole();
         $this->createArticles();
 

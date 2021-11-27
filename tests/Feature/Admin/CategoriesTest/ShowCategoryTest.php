@@ -15,7 +15,7 @@ class ShowCategoryTest extends TestCase
     public function it_displays_a_404_error_if_the_category_is_not_found()
     {
         $this->withExceptionHandling();
-        $this->get(route('categories.show', ['category' => 999]))
+        $this->actingAs($this->getAdmin())->get(route('categories.show', ['category' => 999]))
             ->assertStatus(404);
     }
 
@@ -26,7 +26,7 @@ class ShowCategoryTest extends TestCase
 
         Article::factory()->times(3)->create(['category_id' => $category->id]);
 
-        $this->get(route('categories.show', ['category' => $category->id]))
+        $this->actingAs($this->getAdmin())->get(route('categories.show', ['category' => $category->id]))
             ->assertOk()
             ->assertSeeInOrder([
                 $category->name,

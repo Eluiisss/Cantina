@@ -21,7 +21,7 @@ class RestoreTeamTest extends TestCase
             'deleted_at'=> now(),
         ]);
 
-        $this->get(route('articles.restore', ['id' => $article->id]))
+        $this->actingAs($this->getAdmin())->get(route('articles.restore', ['id' => $article->id]))
             ->assertRedirect(route('articles.index'));
 
         $this->assertDatabaseHas('articles', [

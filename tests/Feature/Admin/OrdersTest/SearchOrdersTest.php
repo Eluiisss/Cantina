@@ -31,7 +31,7 @@ class SearchOrdersTest extends TestCase
             'order_code' => 'a456',
         ]);
 
-        $this->get('orders?search=B123')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder){
+        $this->actingAs($this->getAdmin())->get('orders?search=B123')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder){
             return  (true == $orders->contains($firstOrder))
                 && (false == $orders->contains($secondOrder));
         });
@@ -57,7 +57,7 @@ class SearchOrdersTest extends TestCase
             'order_code' => 'b170',
         ]);
 
-        $this->get('orders?search=B1')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder, $thirdOrder){
+        $this->actingAs($this->getAdmin())->get('orders?search=B1')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder, $thirdOrder){
             return  (true == $orders->contains($firstOrder)) &&
                 (true == $orders->contains($thirdOrder))
                 && (false == $orders->contains($secondOrder));
@@ -80,7 +80,7 @@ class SearchOrdersTest extends TestCase
             'order_code' => 'a456',
         ]);
 
-        $this->get('orders?search=Pepe López')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder){
+        $this->actingAs($this->getAdmin())->get('orders?search=Pepe López')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder){
             return  (true == $orders->contains($firstOrder))
                 && (false == $orders->contains($secondOrder));
         });
@@ -109,7 +109,7 @@ class SearchOrdersTest extends TestCase
             'order_code' => 'b170',
         ]);
 
-        $this->get('orders?search=Pepe')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder, $thirdOrder){
+        $this->actingAs($this->getAdmin())->get('orders?search=Pepe')->assertViewHas('orders', function ($orders) use ($firstOrder, $secondOrder, $thirdOrder){
             return  (true == $orders->contains($firstOrder)) &&
                 (true == $orders->contains($thirdOrder))
                 && (false == $orders->contains($secondOrder));

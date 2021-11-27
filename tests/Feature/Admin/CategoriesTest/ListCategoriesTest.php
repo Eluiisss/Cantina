@@ -17,7 +17,7 @@ class ListCategoriesTest extends TestCase
        Category::factory()->create(['name' => 'Bebidas']);
        Category::factory()->create(['name' => 'Bollería']);
 
-        $response = $this->get(route('categories.index'));
+        $response = $this->actingAs($this->getAdmin())->get(route('categories.index'));
         $response->assertStatus(200);
 
         $response->assertSee(trans('categories.title.index'));
@@ -33,7 +33,7 @@ class ListCategoriesTest extends TestCase
     public function shows_a_default_message_is_category_list_is_empty()
     {
         $this->assertDatabaseEmpty('categories');
-        $response = $this->get(route('categories.index'))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('categories.index'))->assertStatus(200);
         $response->assertSee('Sin datos');
     }
 
@@ -45,11 +45,11 @@ class ListCategoriesTest extends TestCase
         Category::factory()->create(['name' => 'Bollería']);
         Category::factory()->create(['name' => 'Bebidas']);
 
-        $response = $this->get(route('categories.index', ['page'=>'1']))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('categories.index', ['page'=>'1']))->assertStatus(200);
         $response->assertSeeInOrder(['Bebidas', 'Bollería']);
         $response->assertDontSee('Zabroso');
 
-        $response = $this->get(route('categories.index', ['page'=>'2']))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('categories.index', ['page'=>'2']))->assertStatus(200);
         $response->assertSee('Zabroso');
         $response->assertDontSee('Bollería');
         $response->assertDontSee('Bebidas');

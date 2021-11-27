@@ -16,7 +16,7 @@ class FilterManageOrdersTest extends TestCase
     /** @test */
     public function it_loads_the_manage_orders_list_page_with_filters()
     {
-        $this->get(route('orders.manage'))
+        $this->actingAs($this->getAdmin())->get(route('orders.manage'))
             ->assertStatus(200)
             ->assertSee(trans('orders.manage.filters.order'));
         Livewire::test(OrderManageSideBar::class)->assertSet('daily', true);
@@ -25,6 +25,8 @@ class FilterManageOrdersTest extends TestCase
     /** @test */
     public function it_filters_the_order_status()
     {
+        $this->actingAs($this->getAdmin());
+
         $userPepe = $this->createUser('Pepe López');
 
         $collected = Order::factory()->collected()->create(['user_id' => $userPepe->id,]);
@@ -53,6 +55,8 @@ class FilterManageOrdersTest extends TestCase
     /** @test */
     public function it_filters_by_daily_check()
     {
+        $this->actingAs($this->getAdmin());
+
         $userPepe = $this->createUser('Pepe López');
 
         $newerOrder = Order::factory()->create(['user_id' => $userPepe->id, 'created_at' => now()]);
@@ -70,6 +74,9 @@ class FilterManageOrdersTest extends TestCase
 
     /** @test */
     public function it_filters_the_order_status_and_search(){
+
+        $this->actingAs($this->getAdmin());
+
         $userPepe = $this->createUser('Pepe López');
 
         $collectedFirst = Order::factory()->collected()->create(['user_id' => $userPepe->id,'order_code' => 'h167',]);

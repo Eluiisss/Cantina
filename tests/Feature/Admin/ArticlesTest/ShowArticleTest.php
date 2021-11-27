@@ -15,7 +15,7 @@ class ShowArticleTest extends TestCase
     public function it_displays_a_404_error_if_the_article_is_not_found()
     {
         $this->withExceptionHandling();
-        $this->get(route('articles.show', ['article' => 999]))
+        $this->actingAs($this->getAdmin())->get(route('articles.show', ['article' => 999]))
             ->assertStatus(404);
     }
 
@@ -32,7 +32,7 @@ class ShowArticleTest extends TestCase
             'allergy_description' => "No apto para celiacos"
         ]);
 
-        $this->get(route('articles.show', ['article' => $article->id]))
+        $this->actingAs($this->getAdmin())->get(route('articles.show', ['article' => $article->id]))
             ->assertOk()
             ->assertSeeInOrder([
                 $article->name,

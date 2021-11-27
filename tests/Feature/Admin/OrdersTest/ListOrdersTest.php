@@ -59,7 +59,7 @@ class ListOrdersTest extends TestCase
                 'updated_at' => now()
         ]);
 
-        $response = $this->get(route('orders.index'));
+        $response = $this->actingAs($this->getAdmin())->get(route('orders.index'));
         $response->assertStatus(200);
         $response->assertSee(trans('orders.title.index'));
 
@@ -75,7 +75,7 @@ class ListOrdersTest extends TestCase
     {
         $this->assertDatabaseEmpty('orders');
         $this->assertDatabaseEmpty('article_order');
-        $response = $this->get(route('orders.index'))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('orders.index'))->assertStatus(200);
         $response->assertSee('Sin datos');
     }
 
@@ -107,11 +107,11 @@ class ListOrdersTest extends TestCase
             'created_at' => '2021-12-01 00:00:00'
         ]);
 
-        $response = $this->get(route('orders.index', ['page'=>'1']))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('orders.index', ['page'=>'1']))->assertStatus(200);
         $response->assertSeeInOrder(['A123', 'B234']);
         $response->assertDontSee('Z987');
 
-        $response = $this->get(route('orders.index', ['page'=>'2']))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('orders.index', ['page'=>'2']))->assertStatus(200);
         $response->assertSee('Z987');
         $response->assertDontSee('A123');
         $response->assertDontSee('B234');

@@ -17,7 +17,7 @@ class ShowOrderTest extends TestCase
     public function it_displays_a_404_error_if_the_order_is_not_found()
     {
         $this->withExceptionHandling();
-        $this->get(route('orders.show', ['order' => 999]))
+        $this->actingAs($this->getAdmin())->get(route('orders.show', ['order' => 999]))
             ->assertStatus(404);
     }
 
@@ -61,7 +61,7 @@ class ShowOrderTest extends TestCase
                 'updated_at' => now()
             ]);
 
-        $this->get(route('orders.show', ['order' => $order->id]))
+        $this->actingAs($this->getAdmin())->get(route('orders.show', ['order' => $order->id]))
             ->assertOk()
             ->assertSeeInOrder([
                 'E321',

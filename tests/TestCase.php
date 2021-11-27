@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    use CreatesApplication, TestHelpers, DetectRepeatedQueries;
+    use CreatesApplication, TestHelpers, DetectRepeatedQueries, RequestAsAdmin;
 
     protected $defaultData;
 

@@ -17,7 +17,7 @@ class FilterArticlesTest extends TestCase
         $category = Category::factory()->create();
         Article::factory()->create(['category_id' => $category->id]);
 
-        $response = $this->get(route('articles.index'))
+        $response = $this->actingAs($this->getAdmin())->get(route('articles.index'))
             ->assertStatus(200)
             ->assertSee(trans('articles.filters.allergy'))
             ->assertSee(trans('articles.filters.veg'))
@@ -38,12 +38,12 @@ class FilterArticlesTest extends TestCase
         $agua = Article::factory()->create(['category_id' => $bebida->id]);
         $pizza= Article::factory()->create(['category_id' => $snack->id]);
 
-        $this->get(route('articles.index', ['category' => 'Bebidas']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['category' => 'Bebidas']))
             ->assertViewCollection('articles')
             ->contains($agua)
             ->notContains($pizza);
 
-        $this->get(route('articles.index', ['category' => 'Snacks']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['category' => 'Snacks']))
             ->assertViewCollection('articles')
             ->contains($pizza)
             ->notContains($agua);
@@ -63,12 +63,12 @@ class FilterArticlesTest extends TestCase
         $pizza->nutrition()->delete();
         $pizza->delete();
 
-        $this->get(route('articles.trashed', ['category' => 'Bebidas']))
+        $this->actingAs($this->getAdmin())->get(route('articles.trashed', ['category' => 'Bebidas']))
             ->assertViewCollection('articles')
             ->contains($agua)
             ->notContains($pizza);
 
-        $this->get(route('articles.trashed', ['category' => 'Snacks']))
+        $this->actingAs($this->getAdmin())->get(route('articles.trashed', ['category' => 'Snacks']))
             ->assertViewCollection('articles')
             ->contains($pizza)
             ->notContains($agua);
@@ -81,12 +81,12 @@ class FilterArticlesTest extends TestCase
         $withStock = Article::factory()->create(['category_id' => $category->id, 'stock' => 10]);
         $withoutStock= Article::factory()->create(['category_id' => $category->id, 'stock' => 0]);
 
-        $this->get(route('articles.index', ['stock' => 'with']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['stock' => 'with']))
             ->assertViewCollection('articles')
             ->contains($withStock)
             ->notContains($withoutStock);
 
-        $this->get(route('articles.index', ['stock' => 'without']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['stock' => 'without']))
             ->assertViewCollection('articles')
             ->contains($withoutStock)
             ->notContains($withStock);
@@ -108,12 +108,12 @@ class FilterArticlesTest extends TestCase
             'is_allergy' => false,
         ]);
 
-        $this->get(route('articles.index', ['allergy' => 'nonallergy']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['allergy' => 'nonallergy']))
             ->assertViewCollection('articles')
             ->contains($nonAllergy)
             ->notContains($allergy);
 
-        $this->get(route('articles.index', ['allergy' => 'allergy']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['allergy' => 'allergy']))
             ->assertViewCollection('articles')
             ->contains($allergy)
             ->notContains($nonAllergy);
@@ -135,12 +135,12 @@ class FilterArticlesTest extends TestCase
             'is_veg' => false,
         ]);
 
-        $this->get(route('articles.index', ['veg' => 'veg']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['veg' => 'veg']))
             ->assertViewCollection('articles')
             ->contains($veg)
             ->notContains($nonVeg);
 
-        $this->get(route('articles.index', ['veg' => 'nonveg']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['veg' => 'nonveg']))
             ->assertViewCollection('articles')
             ->contains($nonVeg)
             ->notContains($veg);

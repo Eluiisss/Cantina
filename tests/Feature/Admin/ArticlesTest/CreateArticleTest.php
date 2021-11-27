@@ -31,7 +31,7 @@ class CreateArticleTest extends TestCase
     {
         $category = Category::factory()->create(['name' => 'Comida']);
 
-        $this->get(route('articles.create'))
+        $this->actingAs($this->getAdmin())->get(route('articles.create'))
             ->assertStatus(200)
             ->assertSee('Nuevos productos')
             ->assertViewCollection('categories')
@@ -44,7 +44,7 @@ class CreateArticleTest extends TestCase
         $category = Category::factory()->create(['name' => 'Comida']);
         $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
-         $this->from(route('articles.create'))
+         $this->actingAs($this->getAdmin())->from(route('articles.create'))
             ->post(route('articles.store'), $this->withData([
                 'article_category' => $category->id,
                 'article_image' => $file,
@@ -79,6 +79,8 @@ class CreateArticleTest extends TestCase
     /** @test  */
     public function the_article_image_field_is_nullable()
     {
+        $this->actingAs($this->getAdmin());
+
         $category = Category::factory()->create(['name' => 'Comida']);
         $this->from(route('articles.create'))
             ->post(route('articles.store'), $this->withData([
@@ -113,7 +115,7 @@ class CreateArticleTest extends TestCase
     {
         $this->handleValidationExceptions();
 
-        $this->from(route('articles.create'))
+        $this->actingAs($this->getAdmin())->from(route('articles.create'))
             ->post(route('articles.store'), $this->withData([
                 'article_allergy' => 1,
                 'article_allergy_description' => null
@@ -126,7 +128,7 @@ class CreateArticleTest extends TestCase
     {
         $category = Category::factory()->create(['name' => 'Comida']);
 
-        $this->from(route('articles.create'))
+        $this->actingAs($this->getAdmin())->from(route('articles.create'))
             ->post(route('articles.store'), $this->withData([
                 'article_category' => $category->id,
                 'article_allergy' => 0,
@@ -349,7 +351,7 @@ class CreateArticleTest extends TestCase
     {
         $this->handleValidationExceptions();
 
-        $this->from(route('articles.create'))
+        $this->actingAs($this->getAdmin())->from(route('articles.create'))
             ->post(route('articles.store'), $this->withData([
                 $field => $value
             ]))->assertSessionHasErrors([$field])

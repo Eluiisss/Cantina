@@ -20,7 +20,7 @@ class ListArticlesTest extends TestCase
         Article::factory()->create(['name' => 'Zumo Brick', 'category_id' => $category->id]);
         Article::factory()->create(['name' => 'Croissant', 'category_id' => $category->id]);
 
-        $response = $this->get(route('articles.index'));
+        $response = $this->actingAs($this->getAdmin())->get(route('articles.index'));
         $response->assertStatus(200);
 
         $response->assertSee(trans('articles.title.index'));
@@ -38,7 +38,7 @@ class ListArticlesTest extends TestCase
     public function shows_a_default_message_is_articles_list_is_empty()
     {
         $this->assertDatabaseEmpty('articles');
-        $response = $this->get(route('articles.index'))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('articles.index'))->assertStatus(200);
         $response->assertSee('Sin datos');
     }
 
@@ -52,11 +52,11 @@ class ListArticlesTest extends TestCase
         Article::factory()->times(15)->create(['category_id' => $category->id]);
         Article::factory()->create(['name' => 'Agua', 'category_id' => $category->id]);
 
-        $response = $this->get(route('articles.index', ['page'=>'1']))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('articles.index', ['page'=>'1']))->assertStatus(200);
         $response->assertSeeInOrder(['Agua', 'Pizza']);
         $response->assertDontSee('Zumo Brick');
 
-        $response = $this->get(route('articles.index', ['page'=>'2']))->assertStatus(200);
+        $response = $this->actingAs($this->getAdmin())->get(route('articles.index', ['page'=>'2']))->assertStatus(200);
         $response->assertSee('Zumo Brick');
         $response->assertDontSee('Agua');
         $response->assertDontSee('Pizza');

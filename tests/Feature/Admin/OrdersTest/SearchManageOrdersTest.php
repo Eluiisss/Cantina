@@ -17,6 +17,7 @@ class SearchManageOrdersTest extends TestCase
     /** @test */
     public function search_order_by_order_code()
     {
+        $this->actingAs($this->getAdmin());
         $userPepe = $this->createUser('Pepe López');
 
         $firstOrder = Order::factory()->create([
@@ -38,6 +39,7 @@ class SearchManageOrdersTest extends TestCase
     /** @test */
     public function search_order_by_partial_order_code(){
 
+        $this->actingAs($this->getAdmin());
         $userPepe = $this->createUser('Pepe López');
 
         $firstOrder = Order::factory()->create([
@@ -65,6 +67,7 @@ class SearchManageOrdersTest extends TestCase
     /** @test */
     public function search_order_by_user_name()
     {
+        $this->actingAs($this->getAdmin());
         $userPepe = $this->createUser('Pepe López');
         $userJuan = $this->createUser('Juan López');
 
@@ -87,7 +90,7 @@ class SearchManageOrdersTest extends TestCase
     /** @test */
     public function search_order_by_partial_user_name(){
 
-
+        $this->actingAs($this->getAdmin());
         $userPepe = $this->createUser('Pepe López');
         $userJuan = $this->createUser('Juan López');
         $userPepe2 = $this->createUser('Pepe García');

@@ -19,7 +19,7 @@ class UpdateCategoryTest extends TestCase
     /** @test  */
     public function it_shows_the_edit_category_page()
     {
-        $this->get(route('categories.create'))
+        $this->actingAs($this->getAdmin())->get(route('categories.create'))
             ->assertStatus(200)
             ->assertSee('Nueva categoría');
     }
@@ -36,7 +36,7 @@ class UpdateCategoryTest extends TestCase
         ]);
         $file = UploadedFile::fake()->image('image.jpg', 100, 100);
 
-        $this->from(route('categories.edit', ['category' => $oldCategory]))
+        $this->actingAs($this->getAdmin())->from(route('categories.edit', ['category' => $oldCategory]))
             ->put(route('categories.update', ['category' => $oldCategory]), $this->withData([
                 'category_image' => $file
             ]))
@@ -60,7 +60,7 @@ class UpdateCategoryTest extends TestCase
     {
         $category = Category::factory()->create(['image' => 'cat-bebidas.jpg']);
 
-        $this->from(route('categories.edit', ['category' => $category]))
+        $this->actingAs($this->getAdmin())->from(route('categories.edit', ['category' => $category]))
             ->put(route('categories.update', ['category' => $category]), $this->withData([
                 'category_image' => null,
             ]))->assertRedirect(route('categories.show', ['category' => $category]));
@@ -91,7 +91,7 @@ class UpdateCategoryTest extends TestCase
     {
         $category = Category::factory()->create();
 
-        $this->from(route('categories.edit', ['category' => $category]))
+        $this->actingAs($this->getAdmin())->from(route('categories.edit', ['category' => $category]))
             ->put(route('categories.update', ['category' => $category]), $this->withData([
                 'category_description' => null,
             ]))->assertRedirect(route('categories.show', ['category' => $category]));
@@ -109,7 +109,7 @@ class UpdateCategoryTest extends TestCase
         Category::factory()->create(['name' => 'Bebidas']);
         $oldCategory = Category::factory()->create(['name' => 'Snacks']);
 
-        $this->from(route('categories.edit', ['category' => $oldCategory]))
+        $this->actingAs($this->getAdmin())->from(route('categories.edit', ['category' => $oldCategory]))
             ->put(route('categories.update', ['category' => $oldCategory]), $this->withData([
                 'category_name' => 'Bebidas',
             ]))->assertSessionHasErrors('category_name')
@@ -172,7 +172,7 @@ class UpdateCategoryTest extends TestCase
 
         $category = Category::factory()->create();
 
-        $this->from(route('categories.edit', ['category' => $category]))
+        $this->actingAs($this->getAdmin())->from(route('categories.edit', ['category' => $category]))
             ->put(route('categories.update', ['category' => $category]), $this->withData([
                 $field => $value
             ]))->assertSessionHasErrors([$field])

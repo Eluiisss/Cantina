@@ -18,7 +18,7 @@ class SearchArticlesTest extends TestCase
         $agua = Article::factory()->create(['category_id' => $category->id, 'name' => 'Agua']);
         $pizza = Article::factory()->create(['category_id' => $category->id, 'name' => 'Pizza']);
 
-        $this->get(route('articles.index', ['search' => 'Pizza']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['search' => 'Pizza']))
             ->assertViewCollection('articles')
             ->contains($pizza)
             ->notContains($agua);
@@ -32,7 +32,7 @@ class SearchArticlesTest extends TestCase
         $aguacola = Article::factory()->create(['category_id' => $category->id, 'name' => 'Aguacola']);
         $pizza = Article::factory()->create(['category_id' => $category->id, 'name' => 'Pizza']);
 
-        $this->get(route('articles.index', ['search' => 'Agua']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['search' => 'Agua']))
             ->assertViewCollection('articles')
             ->contains($agua)
             ->contains($aguacola)
@@ -47,7 +47,7 @@ class SearchArticlesTest extends TestCase
         $agua = Article::factory()->create(['category_id' => $bebida->id]);
         $pizza= Article::factory()->create(['category_id' => $snack->id]);
 
-        $this->get(route('articles.index', ['search' => 'Bebidas']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['search' => 'Bebidas']))
             ->assertViewCollection('articles')
             ->contains($agua)
             ->notContains($pizza);
@@ -62,7 +62,7 @@ class SearchArticlesTest extends TestCase
         $agua = Article::factory()->create(['category_id' => $bebida->id]);
         $pizza= Article::factory()->create(['category_id' => $snack->id]);
 
-        $this->get(route('articles.index', ['search' => 'Sna']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['search' => 'Sna']))
             ->assertViewCollection('articles')
             ->contains($pizza)
             ->notContains($agua);
@@ -85,7 +85,7 @@ class SearchArticlesTest extends TestCase
             'allergy_description' => 'Avellanas Voluptatibus fugiat in sint rem aut quos et sunt voluptates ad reiciendis.'
         ]);
 
-        $this->get(route('articles.index', ['search' => 'Avellanas']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['search' => 'Avellanas']))
             ->assertViewCollection('articles')
             ->contains($avellanas)
             ->notContains($gluten);
@@ -108,7 +108,7 @@ class SearchArticlesTest extends TestCase
             'allergy_description' => 'Avellanas Voluptatibus fugiat in sint rem aut quos et sunt voluptates ad reiciendis.'
         ]);
 
-        $this->get(route('articles.index', ['search' => 'Glut']))
+        $this->actingAs($this->getAdmin())->get(route('articles.index', ['search' => 'Glut']))
             ->assertViewCollection('articles')
             ->contains($gluten)
             ->notContains($avellanas);
