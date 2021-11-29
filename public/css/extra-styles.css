@@ -1,9 +1,4 @@
-/* Body extra fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
-
-body {
-    font-family: 'Poppins', sans-serif !important;
-}
+/* Loading screen */
 
 /* Buttons */
 .currentActive {
@@ -44,11 +39,17 @@ body {
 .main-color-blue-text {
     color: #004467;
 }
+.main-color-blue-text path {
+    fill: #004467;
+}
 .main-color-yellow-bg {
     background-color: #FFC000;
 }
 .main-color-yellow-text {
     color: #FFC000;
+}
+.main-color-yellow-text path {
+    fill: #FFC000 !important;
 }
 
 /* Text */
@@ -62,6 +63,27 @@ body {
         font-size: 0.5rem;
         line-height: 0.5rem;
     }
+
+/* Main Logo - IES CIERVA */
+.ieslogo::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-attachment: fixed;
+    background-image: url("../img/IdlC-logo.png");
+}
+
+/* Blur BG Components */
+.backdrop-filter {
+    backdrop-filter: blur(1em);
+}
 
 /* Animations */
 @media (min-width: 992px) {

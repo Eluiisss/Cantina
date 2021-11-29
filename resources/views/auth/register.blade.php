@@ -16,28 +16,28 @@
             <div>
                 <x-label for="name" :value="__('Nombre')" />
 
-                <x-input id="name" class="block mt-1 w-full main-color-blue-text" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full main-color-blue-text bg-transparent dark:main-color-yellow-text" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
             <!-- NRE -->
             <div class="mt-4">
                 <x-label for="nre" :value="__('Número Regional de Estudiante (NRE)')" />
 
-                <x-input id="nre" class="block mt-1 w-full main-color-blue-text" type="text" name="nre" :value="old('nre')" required />
+                <x-input id="nre" class="block mt-1 w-full main-color-blue-text bg-transparent dark:main-color-yellow-text" type="text" name="nre" :value="old('nre')" required />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full main-color-blue-text" type="email" name="email" :value="old('email')" required />
+                <x-input id="email" class="block mt-1 w-full main-color-blue-text bg-transparent dark:main-color-yellow-text" type="email" name="email" :value="old('email')" required />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Contraseña')" />
 
-                <x-input id="password" class="block mt-1 w-full main-color-blue-text"
+                <x-input id="password" class="block mt-1 w-full main-color-blue-text bg-transparent dark:main-color-yellow-text"
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" />
@@ -47,17 +47,17 @@
             <div class="mt-4">
                 <x-label for="password_confirmation" :value="__('Confirme su contraseña')" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full main-color-blue-text"
+                <x-input id="password_confirmation" class="block mt-1 w-full main-color-blue-text bg-transparent dark:main-color-yellow-text"
                                 type="password"
                                 name="password_confirmation" required />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                <a class="underline text-sm text-gray-600 dark:main-color-yellow-text transition duration-500" href="{{ route('login') }}">
                     {{ __('¿Ya te has registrado?') }}
                 </a>
 
-                <x-button class="ml-4">
+                <x-button class="ml-4 dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500">
                     {{ __('¡Regístrate!') }}
                 </x-button>
             </div>

@@ -27,7 +27,7 @@
         @method('PATCH')
 
         <div class="flex flex-shrink-0 ml-12 items-center justify-start font-medium text-sm md:px-4 md:justify-end md:ml-0">
-            <p class="px-2 main-color-blue-text text-2xs font-bold md:hidden">Acciones:</p>
+            <p class="px-2 main-color-blue-text text-2xs font-bold md:hidden dark:main-color-yellow-text transition duration-500">Acciones:</p>
             @if($row->isAn('user'))
                 @if($row->banned)
                     <a href="{{ route('users.bann', ['id' => $row->id]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 mx-3 bg-red-700 rounded-md">

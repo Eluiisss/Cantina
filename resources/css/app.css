@@ -1,3 +1,44 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        font-family: Poppins, sans-serif !important;
+    }
+}
+
+@layer utilities {
+
+    .backdrop-filter {
+        backdrop-filter: blur(5px);
+    }
+
+    @variants dark {
+        .main-color-blue-bg {
+            background-color: #004467 !important;
+        }
+        .main-color-blue-text {
+            color: #004467 !important;
+        }
+        .main-color-blue-text path {
+            fill: #004467 !important;
+        }
+        .main-color-blue-text svg path {
+            fill: #004467 !important;
+        }
+        .main-color-yellow-bg {
+            background-color: #FFC000 !important;
+        }
+        .main-color-yellow-text {
+            color: #FFC000 !important;
+        }
+        .main-color-yellow-text path {
+            fill: #FFC000 !important;
+        }
+        .main-color-yellow-text svg path {
+            fill: #FFC000 !important;
+        }
+    }
+
+}

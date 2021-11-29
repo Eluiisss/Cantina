@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/extra-styles.css') }}">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript">
@@ -32,261 +37,21 @@
         }
     </script>
 </head>
-<body class="bg-gray-100">
-<div class="flex h-screen bg-white" x-data="{ open: false }">
-    <div class="bg-gray-100 dark:bg-gray-800">
-        <div class="flex flex-col w-screen h-screen md:w-96"  x-show="open"
-             x-transition:enter="transition ease-out duration-500"
-             x-transition:enter-start="opacity-100 transform -translate-x-full"
-             x-transition:enter-end="opacity-100 transform translate-x-0"
-             x-transition:leave="transition ease-in duration-500"
-             x-transition:leave-start="opacity-100 transform translate-x-0"
-             x-transition:leave-end="opacity-100 transform -translate-x-full">
-            <div class="flex flex-col flex-grow pt-4 border-r">
-                <div class="flex justify-between px-6">
-                    <button x-data onclick="toggleDarkMode()" class="focus:outline-none focus:shadow-outline">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 15.31L23.31 12L20 8.69V4H15.31L12 0.690002L8.69 4H4V8.69L0.690002 12L4 15.31V20H8.69L12 23.31L15.31 20H20V15.31ZM12 18V6C15.31 6 18 8.69 18 12C18 15.31 15.31 18 12 18Z" fill="#004467"/>
-                        </svg>
-                    </button>
-                    <button class="md:hidden focus:outline-none focus:shadow-outline text-right font-light text-xs main-color-blue-text uppercase" x-on:click="open = ! open">
-                        Volver
-                        <svg width="57" height="8" viewBox="0 0 57 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.646492 3.83288C0.451229 4.02814 0.451229 4.34472 0.646492 4.53999L3.82847 7.72197C4.02374 7.91723 4.34032 7.91723 4.53558 7.72197C4.73084 7.5267 4.73084 7.21012 4.53558 7.01486L1.70715 4.18643L4.53558 1.358C4.73084 1.16274 4.73084 0.84616 4.53558 0.650898C4.34032 0.455636 4.02374 0.455636 3.82847 0.650898L0.646492 3.83288ZM56.9323 3.68643L1.00005 3.68643V4.68643L56.9323 4.68643V3.68643Z" fill="#004467"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="py-8 flex flex-col items-center flex-shrink-0 px-4">
-                    <a href="/" class="px-8 focus:outline-none text-center ">
-                        <img class="shadow-lg" src="{{ URL::asset('img/IdlC.png') }}" alt="Logo Ingeniero de la Cierva" width="200" height="56">
-                    </a>
-                    <span class="mt-3 font-light text-sm main-color-blue-text">
-                            @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
-                            Panel de administración
-                        @else
-                            ¡Bienvenido a la cantina!
-                        @endif
-                        </span>
-                </div>
-                <div class="flex flex-col items-center flex-grow px-4 mt-5">
-                    <nav class="flex-1 space-y-1 bg-neutral-800">
-                        @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
-                            <ul>
-                                <li>
-                                    <a class="{{ (request()->routeIs('dashboard.index')) | (request()->is('dashboard/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('home') }}" style="width: 200px">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Dashboard</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="{{ (request()->routeIs('users.index')) | (request()->is('users/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('users.index') }}">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 3H14.82C14.4 1.84 13.3 1 12 1C10.7 1 9.6 1.84 9.18 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 3C12.55 3 13 3.45 13 4C13 4.55 12.55 5 12 5C11.45 5 11 4.55 11 4C11 3.45 11.45 3 12 3ZM12 7C13.66 7 15 8.34 15 10C15 11.66 13.66 13 12 13C10.34 13 9 11.66 9 10C9 8.34 10.34 7 12 7ZM18 19H6V17.6C6 15.6 10 14.5 12 14.5C14 14.5 18 15.6 18 17.6V19Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Usuarios</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="{{ (request()->routeIs('articles.index')) | (request()->is('food/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('articles.index') }}">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M18.06 22.99H19.72C20.56 22.99 21.25 22.35 21.35 21.53L23 5.05H18V1H16.03V5.05H11.06L11.36 7.39C13.07 7.86 14.67 8.71 15.63 9.65C17.07 11.07 18.06 12.54 18.06 14.94V22.99ZM1 21.99V21H16.03V21.99C16.03 22.54 15.58 22.99 15.02 22.99H2.01C1.45 22.99 1 22.54 1 21.99ZM16.03 14.99C16.03 6.99 1 6.99 1 14.99H16.03ZM1.02 17H16.02V19H1.02V17Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Artículos</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('categories.index') }}">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 13H4C3.45 13 3 13.45 3 14V20C3 20.55 3.45 21 4 21H20C20.55 21 21 20.55 21 20V14C21 13.45 20.55 13 20 13ZM7 19C5.9 19 5 18.1 5 17C5 15.9 5.9 15 7 15C8.1 15 9 15.9 9 17C9 18.1 8.1 19 7 19ZM20 3H4C3.45 3 3 3.45 3 4V10C3 10.55 3.45 11 4 11H20C20.55 11 21 10.55 21 10V4C21 3.45 20.55 3 20 3ZM7 9C5.9 9 5 8.1 5 7C5 5.9 5.9 5 7 5C8.1 5 9 5.9 9 7C9 8.1 8.1 9 7 9Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Categorías</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transform hover:translate-x-2 transition-transform ease-in duration-200 rounded-lg bg-white focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M22.6999 19L13.5999 9.9C14.4999 7.6 13.9999 4.9 12.0999 3C10.0999 0.999997 7.09994 0.599997 4.69994 1.7L8.99994 6L5.99994 9L1.59994 4.7C0.399939 7.1 0.899939 10.1 2.89994 12.1C4.79994 14 7.49994 14.5 9.79994 13.6L18.8999 22.7C19.2999 23.1 19.8999 23.1 20.2999 22.7L22.5999 20.4C23.0999 20 23.0999 19.3 22.6999 19Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Ajustes</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        @else
-                            <ul>
-                                <li>
-                                    <a class="{{ (request()->routeIs('shop.index')) | (request()->is('shop/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('shop.index') }}">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase">
-                                            {{ (request()->routeIs('shop.index')) ? print('Vamos... ¡pide algo!') : print('¡A la cantina!') }}
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="{{ (request()->routeIs('users.index')) | (request()->is('users/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.09999 13.34L10.93 10.51L3.90999 3.50002C2.34999 5.06002 2.34999 7.59002 3.90999 9.16002L8.09999 13.34V13.34ZM14.88 11.53C16.41 12.24 18.56 11.74 20.15 10.15C22.06 8.24002 22.43 5.50002 20.96 4.03002C19.5 2.57002 16.76 2.93002 14.84 4.84002C13.25 6.43002 12.75 8.58002 13.46 10.11L3.69999 19.87L5.10999 21.28L12 14.41L18.88 21.29L20.29 19.88L13.41 13L14.88 11.53V11.53Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Comida</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="{{ (request()->routeIs('articles.index')) | (request()->is('food/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 3H4V13C4 15.21 5.79 17 8 17H14C16.21 17 18 15.21 18 13V10H20C21.11 10 22 9.1 22 8V5C22 3.89 21.11 3 20 3ZM20 8H18V5H20V8ZM4 19H20V21H4V19Z" fill="#004467"/>
-                                        </svg>
-                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Bebida</span>
-                                    </a>
-                                </li>
-                                @role('user')
-                                <li>
-                                    <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM1 2V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.28 15 7.17 14.89 7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L20.88 5.48C20.96 5.34 21 5.17 21 5C21 4.45 20.55 4 20 4H5.21L4.27 2H1ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18Z" fill="#004467"/>
-                                        </svg>
-                                        <div class="flex w-full justify-between">
-                                            <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Tu carrito</span>
-                                            <span class="font-light text-xs main-color-blue-text">{{ count((array)session('cart'))?? 0 }} &euro;</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transform hover:translate-x-2 transition-transform ease-in duration-200 rounded-lg bg-white focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 3H14.82C14.4 1.84 13.3 1 12 1C10.7 1 9.6 1.84 9.18 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 3C12.55 3 13 3.45 13 4C13 4.55 12.55 5 12 5C11.45 5 11 4.55 11 4C11 3.45 11.45 3 12 3ZM12 7C13.66 7 15 8.34 15 10C15 11.66 13.66 13 12 13C10.34 13 9 11.66 9 10C9 8.34 10.34 7 12 7ZM18 19H6V17.6C6 15.6 10 14.5 12 14.5C14 14.5 18 15.6 18 17.6V19Z" fill="#004467"/>
-                                        </svg>
-                                        <div class="flex w-full justify-between">
-                                            <span class="ml-4 font-light text-xs main-color-blue-text uppercase"> Tu perfil</span>
-                                            @if((Auth::user())->banned == 0)
-                                                <svg class="justify-end" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.00004 1.33331C4.31337 1.33331 1.33337 4.31331 1.33337 7.99998C1.33337 11.6866 4.31337 14.6666 8.00004 14.6666C11.6867 14.6666 14.6667 11.6866 14.6667 7.99998C14.6667 4.31331 11.6867 1.33331 8.00004 1.33331ZM11.3334 10.3933L10.3934 11.3333L8.00004 8.93998L5.60671 11.3333L4.66671 10.3933L7.06004 7.99998L4.66671 5.60665L5.60671 4.66665L8.00004 7.05998L10.3934 4.66665L11.3334 5.60665L8.94004 7.99998L11.3334 10.3933Z" fill="#E20000"/>
-                                                </svg>
-                                            @else
-                                                <svg class="justify-end" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.00004 1.33331C4.32004 1.33331 1.33337 4.31998 1.33337 7.99998C1.33337 11.68 4.32004 14.6666 8.00004 14.6666C11.68 14.6666 14.6667 11.68 14.6667 7.99998C14.6667 4.31998 11.68 1.33331 8.00004 1.33331ZM6.66671 11.3333L3.33337 7.99998L4.27337 7.05998L6.66671 9.44665L11.7267 4.38665L12.6667 5.33331L6.66671 11.3333Z" fill="#60A06C"/>
-                                                </svg>
-                                            @endif
-                                        </div>
-                                    </a>
-                                </li>
-                                @endrole
-                            </ul>
-                        @endif
+<body class="bg-gray-100 dark:bg-gray-800 transition duration-500">
+    <div wire:loading class="loading-screen flex w-screen h-screen mx-auto items-center justify-center absolute z-50 overflow-hidden hidden bg-gray-100 dark:bg-gray-800 transition duration-500">
+        <img src="{{ URL::asset('img/Loading.png') }}" alt="Loading..." width="200" height="auto">
+    </div>
+    <div class="flex h-screen bg-white" x-data="{ open: false }">
 
-                        @role('administrator|employee')
-                            <div class="pt-16 pb-1 flex flex-col items-center">
-                                <span class="font-light text-sm main-color-blue-text">Enlaces directos</span>
-                            </div>
-                            <ul class="flex space-x-3">
-                                <li>
-                                    <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="/">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="#004467"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.09999 13.34L10.93 10.51L3.90999 3.5C2.34999 5.06 2.34999 7.59 3.90999 9.16L8.09999 13.34ZM14.88 11.53C16.41 12.24 18.56 11.74 20.15 10.15C22.06 8.24 22.43 5.5 20.96 4.03C19.5 2.57 16.76 2.93 14.84 4.84C13.25 6.43 12.75 8.58 13.46 10.11L3.69999 19.87L5.10999 21.28L12 14.41L18.88 21.29L20.29 19.88L13.41 13L14.88 11.53Z" fill="#004467"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 3H4V13C4 15.21 5.79 17 8 17H14C16.21 17 18 15.21 18 13V10H20C21.11 10 22 9.1 22 8V5C22 3.89 21.11 3 20 3ZM20 8H18V5H20V8ZM4 19H20V21H4V19Z" fill="#004467"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline" white="" 70="" href="#">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15 18.5C12.49 18.5 10.32 17.08 9.24 15H15V13H8.58C8.53 12.67 8.5 12.34 8.5 12C8.5 11.66 8.53 11.33 8.58 11H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5C16.61 5.5 18.09 6.09 19.23 7.07L21 5.3C19.41 3.87 17.3 3 15 3C11.08 3 7.76 5.51 6.52 9H3V11H6.06C6.02 11.33 6 11.66 6 12C6 12.34 6.02 12.67 6.06 13H3V15H6.52C7.76 18.49 11.08 21 15 21C17.31 21 19.41 20.13 21 18.7L19.22 16.93C18.09 17.91 16.62 18.5 15 18.5Z" fill="#004467"/>
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                        @endrole
+        <x-sidenav />
 
-                        @role('user')
-                            <div class="pt-16 pb-1 flex flex-col items-center">
-                                <img class="h-24 py-2 rounded-full" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
-                                <span class="font-light py-1 text-sm main-color-blue-text font-bold">{{ (Auth::user())->name }}</span>
-                                <span class="font-light py-1 text-2xs main-color-blue-text">Tus puntos: 200</span>
-                                <div class="pt-1 w-full">
-                                    <div class="h-2 text-xs flex rounded main-color-yellow-bg">
-                                        <div class="w-1/3 shadow-none flex flex-col rounded text-center whitespace-nowrap text-white justify-center main-color-blue-bg"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endrole
-
-                    </nav>
-                </div>
-            </div>
-
-            @if(Auth::user())
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <div class="pt-10 pb-10 flex flex-col items-center" x-data="{ show: false }">
-                        <div class="flex flex-col px-2 py-2 mb-4 items-center rounded-lg bg-white" x-show="show">
-                            <span class="font-light text-sm main-color-blue-text">¿Deseas cerrar sesión?</span>
-                            <div class="flex flex-auto py-2 justify-between">
-                                <button type="button" class="main-color-blue-bg main-color-yellow-text text-xs uppercase w-1/2 mx-2 p-2 rounded-lg" x-on:click="show = ! show">Cancelar</button>
-                                <button type="submit" class="bg-red-700 text-white text-xs uppercase w-1/2 p-2 mx-2 rounded-lg">Aceptar</button>
-                            </div>
-                        </div>
-                        <button type="button" class="block inline-flex items-center p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-red-700 focus:shadow-outline" white="" 70="" x-on:click="show = ! show">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 3H11V13H13V3ZM17.83 5.17L16.41 6.59C17.99 7.86 19 9.81 19 12C19 15.87 15.87 19 12 19C8.13 19 5 15.87 5 12C5 9.81 6.01 7.86 7.58 6.58L6.17 5.17C4.23 6.82 3 9.26 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 9.26 19.77 6.82 17.83 5.17Z" fill="white"/>
-                            </svg>
-                        </button>
-                        <span class="pt-2 font-light text-sm text-red-700">Cerrar sesión</span>
-                    </div>
-                </form>
-            @else
-                <div class="flex py-2 justify-between">
-                    <a href="{{ route('login') }}" class="main-color-blue-bg main-color-yellow-text text-xs text-center uppercase w-1/2 mx-2 p-2 rounded-lg">Iniciar Sesión</a>
-                    <a href="{{ route('register') }}" class="main-color-yellow-bg main-color-blue-text text-xs text-center uppercase w-1/2 p-2 mx-2 rounded-lg">Registrarse</a>
-                </div>
-            @endif
-
+        <div class="flex flex-col flex-1 w-0 overflow-hidden">
+            <x-open-close-navbar />
+            <main class="ieslogo relative flex-1 overflow-y-auto overflow-x-hidden focus:outline-none bg-gray-100 dark:bg-gray-800 transition duration-500 z-10">
+                {{ $slot }}
+            </main>
         </div>
     </div>
-    <div class="flex flex-col flex-1 w-0 overflow-hidden">
-        <div class="px-1 mt-16 absolute z-10 main-color-blue-bg rounded-r-xl shadow-lg">
-            <button class="focus:outline-none focus:shadow-outline" :class="open ? 'hidden md:block' : ''" x-on:click="open = ! open">
-                <div x-show="!open">
-                    <svg width="35" height="56" viewBox="0 0 35 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M34.3536 28.3536C34.5488 28.1583 34.5488 27.8417 34.3536 27.6464L31.1716 24.4645C30.9763 24.2692 30.6597 24.2692 30.4645 24.4645C30.2692 24.6597 30.2692 24.9763 30.4645 25.1716L33.2929 28L30.4645 30.8284C30.2692 31.0237 30.2692 31.3403 30.4645 31.5355C30.6597 31.7308 30.9763 31.7308 31.1716 31.5355L34.3536 28.3536ZM20 28.5L34 28.5V27.5L20 27.5V28.5Z" fill="#FFC000"/>
-                        <path d="M8.07 37.072C8.65 37.072 9.13333 37.272 9.52 37.672C9.9 38.0653 10.09 38.6686 10.09 39.482V40.822L13 40.822V41.732H6.03V39.482C6.03 38.6953 6.22 38.0986 6.6 37.692C6.98 37.2786 7.47 37.072 8.07 37.072ZM9.34 39.482C9.34 38.9753 9.23 38.602 9.01 38.362C8.79 38.122 8.47667 38.002 8.07 38.002C7.21 38.002 6.78 38.4953 6.78 39.482V40.822H9.34V39.482ZM11.45 31.8209V34.8609L13 35.4209V36.3809L6.07 33.8609V32.8109L13 30.3009V31.2609L11.45 31.8209ZM10.71 32.0809L7.19 33.3409L10.71 34.6009V32.0809ZM13 23.7227V24.6327L7.45 28.2927H13V29.2027H6.02V28.2927L11.56 24.6327H6.02V23.7227H13ZM6.77 21.2614H9.1V18.7214H9.85V21.2614H12.25V18.4214H13V22.1714H6.02V18.4214H6.77V21.2614ZM12.26 16.1345L12.26 13.6945H13L13 17.0445H6.03V16.1345H12.26Z" fill="#FFC000"/>
-                    </svg>
-                </div>
-                <div class="py-5 px-3" x-show="open">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="0.646447" y1="14.7886" x2="14.7886" y2="0.646461" stroke="#FFC000"/>
-                        <line x1="1.35355" y1="0.646447" x2="15.4957" y2="14.7886" stroke="#FFC000"/>
-                    </svg>
-                </div>
-            </button>
-        </div>
-        <main class="relative flex-1 overflow-y-auto focus:outline-none bg-gray-100">
-            <div class="py-6">
-                <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-                    <!-- Put your content here -->
-                    <div class="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
-                        {{ $slot }}
-                    </div>
-                    <!-- Do not cross the closing tag underneath this coment-->
-                </div>
-            </div>
-        </main>
-    </div>
-</div>
-@livewireScripts
+    @livewireScripts
 </body>
 </html>

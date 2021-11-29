@@ -1,16 +1,16 @@
 <div>
     <div class="p-4 border-b">
-        <h2 class="text-2xl ">
+        <h2 class="text-2xl main-color-blue-text dark:main-color-yellow-text transition duration-500">
             Información nutricional
         </h2>
     </div>
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="text-gray-600">Vegetariano</p>
+        <p class="text-gray-600 main-color-blue-text dark:main-color-yellow-text transition duration-500">Vegetariano</p>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-{{$article->nutrition->is_veg?"green":"red"}}-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="{{$article->nutrition->is_veg? "M5 13l4 4L19 7":"M6 18L18 6M6 6l12 12"}}" />
         </svg>
-        <p class="text-gray-600">Libre de alergenos</p>
+        <p class="text-gray-600 main-color-blue-text dark:main-color-yellow-text transition duration-500">Libre de alergenos</p>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-{{!$article->nutrition->is_allergy?"green":"red"}}-600"
              fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -18,29 +18,29 @@
         </svg>
     </div>
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="text-gray-600">Proteinas</p>
-        <p>{{$article->nutrition->proteins}} g.</p>
-        <p class="text-gray-600">Sal</p>
-        <p>{{$article->nutrition->sodium}} g.</p>
-        <p class="text-gray-600">Calorías</p>
-        <p>{{$article->nutrition->calories}} kcal.</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Proteinas</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->nutrition->proteins}} g.</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Sal</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->nutrition->sodium}} g.</p>
+        <p class=" main-color-blue-text dark:main-color-yellow-text transition duration-500">Calorías</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->nutrition->calories}} kcal.</p>
     </div>
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="text-gray-600">
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">
             Ingredientes
         </p>
-        <p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">
             {{$article->nutrition->ingredients_description}}
         </p>
     </div>
     @if($article->nutrition->is_allergy)
         <div class="p-4 border-b">
-            <h2 class="text-2xl ">
+            <h2 class="text-2xl main-color-blue-text dark:main-color-yellow-text transition duration-500">
                 Información sobre alergenos
             </h2>
         </div>
         <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-            <p class="text-gray-600">
+            <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">
                 Acerca de alergenos
             </p>
             <div class="p-6 border-l-4 border-yellow-600 rounded-r-xl bg-yellow-50">

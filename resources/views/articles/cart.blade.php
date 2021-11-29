@@ -39,7 +39,7 @@
               <td class="justify-center md:justify-end md:flex mt-6">
                 <div class="w-20 h-10">
                   <div class="relative flex flex-row w-full h-8">
-                  <input type="number" value="{{ $info['quantity'] }}" 
+                  <input type="number" value="{{ $info['quantity'] }}"
                     class="w-full font-semibold text-center text-gray-700 bg-gray-200 outline-none focus:outline-none hover:text-black focus:text-black" />
                   </div>
                 </div>
@@ -54,7 +54,7 @@
                     "{{ $info['price'] * $info['quantity'] }}"
                 </span>
               </td>
-            </tr> 
+            </tr>
             @endforeach
             @endif
           </tbody>
@@ -73,7 +73,7 @@
             </div>
             <div class="p-4">
               <p class="mb-6 italic">Recoger en la cantina del instituto</p>
-               
+
                   <div class="flex justify-between pt-4 border-b">
                   </div>
                   <div class="flex justify-between pt-4 border-b">
@@ -81,8 +81,8 @@
                       Total
                     </div>
                     <div class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900">
-                      {{$total}}
-                      {{session()->put('totalPayment', $total);}}
+                      {{$total ?? ''}}
+                      {{session()->put('totalPayment', $total ?? '');}}
                     </div>
                   </div>
                 <a href="{{route('shop.checkout')}}">
