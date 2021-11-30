@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Shop;
@@ -12,20 +13,10 @@ use Stripe;
 
 class ShopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $cart = Cart::content();
-        $articles = Article::query()
-            ->with('nutrition', 'category')
-            ->where('stock','>', 0)
-            ->orderBy('name')
-            ->paginate();
-        return view('shop.index', compact('articles','cart'));
+        return view('shop.index');
     }
 
     public function show(Article $article)
@@ -47,9 +38,9 @@ class ShopController extends Controller
                 "source" => $request->stripeToken,
                 "description" => "Test payment from cantina.com.",
         ]);
-  
+
         Session::flash('success', 'Payment successful!');
-          
+
         return back();
     }
 
