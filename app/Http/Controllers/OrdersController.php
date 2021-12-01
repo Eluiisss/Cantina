@@ -39,8 +39,7 @@ class OrdersController extends Controller
         $order = Order::create([
             'user_id' => Auth::id(),
             'created_at' => $date,
-            //$this->faker->randomLetter.$this->faker->numerify('###')
-            'order_code' => 'a111',
+            'order_code' => 'a111',//cambiar
             'order_status' => 'pendiente',
             'payment_status' => 'sin_pagar',
 

@@ -26,7 +26,9 @@ class CartController extends Controller
             $article->discounted_price,
             
         );
-        Session::put($article->name, $article->image);
+        //$artImg=$article->name;
+        Session::put([$article->name.''.$article->id => $article->image]);
+        //dd( Session::get($article->name.''.$article->id));
         
         return redirect('shop')->with('message','Artículo añadido correctamente');
     }
@@ -46,7 +48,8 @@ class CartController extends Controller
 
         $article=Article::findOrFail($request->input('article_id'));
         $articleRow = $this->findInCart($article->id);
-
+        
+        Session::forget($article->name.''.$article->id);
         Cart::remove($articleRow);
 
         return redirect('shop')->with('message','Artículo eliminado correctamente');

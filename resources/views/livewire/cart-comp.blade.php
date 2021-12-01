@@ -19,7 +19,7 @@
             @foreach($cart as $art)
             <tr>
               <td class="pb-4 md:table-cell">
-                  <img src="{{asset('storage/img/articles/'.Session::get($art->name))}}" class="w-20 rounded" alt="IMAGEN">
+                  <img src="{{asset('storage/img/articles/'.Session::get($art->name.''.$art->id))}}" class="w-20 rounded" alt="IMAGEN">
               </td>
               <td>
                   <p class="mb-2 md:ml-4"> {{$art->name}}</p>
