@@ -75,7 +75,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/users/{id}/papelera', [UserController::class, 'restore'])->middleware(['role:administrator|employee'])->name('users.restore');
     Route::patch('/users/{user}/papelera', [UserController::class, 'trash'])->middleware(['role:administrator|employee'])->name('users.trash');
     Route::get('/users/createEmployee', [UserController::class, 'createEmployee'])->middleware(['role:administrator'])->name('users.createEmployee');
-    Route::post('/users/', [UserController::class, 'storeEmployee'])->middleware(['role:administrator'])->name('users.storeEmployee');
+    Route::post('/users/', [UserController::class, 'storeEmployee'])->name('users.storeEmployee');
 });
 
 require __DIR__.'/auth.php';
