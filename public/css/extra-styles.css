@@ -86,6 +86,36 @@
 }
 
 /* Animations */
+
+    /* Loading Screen */
+    .loading-screen::before {
+        content: '';
+        position: absolute;
+        width: 350px;
+        height: 15%;
+        top: 0;
+        left: 0;
+
+        border-top: 60px solid #004467;
+        border-bottom: 50px solid #FFC000;
+
+        transform: rotate(-45deg) translate(-20%, -85%);
+    }
+    .loading-screen::after {
+        content: '';
+        position: absolute;
+        width: 350px;
+        height: 15%;
+        bottom: 0;
+        right: 0;
+
+        border-top: 60px solid #FFC000;
+        border-bottom: 50px solid #004467;
+
+        transform: rotate(135deg) translate(-80px, -85%);
+    }
+
+/* Responsive */
 @media (min-width: 992px) {
 
     .extend-width:hover {

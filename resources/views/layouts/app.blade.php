@@ -17,6 +17,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         //On page load or when changing themes, best to add inline in `head` to avoid FOUC
         window.onload = function() {
@@ -35,10 +36,15 @@
                 // Whenever the user explicitly chooses dark mode
             }
         }
+
+        $(window).on("load", function() {
+            $(".loading-screen").fadeOut("slow");
+        });
+
     </script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-800 transition duration-500">
-    <div wire:loading class="loading-screen flex w-screen h-screen mx-auto items-center justify-center absolute z-50 overflow-hidden hidden bg-gray-100 dark:bg-gray-800 transition duration-500">
+    <div class="loading-screen flex w-screen h-screen mx-auto items-center justify-center absolute z-50 overflow-hidden bg-gray-100 dark:bg-gray-800 transition duration-500">
         <img src="{{ URL::asset('img/Loading.png') }}" alt="Loading..." width="200" height="auto">
     </div>
     <div class="flex h-screen bg-white" x-data="{ open: false }">

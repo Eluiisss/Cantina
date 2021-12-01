@@ -27,6 +27,9 @@
         .main-color-blue-text svg path {
             fill: #004467 !important;
         }
+        .main-color-blue-text svg line {
+            stroke: #004467 !important;
+        }
         .main-color-yellow-bg {
             background-color: #FFC000 !important;
         }
@@ -38,6 +41,9 @@
         }
         .main-color-yellow-text svg path {
             fill: #FFC000 !important;
+        }
+        .main-color-yellow-text svg line {
+            stroke: #FFC000 !important;
         }
     }
 
