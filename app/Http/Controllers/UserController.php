@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //use App\Http\Requests\CreateUser;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\CreateEmployeeRequest;
 use App\Models\{User,Sortable,UserFilter,Role};
 use Illuminate\Http\Request;
 
@@ -73,6 +74,18 @@ class UserController extends Controller
         $user->forceDelete();
 
         return redirect()->route('users.trashed');
+    }
+
+    public function createEmployee(User $user)
+    {
+
+        return view('users.employee',['user' => $user]);
+    }
+
+    public function storeEmployee(CreateEmployeeRequest $request)
+    {   
+        $request->createEmp();
+        return redirect(route('users.index'));
     }
 
 }

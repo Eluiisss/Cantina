@@ -26,9 +26,9 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/shop/{article}/show', [ShopController::class, 'show'])->name('shop.show');
 
 Route::post('/cart/', [CartController::class, 'store'])->name('cart.store');
+Route::get('/cart', [CartController::class, 'cart'])->name('shop.cart');
 
 Route::get('/addToCart/{id}', [ArticlesController::class, 'addToCart'])->name('article.addToCart');
-Route::get('/cart', [ArticlesController::class, 'cart'])->name('article.cart');
 
 Route::get('/checkout',[ShopController::class, 'checkout'])->middleware(['role:user|administrator'])->name('shop.checkout');
 Route::post('/payment',[ShopController::class, 'paymentAction'])->middleware(['role:user|administrator'])->name('shop.payment');
@@ -41,6 +41,8 @@ Route::post('/orders/', [OrdersController::class, 'store'])->name('orders.store'
 Route::get('/orders/{order}/edit', [OrdersController::class, 'edit'])->name('orders.edit');
 Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
 Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
+Route::get('/orders/createNotPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.notPayed');
+Route::get('/orders/createPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.Payed');
 
 Route::get('/food', [ArticlesController::class, 'index'])->middleware(['role:employee|administrator'])->name('articles.index');
 Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');
@@ -72,6 +74,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/bann/{id}', [UserController::class, 'bann'])->middleware(['role:administrator|employee'])->name('users.bann');
     Route::put('/users/{id}/papelera', [UserController::class, 'restore'])->middleware(['role:administrator|employee'])->name('users.restore');
     Route::patch('/users/{user}/papelera', [UserController::class, 'trash'])->middleware(['role:administrator|employee'])->name('users.trash');
+    Route::get('/users/createEmployee', [UserController::class, 'createEmployee'])->middleware(['role:administrator'])->name('users.createEmployee');
+    Route::post('/users/', [UserController::class, 'storeEmployee'])->middleware(['role:administrator'])->name('users.storeEmployee');
 });
 
 require __DIR__.'/auth.php';

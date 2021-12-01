@@ -40,7 +40,7 @@
                             </defs>
                         </svg>
                     </a>
-                    <a href="#" class="px-1 py-1 md:px-2 md:py-2 main-color-blue-bg main-color-yellow-text rounded-r-md">
+                    <a href="{{route('users.createEmployee')}}" class="px-1 py-1 md:px-2 md:py-2 main-color-blue-bg main-color-yellow-text rounded-r-md">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.8333 10.8333H10.8333V15.8333H9.16663V10.8333H4.16663V9.16666H9.16663V4.16666H10.8333V9.16666H15.8333V10.8333Z" fill="#FFC000"/>
                         </svg>
