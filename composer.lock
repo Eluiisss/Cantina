@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c616b8ca96a7d5c612bfb596c5071377",
+    "content-hash": "2881c320a4546defb1584a6df3e46d1d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3204,17 +3204,81 @@
             "time": "2021-03-03T13:34:32+00:00"
         },
         {
-            "name": "stripe/stripe-php",
-            "version": "v7.103.0",
+            "name": "srmklive/paypal",
+            "version": "3.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "3a029598395bb4c7cfafa64707a553f4b01a9a12"
+                "url": "https://github.com/srmklive/laravel-paypal.git",
+                "reference": "7119cdb281df47ab7b9e72ab195c75732cf8845b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/3a029598395bb4c7cfafa64707a553f4b01a9a12",
-                "reference": "3a029598395bb4c7cfafa64707a553f4b01a9a12",
+                "url": "https://api.github.com/repos/srmklive/laravel-paypal/zipball/7119cdb281df47ab7b9e72ab195c75732cf8845b",
+                "reference": "7119cdb281df47ab7b9e72ab195c75732cf8845b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~7.0",
+                "illuminate/support": "~6.0|~7.0|~8.0",
+                "nesbot/carbon": "~2.0",
+                "php": ">=7.2|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0|^9.0",
+                "symfony/var-dumper": "~5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Srmklive\\PayPal\\Providers\\PayPalServiceProvider"
+                    ],
+                    "aliases": {
+                        "PayPal": "Srmklive\\PayPal\\Facades\\PayPal"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Srmklive\\PayPal\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raza Mehdi",
+                    "email": "srmk@outlook.com"
+                }
+            ],
+            "description": "Laravel plugin For Processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
+            "keywords": [
+                "http",
+                "laravel paypal",
+                "paypal",
+                "rest",
+                "web service"
+            ],
+            "support": {
+                "issues": "https://github.com/srmklive/laravel-paypal/issues",
+                "source": "https://github.com/srmklive/laravel-paypal/tree/3.0.9"
+            },
+            "time": "2021-11-28T18:39:08+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v7.104.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "6bfd895eaa3f6ebb49c10f9ab9ccc9e5baadded5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/6bfd895eaa3f6ebb49c10f9ab9ccc9e5baadded5",
+                "reference": "6bfd895eaa3f6ebb49c10f9ab9ccc9e5baadded5",
                 "shasum": ""
             },
             "require": {
@@ -3224,11 +3288,10 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "2.17.1",
-                "php-coveralls/php-coveralls": "^2.1",
-                "phpunit/phpunit": "^5.7",
-                "squizlabs/php_codesniffer": "^3.3",
-                "symfony/process": "~3.4"
+                "friendsofphp/php-cs-fixer": "3.2.1",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.3"
             },
             "type": "library",
             "extra": {
@@ -3260,9 +3323,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.103.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.104.0"
             },
-            "time": "2021-11-20T00:36:07+00:00"
+            "time": "2021-12-01T22:24:54+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
