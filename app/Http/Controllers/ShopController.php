@@ -8,6 +8,7 @@ use App\Models\Shop;
 use App\Models\User;
 use Laravel\Cashier\Exceptions\IncompletePayment;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 use Session;
 use Stripe;
 
@@ -21,13 +22,16 @@ class ShopController extends Controller
 
     public function show(Article $article)
     {
-        return view('shop.show', compact('article'));
+        $cart = Cart::content();
+        return view('shop.show', compact('article','cart'));
     }
 
     public function checkout()
     {
         return view('shop.checkout');
     }
+
+    /* 
 
     public function paymentAction(Request $request) {
 
@@ -43,5 +47,6 @@ class ShopController extends Controller
 
         return back();
     }
+    */
 
 }

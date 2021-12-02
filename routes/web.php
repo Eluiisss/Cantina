@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -77,5 +78,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/createEmployee', [UserController::class, 'createEmployee'])->middleware(['role:administrator'])->name('users.createEmployee');
     Route::post('/users/', [UserController::class, 'storeEmployee'])->name('users.storeEmployee');
 });
+
+Route::post('paypal/order/create', [PaypalController::class , 'create']);
+Route::post('paypal/order/capture', [PaypalController::class , 'capture']);
 
 require __DIR__.'/auth.php';

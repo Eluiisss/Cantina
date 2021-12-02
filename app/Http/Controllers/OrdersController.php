@@ -33,30 +33,33 @@ class OrdersController extends Controller
     }
 
     public function createOrderNotPayed(){
-        $date = now();
-        $cart= Cart::content();
+        
+        //if (Auth::check()) {
+            $date = now();
+            $cart= Cart::content();
 
-        $order = Order::create([
-            'user_id' => Auth::id(),
-            'created_at' => $date,
-            'order_code' => 'a111',//cambiar
-            'order_status' => 'pendiente',
-            'payment_status' => 'sin_pagar',
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'created_at' => $date,
+                'order_code' => 'a111',//cambiar
+                'order_status' => 'pendiente',
+                'payment_status' => 'sin_pagar',
 
-        ]);
+            ]);
 
-        foreach ($cart as $art) {
-            $order->articles()
-            ->attach($art->id, [
-            'quantity' => $art->qty,
-            'created_at' => $date,
-            'updated_at' => $date,
-            
-        ]);
-            
-        }
-
-        return $this->index();
+            foreach ($cart as $art) {
+                $order->articles()
+                ->attach($art->id, [
+                'quantity' => $art->qty,
+                'created_at' => $date,
+                'updated_at' => $date,
+                
+            ]);
+                
+            }
+            Cart::destroy();
+            return redirect('shop')->with('message','¡Encargo Realizado!');
+        //}else  return view('shop.index');
 
 
     }
