@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->string('order_code', 4);
             $table->string('order_status', 20);
             $table->string('payment_status', 20);
+            $table->dateTime('collected_date')->nullable();
             $table->dateTime('payment_date')->nullable();
             $table->timestamps();
         });

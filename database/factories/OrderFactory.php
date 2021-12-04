@@ -24,6 +24,7 @@ class OrderFactory extends Factory
             'order_status' => $orderStatus,
             'payment_status' => ($orderStatus == 'recogido')? 'ya_pagado': 'sin_pagar',
             'payment_date' => ($orderStatus == 'recogido')? now(): null,
+            'collected_date' => ($orderStatus == 'recogido')? now(): null,
         ];
     }
 

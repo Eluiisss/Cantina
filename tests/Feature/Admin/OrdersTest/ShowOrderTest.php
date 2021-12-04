@@ -6,6 +6,7 @@ use Admin\OrdersTest\BaseOrdersTest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Order;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -47,12 +48,14 @@ class ShowOrderTest extends TestCase
             'discount' => 50,
         ]);
 
+        $created_at = Carbon::today();
+
         $order = Order::factory()->create([
             'user_id' => $user->id,
             'order_code' => 'e321',
             'order_status' => 'no_recogido',
             'payment_status' => 'sin_pagar',
-            'created_at' => '2021-09-30 14:20:00'
+            'created_at' => $created_at
         ]);
         $order->articles()
             ->attach([$article_1->id, $article_2->id], [
@@ -67,7 +70,7 @@ class ShowOrderTest extends TestCase
                 'E321',
                 'No recogido',
                 'Sin pagar',
-                '2021-09-30 14:20:00',
+                $created_at->toDayDateTimeString(),
                 'Pizza',
                 'Snacks',
                 '1.75',

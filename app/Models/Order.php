@@ -10,6 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $dates = ['collected_date', 'payment_date'];
 
     public function articles()
     {

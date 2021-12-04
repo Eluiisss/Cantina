@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticlesStockTriggers extends Migration
+class CreateCantinaTriggers extends Migration
 {
     public function up()
     {
@@ -42,6 +42,7 @@ class CreateArticlesStockTriggers extends Migration
 
                     IF v_order_status = 'no_recogido' THEN
                         CALL restore_stock(NEW.id);
+                        CALL report_user_order(NEW.user_id);
                     END IF;
                 END";
 

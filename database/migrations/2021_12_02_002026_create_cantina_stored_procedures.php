@@ -36,10 +36,27 @@ class CreateCantinaStoredProcedures extends Migration
 
         DB::unprepared("DROP PROCEDURE IF EXISTS restore_stock");
         DB::unprepared($procedure_restore_stock);
+
+
+        $procedure_report_user_order = "CREATE PROCEDURE report_user_order (IN in_user_id int)
+        BEGIN
+            DECLARE v_user_reports int;
+            SELECT ban_strikes FROM users u WHERE u.id = in_user_id INTO v_user_reports;
+
+            IF v_user_reports >= 3 THEN
+                UPDATE `users` SET `banned` = '1', `ban_strikes` = '0', `deleted_at` = NULL WHERE `users`.`id` = in_user_id;
+            ELSE
+                UPDATE `users` SET `ban_strikes` = (v_user_reports + 1), `deleted_at` = NULL WHERE `users`.`id` = in_user_id AND banned = 0;
+            END IF;
+        END";
+
+        DB::unprepared("DROP PROCEDURE IF EXISTS report_user_order;");
+        DB::unprepared($procedure_report_user_order);
     }
 
     public function down()
     {
         DB::unprepared("DROP PROCEDURE IF EXISTS restore_stock");
+        DB::unprepared("DROP PROCEDURE IF EXISTS report_user_order;");
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Livewire\OrderManageSideBar;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Order;
+use Carbon\Carbon;
 use Livewire\Livewire;
 
 use Tests\TestCase;
@@ -105,10 +106,11 @@ class ShowManageOrdersListTest extends TestCase
             'discount' => 0,
         ]);
 
+        $created_at = Carbon::today();
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
             'order_code' => 'r232',
-            'created_at' => '2021-09-30 14:20:00',
+            'created_at' => $created_at,
         ]);
         $order->articles()
             ->attach($articles, [
@@ -126,7 +128,7 @@ class ShowManageOrdersListTest extends TestCase
                 'Código pedido: R232',
                 'Pendiente',
                 'Sin pagar',
-                '2021-09-30 14:20:00',
+                $created_at->toDayDateTimeString(),
                 'Pizza',
                 'Snacks',
                 '1.75',
@@ -154,11 +156,12 @@ class ShowManageOrdersListTest extends TestCase
             'discounted_price' => 1.75,
             'discount' => 0,
         ]);
+        $firstOrderDate = Carbon::today();
 
         $firstOrder = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
             'order_code' => 'r232',
-            'created_at' => '2021-09-30 14:20:00',
+            'created_at' => $firstOrderDate,
         ]);
         $firstOrder->articles()
             ->attach($articles, [
@@ -169,10 +172,11 @@ class ShowManageOrdersListTest extends TestCase
 
         $userJuan = $this->createUser('Juan López', 'juan@mail.com');
 
+        $secondOrderDate = Carbon::yesterday();
         $secondOrder = Order::factory()->collected()->alreadyPayed()->create([
             'user_id' => $userJuan->id,
             'order_code' => 'b445',
-            'created_at' => '2021-10-12 13:20:00',
+            'created_at' => $secondOrderDate,
         ]);
         $secondOrder->articles()
             ->attach($articles, [
@@ -190,14 +194,14 @@ class ShowManageOrdersListTest extends TestCase
                 'Código pedido: R232',
                 'Pendiente',
                 'Sin pagar',
-                '2021-09-30 14:20:00',
+                $firstOrderDate->toDayDateTimeString(),
             ])->assertDontSee([
                 'Juan López',
                 'juan@mail.com',
                 'Código pedido: B445',
                 'Recogido',
                 'Pagado',
-                '2021-10-12 13:20:00',
+                $secondOrderDate->toDateTimeString()
             ])->assertSeeHtml('<span class="mr-2">¡RECOGIDO!</span>')
              ->assertSeeHtml('<span class="mr-2">REPORTAR</span>')
             ->assertDontSeeHtml('<p class="font-semibold text-xl text-green-400"> RECOGIDO</p>');
@@ -209,7 +213,7 @@ class ShowManageOrdersListTest extends TestCase
                 'Código pedido: B445',
                 'Recogido',
                 'Pagado',
-                '2021-10-12 13:20:00',
+                $secondOrderDate->toDayDateTimeString(),
             ])->assertDontSee([
                 'Pepe López',
                 'pepe@mail.com',
@@ -218,7 +222,7 @@ class ShowManageOrdersListTest extends TestCase
                 'Código pedido: R232',
                 'Pendiente',
                 'Sin pagar',
-                '2021-09-30 14:20:00',
+                $firstOrderDate->toDayDateTimeString(),
             ])->assertDontSeeHtml('<span class="mr-2">¡RECOGIDO!</span>')
             ->assertDontSeeHtml('<span class="mr-2">REPORTAR</span>')
             ->assertSeeHtml('<p class="font-semibold text-xl text-green-400"> RECOGIDO</p>');

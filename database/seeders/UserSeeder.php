@@ -51,6 +51,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('Eluiisss'),
             'class' => '2ºDAW',
             'banned' => 1,
+            'ban_strikes' => 0,
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
@@ -69,6 +70,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('M4NUK-W'),
             'class' => '2ºDAW',
             'banned' => 1,
+            'ban_strikes' => 0,
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);
@@ -87,6 +89,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('eduardonogueraga'),
             'class' => '2ºDAW',
             'banned' => 1,
+            'ban_strikes' => 0,
             'remember_token' => Str::random(10),
             'created_at' => now(),
         ]);

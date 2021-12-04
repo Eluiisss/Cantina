@@ -15,6 +15,16 @@
             {{trans("orders.list.order_status")[$order->order_status]}}
         </p>
     </div>
+    @if($order->collected_date)
+        <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="text-gray-600">
+                Fecha de recogida
+            </p>
+            <p>
+                {{$order->collected_date->toDayDateTimeString()}}
+            </p>
+        </div>
+    @endif
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
         <p class="text-gray-600">
             Estado de pago
@@ -29,7 +39,7 @@
                 Fecha del pago
             </p>
             <p>
-                {{$order->payment_date}}
+                {{$order->payment_date->toDayDateTimeString()}}
             </p>
         </div>
     @endif
@@ -38,7 +48,7 @@
             Fecha de pedido
         </p>
         <p>
-            {{$order->created_at}}
+            {{$order->created_at->toDayDateTimeString()}}
         </p>
     </div>
     <div class="p-4 border-b">
