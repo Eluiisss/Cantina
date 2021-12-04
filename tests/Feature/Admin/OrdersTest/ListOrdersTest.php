@@ -87,24 +87,25 @@ class ListOrdersTest extends TestCase
 
         Order::factory()->create([
             'user_id' => $user->id,
-            'order_code' => 'B234',
-            'created_at' => '2020-12-30 00:00:00'
+            'order_code' => 'B23400000',
+            'created_at' => '2020-10-30 00:00:00'
         ]);
 
         Order::factory()->create([
             'user_id' => $user->id,
-            'order_code' => 'A123',
+            'order_code' => 'A12300000',
             'created_at' => '2020-09-30 23:59:59'
         ]);
 
         Order::factory()->times(15)->create([
             'user_id' => $user->id,
+            'created_at' => now()->subMinutes(rand(10,40))
         ]);
 
         Order::factory()->create([
             'user_id' => $user->id,
-            'order_code' => 'Z987',
-            'created_at' => '2021-12-01 00:00:00'
+            'order_code' => 'Z98700000',
+            'created_at' => now()
         ]);
 
         $response = $this->actingAs($this->getAdmin())->get(route('orders.index', ['page'=>'1']))->assertStatus(200);

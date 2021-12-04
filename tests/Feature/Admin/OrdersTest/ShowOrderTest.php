@@ -52,7 +52,7 @@ class ShowOrderTest extends TestCase
 
         $order = Order::factory()->create([
             'user_id' => $user->id,
-            'order_code' => 'e321',
+            'order_code' => 'E32100000',
             'order_status' => 'no_recogido',
             'payment_status' => 'sin_pagar',
             'created_at' => $created_at

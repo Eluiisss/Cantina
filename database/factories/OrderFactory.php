@@ -3,11 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Order;
+use App\Util\OrderCodeGenerator;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
+
 class OrderFactory extends Factory
 {
+    use OrderCodeGenerator;
     protected $model = Order::class;
 
     /**
@@ -20,7 +23,7 @@ class OrderFactory extends Factory
         $orderStatus = Arr::random($this->getOrderStatus());
 
         return [
-            'order_code' => $this->faker->randomLetter.$this->faker->numerify('###'),
+            'order_code' => $this->generateOrderCode(),
             'order_status' => $orderStatus,
             'payment_status' => ($orderStatus == 'recogido')? 'ya_pagado': 'sin_pagar',
             'payment_date' => ($orderStatus == 'recogido')? now(): null,

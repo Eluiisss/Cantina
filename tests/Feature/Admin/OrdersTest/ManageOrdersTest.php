@@ -24,7 +24,7 @@ class ManageOrdersTest extends TestCase
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'id' => '1',
             'user_id' => $userPepe->id,
-            'order_code' => 'r232',
+            'order_code' => 'R23200000',
         ]);
 
         Livewire::test('order-manage-detail-view')->emit('orderSelected', $order->id)
@@ -65,7 +65,7 @@ class ManageOrdersTest extends TestCase
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'id' => '1',
             'user_id' => $userPepe->id,
-            'order_code' => 'r232',
+            'order_code' => 'R23200000',
         ]);
 
         Livewire::test('order-manage-detail-view')->emit('orderSelected', $order->id)

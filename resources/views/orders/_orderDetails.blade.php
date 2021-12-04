@@ -1,7 +1,7 @@
 <div>
     <div class="p-4 border-b">
         <h2 class="text-3xl ">
-            Código pedido: {{ucfirst($order->order_code)}}
+            Código pedido: {{substr($order->order_code, 0 ,4)}}
         </h2>
         <p class="text-sm text-gray-500">
             Detalles del pedido.

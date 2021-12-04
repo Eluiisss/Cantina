@@ -32,7 +32,7 @@ class ShowManageOrdersListTest extends TestCase
 
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
-            'order_code' => 'a100',
+            'order_code' => 'A10000000',
             'created_at' => now()->subMinutes(35)
         ]);
         $order->articles()
@@ -49,7 +49,7 @@ class ShowManageOrdersListTest extends TestCase
 
         $order = Order::factory()->collected()->alreadyPayed()->create([
             'user_id' => $userJuan->id,
-            'order_code' => 'b340',
+            'order_code' => 'B34000000',
             'created_at' => now()
         ]);
         $order->articles()
@@ -109,7 +109,7 @@ class ShowManageOrdersListTest extends TestCase
         $created_at = Carbon::today();
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
-            'order_code' => 'r232',
+            'order_code' => 'R23200000',
             'created_at' => $created_at,
         ]);
         $order->articles()
@@ -160,7 +160,7 @@ class ShowManageOrdersListTest extends TestCase
 
         $firstOrder = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
-            'order_code' => 'r232',
+            'order_code' => 'R23200000',
             'created_at' => $firstOrderDate,
         ]);
         $firstOrder->articles()
@@ -175,7 +175,7 @@ class ShowManageOrdersListTest extends TestCase
         $secondOrderDate = Carbon::yesterday();
         $secondOrder = Order::factory()->collected()->alreadyPayed()->create([
             'user_id' => $userJuan->id,
-            'order_code' => 'b445',
+            'order_code' => 'B44500000',
             'created_at' => $secondOrderDate,
         ]);
         $secondOrder->articles()
@@ -255,7 +255,7 @@ class ShowManageOrdersListTest extends TestCase
         }
 
         $newerOrder = Order::first();
-        $newerOrder->update(['order_code' => 'a123',
+        $newerOrder->update(['order_code' => 'A12300000',
             'created_at' => now()]);
 
         $this->assertDatabaseCount('orders', 20);

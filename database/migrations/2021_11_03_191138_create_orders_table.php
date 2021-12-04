@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
-            $table->string('order_code', 4);
+            $table->string('order_code', 20);
             $table->string('order_status', 20);
             $table->string('payment_status', 20);
             $table->dateTime('collected_date')->nullable();

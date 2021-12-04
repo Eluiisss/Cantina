@@ -33,7 +33,7 @@ class OrdersController extends Controller
     }
 
     public function createOrderNotPayed(){
-        
+
         //if (Auth::check()) {
             $date = now();
             $cart= Cart::content();
@@ -53,9 +53,9 @@ class OrdersController extends Controller
                 'quantity' => $art->qty,
                 'created_at' => $date,
                 'updated_at' => $date,
-                
+
             ]);
-                
+
             }
             Cart::destroy();
             return redirect('shop')->with('message','¡Encargo Realizado!');
@@ -84,9 +84,9 @@ class OrdersController extends Controller
             'quantity' => $art->qty,
             'created_at' => $date,
             'updated_at' => $date,
-            
+
         ]);
-            
+
         }
 
 
