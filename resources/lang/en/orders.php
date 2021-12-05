@@ -30,4 +30,13 @@ return [
             'payment' => ['all' => 'Pago (Todos)','sin_pagar' => 'Sin pagar', 'ya_pagado' => 'Pagado'],
         ],
     ],
+    'userHistory' => [
+        'title' => 'Historial de pedidos',
+        'currentOrders' => 'Pendientes',
+        'processedOrders' => 'Pedidos realizados',
+        'noOrdersTitle' => 'No tienes pedidos realizados',
+        'noOrdersAbout' => 'Tu historial de pedidos se mostrara aqui cuando realices una compra en la cantina',
+        'modalCancelOrder' => 'Cancelar pedido',
+        'modalBack' => 'Volver',
+    ],
 ];

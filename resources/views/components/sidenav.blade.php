@@ -107,13 +107,23 @@
                             </li>
                             @role('user')
                             <li>
-                                <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('article.cart') }}">
+                                <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM1 2V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.28 15 7.17 14.89 7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L20.88 5.48C20.96 5.34 21 5.17 21 5C21 4.45 20.55 4 20 4H5.21L4.27 2H1ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18Z" fill="#004467"/>
                                     </svg>
                                     <div class="flex w-full justify-between">
                                         <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Tu carrito</span>
                                         <span class="font-light text-xs main-color-blue-text dark:main-color-yellow-text transition duration-500">{{ count((array)session('cart'))?? 0 }} &euro;</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{route('orders.history')}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                    </svg>
+                                    <div class="flex w-full justify-between">
+                                        <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Tus pedidos</span>
                                     </div>
                                 </a>
                             </li>

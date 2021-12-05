@@ -45,6 +45,8 @@ Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('order
 Route::get('/orders/createNotPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.notPayed');
 Route::get('/orders/createPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.Payed');
 
+Route::get('/pedidos', \App\Http\Livewire\OrderUserHistory::class)->middleware(['role:user|administrator'])->name('orders.history');
+
 Route::get('/food', [ArticlesController::class, 'index'])->middleware(['role:employee|administrator'])->name('articles.index');
 Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');
 Route::get('/food/create', [ArticlesController::class, 'create'])->middleware(['role:employee|administrator'])->name('articles.create');

@@ -72,9 +72,11 @@
                         @endif
                     </div>
                     <div class="flex flex-col col-span-3 pt-2">
-                                        <span class="text-gray-600 text-md font-semi-bold">
-                                            <a href="{{route('articles.show', ['article' => $article->id])}}">{{$article->name}}</a>
-                                        </span>
+                        <span class="text-gray-600 text-md font-semi-bold">
+                            <a href="{{route(auth()->user()
+                                    ->hasRole(['administrator', 'employee'])? 'articles.show' : 'shop.show',
+                                     ['article' => $article->id])}}">{{$article->name}}</a>
+                        </span>
                         <span class="text-gray-400 text-sm inline-block pt-2">{{$article->category->name}}</span>
                     </div>
                     <div class="col-span-2 pt-3 border-b">
@@ -101,6 +103,7 @@
             </div>
         </ul>
     </div>
+    @if (auth()->user()->hasRole(['administrator', 'employee']))
     <div class="p-4 border-b">
         <h2 class="text-2xl ">
             Datos del cliente
@@ -138,4 +141,5 @@
             {{$order->user->phone}}
         </p>
     </div>
+    @endif
 </div>
