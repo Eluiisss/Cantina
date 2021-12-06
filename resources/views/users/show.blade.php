@@ -23,6 +23,14 @@
                         </div>
                         <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
                             <p class="text-gray-600">
+                                Crédito
+                            </p>
+                            <p>
+                                {{$user->credit}} €
+                            </p>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                            <p class="text-gray-600">
                                 Número de estudiante(NRE)
                             <p>
                                 {{$user->nre->nre}}

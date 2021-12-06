@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
@@ -32,9 +33,8 @@ class OrdersController extends Controller
         return view('orders.show', compact('order'));
     }
 
-    public function createOrderNotPayed(){
+    public function createNewOrder(){
 
-        //if (Auth::check()) {
             $date = now();
             $cart= Cart::content();
 
@@ -59,19 +59,18 @@ class OrdersController extends Controller
             }
             Cart::destroy();
             return redirect('shop')->with('message','¡Encargo Realizado!');
-        //}else  return view('shop.index');
-
-
     }
 
-    public function createOrderPayed(){
+
+    public function createPayedOrder(){
         $date = now();
         $cart= Cart::content();
+        $user=Auth::user();
+        $newCredit = $user->credit - Cart::priceTotal();
 
         $order = Order::create([
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'created_at' => $date,
-            //$this->faker->randomLetter.$this->faker->numerify('###')
             'order_code' => 'a222',
             'order_status' => 'pendiente',
             'payment_status' => 'pagado',
@@ -86,6 +85,11 @@ class OrdersController extends Controller
             'updated_at' => $date,
 
         ]);
+
+        $user->credit=$newCredit;
+        $user->save();
+        Cart::destroy();
+        return redirect('shop')->with('message','¡Encargo pagado!');
 
         }
 

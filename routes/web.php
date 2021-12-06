@@ -29,11 +29,6 @@ Route::get('/shop/{article}/show', [ShopController::class, 'show'])->name('shop.
 Route::post('/cart/', [CartController::class, 'store'])->name('cart.store');
 Route::get('/cart', [CartController::class, 'cart'])->name('shop.cart');
 
-Route::get('/addToCart/{id}', [ArticlesController::class, 'addToCart'])->name('article.addToCart');
-
-Route::get('/checkout',[ShopController::class, 'checkout'])->middleware(['role:user|administrator'])->name('shop.checkout');
-Route::post('/payment',[ShopController::class, 'paymentAction'])->middleware(['role:user|administrator'])->name('shop.payment');
-
 Route::get('/orders', [OrdersController::class, 'index'])->middleware(['role:employee|administrator'])->name('orders.index');
 Route::get('/manageOrders', [OrdersController::class, 'manageOrders'])->middleware(['role:employee|administrator'])->name('orders.manage');
 Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');
@@ -42,8 +37,8 @@ Route::post('/orders/', [OrdersController::class, 'store'])->name('orders.store'
 Route::get('/orders/{order}/edit', [OrdersController::class, 'edit'])->name('orders.edit');
 Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
 Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
-Route::get('/orders/createNotPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.notPayed');
-Route::get('/orders/createPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.Payed');
+Route::get('/orders/createNotPayed', [OrdersController::class, 'createNewOrder'])->name('orders.newOrder');
+Route::get('/orders/createPayed', [OrdersController::class, 'createPayedOrder'])->name('orders.newPayedOrder');
 
 Route::get('/pedidos', \App\Http\Livewire\OrderUserHistory::class)->middleware(['role:user|administrator'])->name('orders.history');
 
