@@ -45,7 +45,6 @@
                     </a>
                 @endif
             @endif
-
             <a href= "{{ route('users.show', ['user' => $row]) }}"class="extend-width flex items-center justify-center p-1 md:p-2 mr-1 main-color-blue-bg rounded-md">
                 <p class="px-2 text-sm main-color-yellow-text font-bold uppercase hidden">Visualizar</p>
                 <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

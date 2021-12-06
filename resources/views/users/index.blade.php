@@ -16,6 +16,7 @@
                                 <th scope="col" class="px-4 py-3 text-right text-xs font-bold main-color-blue-text dark:main-color-yellow-text transition duration-500 uppercase tracking-wider hidden md:block">
                                     Acciones
                                 </th>
+                                
                             </tr>
                             </thead>
                             <tbody class="backdrop-filter bg-transparent">
@@ -39,6 +40,7 @@
                                                         @else
                                                             <span class="rounded-full bg-green-500 ml-8 h-2.5 w-2.5"></span>
                                                         @endif
+                                                        <span class="ml-4">{{ $row->credit }} €</span>
                                                     </div>
                                                     <div class="grid grid-cols-2 text-2xs md:text-base w-28">
                                                         <span class="font-bold text-left">{{$row->nre->nre}}</span>

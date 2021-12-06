@@ -15,8 +15,8 @@ class UpdateUSerRequest extends FormRequest
             'user_phone' => ['required','min:9','max:9'],
             'user_email' => ['required','email'],
             'user_class' => ['required'],
-            //'user_banned' => ['required','boolean'],
-            //'user_nre => ['required','exists:nres,id'],
+            'user_credit' => ['required','min:0','max:100'],
+
         ];
     }
 
@@ -39,6 +39,7 @@ class UpdateUSerRequest extends FormRequest
             'phone' => $this->user_phone,
             'class' => $this->user_class,
             'email' => $this->user_email,
+            'credit' => $this->user_credit,
             'updated_at' => now()
         ]);
     }

@@ -54,6 +54,7 @@ class UserSeeder extends Seeder
             'ban_strikes' => 0,
             'remember_token' => Str::random(10),
             'created_at' => now(),
+            'credit' => 0,
         ]);
         $adminNre->update([
             'user_id' => $eluis->id,
@@ -73,6 +74,7 @@ class UserSeeder extends Seeder
             'ban_strikes' => 0,
             'remember_token' => Str::random(10),
             'created_at' => now(),
+            'credit' => 0,
         ]);
         $adminNre->update([
             'user_id' => $manuel->id,
@@ -92,6 +94,7 @@ class UserSeeder extends Seeder
             'ban_strikes' => 0,
             'remember_token' => Str::random(10),
             'created_at' => now(),
+            'credit' => 0,
         ]);
         $adminNre->update([
             'user_id' => $eduardo->id,
@@ -109,6 +112,7 @@ class UserSeeder extends Seeder
         $user = User::factory()->create([
             'nre_id' => $userNre->id,
             'banned' => rand(0,1),
+            'credit' => rand(0,50),
         ]);
 
         $userNre->update([
@@ -123,6 +127,7 @@ class UserSeeder extends Seeder
         $user = User::factory()->create([
             'nre_id' => $userNre->id,
             'banned' => rand(0,1),
+            
         ]);
 
         $userNre->update([

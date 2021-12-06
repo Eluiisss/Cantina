@@ -26,27 +26,7 @@ class ShopController extends Controller
         return view('shop.show', compact('article','cart'));
     }
 
-    public function checkout()
-    {
-        return view('shop.checkout');
-    }
 
-    /* 
 
-    public function paymentAction(Request $request) {
-
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        Stripe\Charge::create ([
-                "amount" => $request->session()->get('totalPayment') * 100,
-                "currency" => "eur",
-                "source" => $request->stripeToken,
-                "description" => "Test payment from cantina.com.",
-        ]);
-
-        Session::flash('success', 'Payment successful!');
-
-        return back();
-    }
-    */
 
 }
