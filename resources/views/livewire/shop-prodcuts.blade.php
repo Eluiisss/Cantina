@@ -70,13 +70,31 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    @if($articles->hasMorePages())
+                                        <div x-data="{
+                                                    observe () {
+                                                        let observer = new IntersectionObserver((entries) => {
+                                                            entries.forEach(entry => {
+                                                                if (entry.isIntersecting) {
+                                                                    @this.call('loadMoreProducts')
+                                                                }
+                                                            })
+                                                        }, {
+                                                            root: null
+                                                        })
+                                                        observer.observe(this.$el)
+                                                    }
+                                                }"
+                                                x-init="observe">
+                                        @include('shared._loading')
+                                        </div>
+                                    @endif
                                 @else
                                     <p class="text-left md:text-center text-blueGray-700 text-xl">
                                         {{trans('shop.products.empty')}}
                                     </p>
                                 @endif
                             </div>
-                            {{$articles->links()}}
                         </div>
                     </div>
                 </div>
