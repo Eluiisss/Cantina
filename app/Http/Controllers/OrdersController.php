@@ -73,7 +73,7 @@ class OrdersController extends Controller
             'created_at' => $date,
             'order_code' => 'a222',
             'order_status' => 'pendiente',
-            'payment_status' => 'pagado',
+            'payment_status' => 'ya_pagado',
 
         ]);
 
