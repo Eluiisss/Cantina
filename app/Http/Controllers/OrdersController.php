@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\DB;
+
 
 
 class OrdersController extends Controller
@@ -33,54 +35,54 @@ class OrdersController extends Controller
     {
         return view('orders.show', compact('order'));
     }
-    /*
+
     public function createPayedOrder(){
-        $date = now();
-        $cart= Cart::content();
+
+            
         
+            DB::transaction(function () {
+                $date = now();
+                $cart= Cart::content();
+                $order = Order::factory()->create([
+                    'user_id' => Auth::id(),
+                    'created_at' => $date,
+                    'order_status' => 'pendiente',
+                    'payment_status' => 'sin_pagar',
 
-        $order = Order::factory()->create([
-            'user_id' => Auth::id(),
-            'created_at' => $date,
-            'order_status' => 'pendiente',
-            'payment_status' => 'ya_pagado',
+                ]);
 
-        ]);
+                foreach ($cart as $art) {
+                    $order->articles()
+                    ->attach($art->id, [
+                    'quantity' => $art->qty,
+                    'created_at' => $date,
+                    'updated_at' => $date,
 
-        foreach ($cart as $art) {
-            $order->articles()
-            ->attach($art->id, [
-            'quantity' => $art->qty,
-            'created_at' => $date,
-            'updated_at' => $date,
+                ]);
 
-        ]);
-
-        $user=Auth::user();
-        $newCredit = $user->credit - Cart::priceTotal();
-        Cart::destroy();
-        $user->credit=$newCredit;
-        $user->save();
-        return redirect('shop')->with('message','¡Encargo pagado!');
-
-        }
-
-
+                }
+                $user=Auth::user();
+                $newCredit = $user->credit - Cart::priceTotal();
+                Cart::destroy();
+                $user->credit=$newCredit;
+                $user->save();
+                return redirect('shop')->with('message','¡Encargo pagado!');
+            });
+            return redirect('shop')->with('message','Error en el encargo');
     }
-    */
 
+    public function createNewOrder(){
 
-    public function createPayedOrder(){
-
+       
+    
+        DB::transaction(function () {
             $date = now();
             $cart= Cart::content();
-        
-
             $order = Order::factory()->create([
                 'user_id' => Auth::id(),
                 'created_at' => $date,
                 'order_status' => 'pendiente',
-                'payment_status' => 'sin_pagar',
+                'payment_status' => 'ya_pagado',
 
             ]);
 
@@ -94,41 +96,16 @@ class OrdersController extends Controller
             ]);
 
             }
-            $user=Auth::user();
-            $newCredit = $user->credit - Cart::priceTotal();
             Cart::destroy();
-            $user->credit=$newCredit;
-            $user->save();
-            return redirect('shop')->with('message','¡Encargo pagado!');
+            return redirect('shop')->with('message','¡Encargo Realizado!');
+        });
+        return redirect('shop')->with('message','Error en el encargo');
     }
 
-    public function createNewOrder(){
+    public function cancelOrder($id){
 
-        $date = now();
-        $cart= Cart::content();
-    
 
-        $order = Order::factory()->create([
-            'user_id' => Auth::id(),
-            'created_at' => $date,
-            'order_status' => 'pendiente',
-            'payment_status' => 'ya_pagado',
-
-        ]);
-
-        foreach ($cart as $art) {
-            $order->articles()
-            ->attach($art->id, [
-            'quantity' => $art->qty,
-            'created_at' => $date,
-            'updated_at' => $date,
-
-        ]);
-
-        }
-        Cart::destroy();
-        return redirect('shop')->with('message','¡Encargo Realizado!');
-}
+    }
 
   
 
