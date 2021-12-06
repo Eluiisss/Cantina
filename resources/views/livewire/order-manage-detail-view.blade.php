@@ -30,7 +30,9 @@
                 @elseif ($order->order_status =='recogido')
                     <p class="font-semibold text-xl text-green-400"> {{trans('orders.manage.collected')}}</p>
                 @elseif ($order->order_status=='no_recogido')
-                    <p class="font-semibold text-xl text-red-600"> {{trans('orders.manage.cancel')}}</p>
+                    <p class="font-semibold text-xl text-red-600"> {{trans('orders.manage.notCollected')}}</p>
+                @elseif ($order->order_status=='cancelado')
+                    <p class="font-semibold text-xl text-yellow-600"> {{trans('orders.manage.cancel')}}</p>
                 @endif
             </div>
         </div>

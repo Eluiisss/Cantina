@@ -63,6 +63,36 @@ class OrdersTriggersTest extends TestCase
     /** @test  */
     public function it_restore_the_stock_of_articles_when_an_order_is_not_collected(){
 
+        $order = $this->createAnOrder();
+        $order->update(['order_status' => 'no_recogido',]);
+
+        $this->assertDatabaseHas('articles', [
+            'name' => 'Pizza',
+            'stock' => 10,
+            'name' => 'Botella de agua',
+            'stock' => 50,
+        ]);
+    }
+
+    /** @test  */
+    public function it_restore_the_stock_of_articles_when_an_order_is_cancel(){
+
+        $order = $this->createAnOrder();
+        $order->update(['order_status' => 'cancelado',]);
+
+        $this->assertDatabaseHas('articles', [
+            'name' => 'Pizza',
+            'stock' => 10,
+            'name' => 'Botella de agua',
+            'stock' => 50,
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    private function createAnOrder()
+    {
         $this->createUserRole();
         $user = $this->createUser();
         $category = Category::factory()->create();
@@ -98,14 +128,7 @@ class OrdersTriggersTest extends TestCase
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
-        $order->update(['order_status' => 'no_recogido',]);
-
-        $this->assertDatabaseHas('articles', [
-            'name' => 'Pizza',
-            'stock' => 10,
-            'name' => 'Botella de agua',
-            'stock' => 50,
-        ]);
+        return $order;
     }
 
 }

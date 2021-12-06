@@ -28,7 +28,7 @@ class OrderUserHistory extends Component
         $orders = Order::query()
             ->with('user', 'articles')
             ->where('user_id', auth()->user()->id)
-            ->orderBy('created_at')
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('livewire.order-user-history',

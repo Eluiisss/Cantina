@@ -40,9 +40,13 @@ class CreateCantinaTriggers extends Migration
                     WHERE o.id = NEW.id
                     INTO v_order_status;
 
-                    IF v_order_status = 'no_recogido' THEN
-                        CALL restore_stock(NEW.id);
-                        CALL report_user_order(NEW.user_id);
+                    IF OLD.order_status = 'pendiente' THEN
+                        IF v_order_status = 'no_recogido' THEN
+                            CALL restore_stock(NEW.id);
+                            CALL report_user_order(NEW.user_id);
+                        ELSEIF v_order_status = 'cancelado' THEN
+                            CALL restore_stock(NEW.id);
+                        END IF;
                     END IF;
                 END";
 

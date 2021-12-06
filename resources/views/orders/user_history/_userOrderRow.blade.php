@@ -6,7 +6,7 @@
         </svg>
     </div>
     <div class="col-start-2 col-end-11 pl-8 border-l-2 border-solid border-gray">
-        <h3 class="text-gray-900  text-md font-semibold">PEDIDO: {{substr($row->order_code, 0 ,4)}} @if ($row->order_status =='recogido')({{trans('orders.manage.collected')}})@elseif ($row->order_status=='no_recogido')({{trans('orders.manage.cancel')}})@endif</h3>
+        <h3 class="text-gray-900  text-md font-semibold">PEDIDO: {{substr($row->order_code, 0 ,4)}} {{$orderStatus??''}}</h3>
         <div class="text-md italic text-gray-400">Total del pedido: ({{$row->articles->count()}} Articulos)</div>
         @php $total_price = 0  @endphp
         <span class="text-md italic text-gray-400">

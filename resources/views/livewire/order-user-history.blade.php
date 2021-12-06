@@ -9,16 +9,25 @@
                         {{trans('orders.userHistory.currentOrders')}}
                     </li>
                     @foreach($orders->filter(function($item) {return $item->order_status == 'pendiente';})->all() as $row)
-                        @include('orders.user_history._userOrderRow', ['color' => "blue", 'hover' => "yellow"])
+                        @include('orders.user_history._userOrderRow', ['color' => "blue", 'hover' => "yellow", 'orderStatus'=> null])
                     @endforeach
                     <li class="text-lg uppercase text-gray-400 border-b border-gray border-solid py-2 px-5 mb-2">
                         {{trans('orders.userHistory.processedOrders')}}
                     </li>
                     @foreach($orders->filter(function($item) {return $item->order_status == 'recogido';})->all() as $row)
-                       @include('orders.user_history._userOrderRow',['color' => "green",'hover' => "blue"])
+                       @include('orders.user_history._userOrderRow',['color' => "green",'hover' => "blue",'orderStatus'=> "(".trans('orders.manage.collected').")"])
                     @endforeach
+                    <li class="text-lg uppercase text-gray-400 border-b border-gray border-solid py-2 px-5 mb-2">
+                        {{trans('orders.userHistory.canceledOrders')}}
+                    </li>
+                    @foreach($orders->filter(function($item) {return $item->order_status == 'cancelado';})->all() as $row)
+                        @include('orders.user_history._userOrderRow',['color' => "red", 'hover' => "blue", 'orderStatus'=> "(".trans('orders.manage.cancel').")"])
+                    @endforeach
+                    <li class="text-lg uppercase text-gray-400 border-b border-gray border-solid py-2 px-5 mb-2">
+                        {{trans('orders.userHistory.notCollectedOrders')}}
+                    </li>
                     @foreach($orders->filter(function($item) {return $item->order_status == 'no_recogido';})->all() as $row)
-                        @include('orders.user_history._userOrderRow',['color' => "yellow", 'hover' => "red"])
+                        @include('orders.user_history._userOrderRow',['color' => "yellow", 'hover' => "red", 'orderStatus'=> "(".trans('orders.manage.notCollected').")"])
                     @endforeach
                 </ul>
             @else
