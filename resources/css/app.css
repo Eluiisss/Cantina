@@ -18,6 +18,9 @@
         .main-color-blue-bg {
             background-color: #004467 !important;
         }
+        .main-color-blue-border {
+            border-color: #004467 !important;
+        }
         .main-color-blue-text {
             color: #004467 !important;
         }
@@ -32,6 +35,9 @@
         }
         .main-color-yellow-bg {
             background-color: #FFC000 !important;
+        }
+        .main-color-yellow-border {
+            border-color: #FFC000 !important;
         }
         .main-color-yellow-text {
             color: #FFC000 !important;
