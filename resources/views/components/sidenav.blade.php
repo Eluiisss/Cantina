@@ -90,7 +90,7 @@
                                     </svg>
                                     <div class="flex w-full justify-between">
                                         <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Tu carrito</span>
-                                        <span class="font-light text-xs main-color-blue-text dark:main-color-yellow-text transition duration-500">{{ count((array)session('cart'))?? 0 }} &euro;</span>
+                                        <span class="font-light text-xs main-color-blue-text dark:main-color-yellow-text transition duration-500">{{ Cart::count() }}</span>
                                     </div>
                                 </a>
                             </li>
