@@ -47,7 +47,8 @@ class OrdersController extends Controller
                     'user_id' => Auth::id(),
                     'created_at' => $date,
                     'order_status' => 'pendiente',
-                    'payment_status' => 'sin_pagar',
+                    'payment_status' => 'ya_pagado',
+                    'total_payed' => Cart::priceTotal(),
 
                 ]);
 
@@ -82,7 +83,7 @@ class OrdersController extends Controller
                 'user_id' => Auth::id(),
                 'created_at' => $date,
                 'order_status' => 'pendiente',
-                'payment_status' => 'ya_pagado',
+                'payment_status' => 'sin_pagar',
 
             ]);
 
@@ -102,9 +103,16 @@ class OrdersController extends Controller
         return redirect('shop')->with('message','Error en el encargo');
     }
 
-    public function cancelOrder($id){
-
-
+    public function cancel($id){
+        $order= Order::find($id);
+        $order->order_status = 'no_recogido';
+        $user = User::find($order->user_id);
+        if($order->total_payed){
+            $user->credit += $order->total_payed;
+            $user->save();
+        }
+        $order->save();
+        return redirect('pedidos');
     }
 
   

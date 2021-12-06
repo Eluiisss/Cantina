@@ -36,6 +36,7 @@ Route::get('/orders/create', [OrdersController::class, 'create'])->name('orders.
 Route::post('/orders/', [OrdersController::class, 'store'])->name('orders.store');
 Route::get('/orders/{order}/edit', [OrdersController::class, 'edit'])->name('orders.edit');
 Route::put('/orders/{order}', [OrdersController::class, 'update'])->name('orders.update');
+Route::get('/orders/{order}/cancel', [OrdersController::class, 'cancel'])->name('orders.cancel');
 Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 Route::get('/orders/createNotPayed', [OrdersController::class, 'createNewOrder'])->name('orders.newOrder');
 Route::get('/orders/createPayed', [OrdersController::class, 'createPayedOrder'])->name('orders.newPayedOrder');

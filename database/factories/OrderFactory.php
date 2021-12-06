@@ -68,6 +68,7 @@ class OrderFactory extends Factory
         return $this->state(function ($faker) {
             return [
                 'payment_status' => 'ya_pagado',
+                'total_payed' => rand(1,25),
                 'payment_date' => now(),
             ];
         });

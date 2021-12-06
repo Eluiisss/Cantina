@@ -13,8 +13,14 @@ class CartController extends Controller
 
     public function cart()  
     {
-        $cart = Cart::content();
-        return view('shop.cart',compact('cart'));  
+        if(Cart::count()){
+            $cart = Cart::content();
+            return view('shop.cart',compact('cart'));
+        }
+        return redirect('shop')->with('message','No tienes nada en el carrito');
+
+    
+
     }
 
     public function store(Request $request){
