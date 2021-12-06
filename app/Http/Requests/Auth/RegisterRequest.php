@@ -77,6 +77,7 @@ class RegisterRequest extends FormRequest
                 'user_id' => $user->id,
                 'updated_at' => now(),
             ]);
+            $user->attachRole('user');
 
             event(new Registered($user));
 
