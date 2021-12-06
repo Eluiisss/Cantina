@@ -1,13 +1,8 @@
 <?php
 
 
-use App\Http\Controllers\ArticlesController;
-use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\PaypalController;
-use App\Http\Controllers\OrdersController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\{ArticlesController, CategoriesController, PaypalController, OrdersController, ShopController, UserController, CartController};
+use App\Http\Livewire\OrderUserHistory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,7 +40,7 @@ Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('order
 Route::get('/orders/createNotPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.notPayed');
 Route::get('/orders/createPayed', [OrdersController::class, 'createOrderNotPayed'])->name('orders.Payed');
 
-Route::get('/pedidos', \App\Http\Livewire\OrderUserHistory::class)->middleware(['role:user|administrator'])->name('orders.history');
+Route::get('/pedidos', OrderUserHistory::class)->middleware(['role:user|administrator'])->name('orders.history');
 
 Route::get('/food', [ArticlesController::class, 'index'])->middleware(['role:employee|administrator'])->name('articles.index');
 Route::get('/food/{article}/show', [ArticlesController::class, 'show'])->name('articles.show');

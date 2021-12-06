@@ -23,12 +23,12 @@ class UserSeeder extends Seeder
 
         $this->createAdmins();
 
-        foreach (range(1, 49) as $i) {
-            $this->createRandomUser();
-        }
-
         foreach (range(1, 10) as $i) {
             $this->createRandomEmployee();
+        }
+
+        foreach (range(1, 49) as $i) {
+            $this->createRandomUser();
         }
 
     }

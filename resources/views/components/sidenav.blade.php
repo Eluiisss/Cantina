@@ -1,4 +1,4 @@
-<div class="overflow-x-hidden bg-gray-100 dark:bg-gray-800 border-r-4 border-gray-300 dark:border-yellow-300 transition duration-500">
+<div class="overflow-x-hidden bg-gray-100 dark:bg-gray-800 border-r-4 border-gray-300 dark:main-color-yellow-border transition duration-500">
     <div class="flex flex-col w-screen h-screen md:w-96" x-cloak x-show="open"
          x-transition:enter="transition ease-out duration-500"
          x-transition:enter-start="opacity-100 transform -translate-x-full"
@@ -25,19 +25,20 @@
                     <img class="shadow-lg" src="{{ URL::asset('img/IdlC.png') }}" alt="Logo Ingeniero de la Cierva" width="200" height="56">
                 </a>
                 <span class="mt-3 font-light text-sm main-color-blue-text dark:main-color-yellow-text transition duration-500">
-                                @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
+                    @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
                         Panel de administración
                     @else
                         ¡Bienvenido a la cantina!
                     @endif
                 </span>
+                <span class="text-xs font-light pt-5 main-color-blue-text dark:main-color-yellow-text transition duration-500">{{ trans('users.greetings')[array_rand(trans('users.greetings'))] }}</span>
             </div>
             <div class="flex flex-col items-center flex-grow px-4 mt-5">
                 <nav class="flex-1 space-y-1 bg-neutral-800">
                     @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
                         <ul>
                             <li>
-                                <a class="{{ (request()->routeIs('dashboard.index')) | (request()->is('dashboard/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('home') }}" style="width: 200px">
+                                <a class="{{ (request()->routeIs('dashboard.index')) | (request()->is('dashboard/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('home') }}" style="width: 200px">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="#004467"/>
                                     </svg>
@@ -45,7 +46,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="{{ (request()->routeIs('users.index')) | (request()->is('users/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('users.index') }}">
+                                <a class="{{ (request()->routeIs('users.index')) | (request()->is('users/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('users.index') }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M19 3H14.82C14.4 1.84 13.3 1 12 1C10.7 1 9.6 1.84 9.18 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 3C12.55 3 13 3.45 13 4C13 4.55 12.55 5 12 5C11.45 5 11 4.55 11 4C11 3.45 11.45 3 12 3ZM12 7C13.66 7 15 8.34 15 10C15 11.66 13.66 13 12 13C10.34 13 9 11.66 9 10C9 8.34 10.34 7 12 7ZM18 19H6V17.6C6 15.6 10 14.5 12 14.5C14 14.5 18 15.6 18 17.6V19Z" fill="#004467"/>
                                     </svg>
@@ -53,7 +54,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="{{ (request()->routeIs('articles.index')) | (request()->is('food/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('articles.index') }}">
+                                <a class="{{ (request()->routeIs('articles.index')) | (request()->is('food/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('articles.index') }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M18.06 22.99H19.72C20.56 22.99 21.25 22.35 21.35 21.53L23 5.05H18V1H16.03V5.05H11.06L11.36 7.39C13.07 7.86 14.67 8.71 15.63 9.65C17.07 11.07 18.06 12.54 18.06 14.94V22.99ZM1 21.99V21H16.03V21.99C16.03 22.54 15.58 22.99 15.02 22.99H2.01C1.45 22.99 1 22.54 1 21.99ZM16.03 14.99C16.03 6.99 1 6.99 1 14.99H16.03ZM1.02 17H16.02V19H1.02V17Z" fill="#004467"/>
                                     </svg>
@@ -61,26 +62,18 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('categories.index') }}">
+                                <a class="{{ (request()->routeIs('orders.manage')) | (request()->is('manageOrders/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('orders.manage') }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20 13H4C3.45 13 3 13.45 3 14V20C3 20.55 3.45 21 4 21H20C20.55 21 21 20.55 21 20V14C21 13.45 20.55 13 20 13ZM7 19C5.9 19 5 18.1 5 17C5 15.9 5.9 15 7 15C8.1 15 9 15.9 9 17C9 18.1 8.1 19 7 19ZM20 3H4C3.45 3 3 3.45 3 4V10C3 10.55 3.45 11 4 11H20C20.55 11 21 10.55 21 10V4C21 3.45 20.55 3 20 3ZM7 9C5.9 9 5 8.1 5 7C5 5.9 5.9 5 7 5C8.1 5 9 5.9 9 7C9 8.1 8.1 9 7 9Z" fill="#004467"/>
+                                        <path d="M20 6H17V4C17 2.89 16.11 2 15 2H9C7.89 2 7 2.89 7 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM9 4H15V6H9V4ZM20 19H4V17H20V19ZM20 14H4V8H7V10H9V8H15V10H17V8H20V14Z" fill="#004467"/>
                                     </svg>
-                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Categorías</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="inline-flex items-center w-full px-4 py-2 mt-1 text-base transform hover:translate-x-2 transition-transform ease-in duration-200 rounded-lg bg-white focus:shadow-outline dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500" white="" 70="" href="#">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22.6999 19L13.5999 9.9C14.4999 7.6 13.9999 4.9 12.0999 3C10.0999 0.999997 7.09994 0.599997 4.69994 1.7L8.99994 6L5.99994 9L1.59994 4.7C0.399939 7.1 0.899939 10.1 2.89994 12.1C4.79994 14 7.49994 14.5 9.79994 13.6L18.8999 22.7C19.2999 23.1 19.8999 23.1 20.2999 22.7L22.5999 20.4C23.0999 20 23.0999 19.3 22.6999 19Z" fill="#004467"/>
-                                    </svg>
-                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Ajustes</span>
+                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Administrar Pedidos</span>
                                 </a>
                             </li>
                         </ul>
                     @else
                         <ul>
                             <li>
-                                <a class="{{ (request()->routeIs('shop.index')) | (request()->is('shop/*')) | (request()->is('/')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('shop.index') }}">
+                                <a class="{{ (request()->routeIs('shop.index')) | (request()->is('shop/*')) | (request()->is('/')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('shop.index') }}">
                                     <svg class="dark:main-color-yellow-text transition-all duration-500" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="#004467" />
                                     </svg>
@@ -89,25 +82,9 @@
                                     </span>
                                 </a>
                             </li>
-                            <li>
-                                <a class="{{ (request()->routeIs('users.index')) | (request()->is('users/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.09999 13.34L10.93 10.51L3.90999 3.50002C2.34999 5.06002 2.34999 7.59002 3.90999 9.16002L8.09999 13.34V13.34ZM14.88 11.53C16.41 12.24 18.56 11.74 20.15 10.15C22.06 8.24002 22.43 5.50002 20.96 4.03002C19.5 2.57002 16.76 2.93002 14.84 4.84002C13.25 6.43002 12.75 8.58002 13.46 10.11L3.69999 19.87L5.10999 21.28L12 14.41L18.88 21.29L20.29 19.88L13.41 13L14.88 11.53V11.53Z" fill="#004467"/>
-                                    </svg>
-                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Comida</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="{{ (request()->routeIs('articles.index')) | (request()->is('food/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20 3H4V13C4 15.21 5.79 17 8 17H14C16.21 17 18 15.21 18 13V10H20C21.11 10 22 9.1 22 8V5C22 3.89 21.11 3 20 3ZM20 8H18V5H20V8ZM4 19H20V21H4V19Z" fill="#004467"/>
-                                    </svg>
-                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Bebida</span>
-                                </a>
-                            </li>
                             @role('user')
                             <li>
-                                <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
+                                <a class="{{ (request()->routeIs('shop.cart')) | (request()->is('cart/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{route('shop.cart')}}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM1 2V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.28 15 7.17 14.89 7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L20.88 5.48C20.96 5.34 21 5.17 21 5C21 4.45 20.55 4 20 4H5.21L4.27 2H1ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18Z" fill="#004467"/>
                                     </svg>
@@ -118,9 +95,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-x-3' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{route('orders.history')}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                <a class="{{ (request()->routeIs('orders.history')) | (request()->is('pedidos/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{route('orders.history')}}">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 6H17V4C17 2.89 16.11 2 15 2H9C7.89 2 7 2.89 7 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM9 4H15V6H9V4ZM20 19H4V17H20V19ZM20 14H4V8H7V10H9V8H15V10H17V8H20V14Z" fill="#004467"/>
                                     </svg>
                                     <div class="flex w-full justify-between">
                                         <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Tus pedidos</span>
@@ -156,30 +133,30 @@
                     </div>
                     <ul class="flex space-x-3">
                         <li>
-                            <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500" white="" 70="" href="/">
+                            <a class="{{ (request()->routeIs('shop.index')) | (request()->is('shop/*')) | (request()->is('/')) ? 'currentActive transform translate-y-2 transition duration-500' : 'transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full p-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="/">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z" fill="#004467"/>
                                 </svg>
                             </a>
                         </li>
                         <li>
-                            <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500" white="" 70="" href="#">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M8.09999 13.34L10.93 10.51L3.90999 3.5C2.34999 5.06 2.34999 7.59 3.90999 9.16L8.09999 13.34ZM14.88 11.53C16.41 12.24 18.56 11.74 20.15 10.15C22.06 8.24 22.43 5.5 20.96 4.03C19.5 2.57 16.76 2.93 14.84 4.84C13.25 6.43 12.75 8.58 13.46 10.11L3.69999 19.87L5.10999 21.28L12 14.41L18.88 21.29L20.29 19.88L13.41 13L14.88 11.53Z" fill="#004467"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500" white="" 70="" href="#">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 3H4V13C4 15.21 5.79 17 8 17H14C16.21 17 18 15.21 18 13V10H20C21.11 10 22 9.1 22 8V5C22 3.89 21.11 3 20 3ZM20 8H18V5H20V8ZM4 19H20V21H4V19Z" fill="#004467"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="inline-flex items-center w-full p-2 mt-1 text-base transition duration-500 ease-in-out transform rounded-lg bg-white focus:shadow-outline dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500" white="" 70="" href="#">
+                            <a class="{{ (request()->routeIs('orders.index')) | (request()->is('orders/*')) ? 'currentActive transform translate-y-2 transition duration-500' : 'transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full p-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{route('orders.index')}}">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M15 18.5C12.49 18.5 10.32 17.08 9.24 15H15V13H8.58C8.53 12.67 8.5 12.34 8.5 12C8.5 11.66 8.53 11.33 8.58 11H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5C16.61 5.5 18.09 6.09 19.23 7.07L21 5.3C19.41 3.87 17.3 3 15 3C11.08 3 7.76 5.51 6.52 9H3V11H6.06C6.02 11.33 6 11.66 6 12C6 12.34 6.02 12.67 6.06 13H3V15H6.52C7.76 18.49 11.08 21 15 21C17.31 21 19.41 20.13 21 18.7L19.22 16.93C18.09 17.91 16.62 18.5 15 18.5Z" fill="#004467"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{{ (request()->routeIs('categories.index')) | (request()->is('categories/*')) ? 'currentActive transform translate-y-2 transition duration-500' : 'transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full p-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{route('categories.index')}}">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 13H4C3.45 13 3 13.45 3 14V20C3 20.55 3.45 21 4 21H20C20.55 21 21 20.55 21 20V14C21 13.45 20.55 13 20 13ZM7 19C5.9 19 5 18.1 5 17C5 15.9 5.9 15 7 15C8.1 15 9 15.9 9 17C9 18.1 8.1 19 7 19ZM20 3H4C3.45 3 3 3.45 3 4V10C3 10.55 3.45 11 4 11H20C20.55 11 21 10.55 21 10V4C21 3.45 20.55 3 20 3ZM7 9C5.9 9 5 8.1 5 7C5 5.9 5.9 5 7 5C8.1 5 9 5.9 9 7C9 8.1 8.1 9 7 9Z" fill="#004467"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg inline-flex items-center w-full p-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.6999 19L13.5999 9.9C14.4999 7.6 13.9999 4.9 12.0999 3C10.0999 0.999997 7.09994 0.599997 4.69994 1.7L8.99994 6L5.99994 9L1.59994 4.7C0.399939 7.1 0.899939 10.1 2.89994 12.1C4.79994 14 7.49994 14.5 9.79994 13.6L18.8999 22.7C19.2999 23.1 19.8999 23.1 20.2999 22.7L22.5999 20.4C23.0999 20 23.0999 19.3 22.6999 19Z" fill="#004467"/>
                                 </svg>
                             </a>
                         </li>
@@ -188,13 +165,26 @@
 
                     @role('user')
                     <div class="pt-16 pb-1 flex flex-col items-center">
-                        <img class="h-24 py-2 rounded-full dark:main-color-yellow-text transition duration-500" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
                         <span class="font-light py-1 text-sm main-color-blue-text font-bold dark:main-color-yellow-text transition duration-500">{{ (Auth::user())->name }}</span>
-                        <span class="font-light py-1 text-2xs main-color-blue-text dark:main-color-yellow-text transition duration-500">Tus puntos: 200</span>
+                        <span class="font-light py-1 text-2xs main-color-blue-text dark:main-color-yellow-text transition duration-500">Strikes: {{ (Auth::user())->ban_strikes }}</span>
+                        <span class="font-light py-1 text-2xs main-color-blue-text dark:main-color-yellow-text transition duration-500">
+                            @switch((Auth::user())->ban_strikes)
+                                @case(0)
+                                    ¡Sigue portándote así de bien!
+                                    @break
+                                @case(1)
+                                    ¡Sigue portándote así de bien!
+                                    @break
+                                @case(2)
+                                    ¡Cuidado! No queremos que te vayas...
+                                    @break
+                                @case(3)
+                                    No has dado la taya...
+                                    @break
+                            @endswitch
+                        </span>
                         <div class="pt-1 w-full">
-                            <div class="h-2 text-xs flex rounded main-color-yellow-bg dark:main-color-blue-bg transition duration-500">
-                                <div class="w-1/3 shadow-none flex flex-col rounded text-center whitespace-nowrap text-white justify-center main-color-blue-bg dark:main-color-yellow-bg transition duration-500"></div>
-                            </div>
+                            <meter class="rounded-lg w-full main-color-yellow-text" min="0" max="3" value="{{ (Auth::user())->ban_strikes }}" low="1" high="2" optimum="0"></meter>
                         </div>
                     </div>
                     @endrole
