@@ -14,7 +14,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
 
-            $table->string('name', 20);
+            $table->string('name', 100);
             $table->integer('stock');
             $table->double('price');
             $table->double('discounted_price');

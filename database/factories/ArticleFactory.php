@@ -28,12 +28,15 @@ class ArticleFactory extends Factory
         $price = $this->faker->randomFloat('2', '1', '15');
         $discount =rand(0,3)?ceil(rand(1,4))*10: 0;
 
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \FakerRestaurant\Provider\es_PE\Restaurant($faker));
+
         $picName = Arr::random($this->getRandomArticlePicture()).'.jpg';
         \File::isDirectory('storage/app/public/img/articles/') or \File::makeDirectory('storage/app/public/img/articles/', 0755, true, true);
         \File::copy('public/img/articles/'.$picName ,'storage/app/public/img/articles/'.$picName);
 
         return [
-            'name' =>  Str::ucfirst($this->faker->word()),
+            'name' =>  Str::ucfirst($faker->foodName()),
             'stock' => $this->faker->numberBetween(0,50),
             'price' => $price,
             'discount' => $discount,
