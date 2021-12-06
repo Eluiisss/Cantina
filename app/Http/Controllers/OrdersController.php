@@ -33,40 +33,10 @@ class OrdersController extends Controller
     {
         return view('orders.show', compact('order'));
     }
-
-    public function createNewOrder(){
-
-            $date = now();
-            $cart= Cart::content();
-
-            $order = Order::factory()->create([
-                'user_id' => Auth::id(),
-                'created_at' => $date,
-                'order_status' => 'pendiente',
-                'payment_status' => 'sin_pagar',
-
-            ]);
-
-            foreach ($cart as $art) {
-                $order->articles()
-                ->attach($art->id, [
-                'quantity' => $art->qty,
-                'created_at' => $date,
-                'updated_at' => $date,
-
-            ]);
-
-            }
-            Cart::destroy();
-            return redirect('shop')->with('message','¡Encargo Realizado!');
-    }
-
-
+    /*
     public function createPayedOrder(){
         $date = now();
         $cart= Cart::content();
-        $user=Auth::user();
-        $newCredit = $user->credit - Cart::priceTotal();
         
 
         $order = Order::factory()->create([
@@ -86,16 +56,80 @@ class OrdersController extends Controller
 
         ]);
 
-  
+        $user=Auth::user();
+        $newCredit = $user->credit - Cart::priceTotal();
+        Cart::destroy();
         $user->credit=$newCredit;
         $user->save();
-        Cart::destroy();
         return redirect('shop')->with('message','¡Encargo pagado!');
 
         }
 
 
     }
+    */
 
+
+    public function createPayedOrder(){
+
+            $date = now();
+            $cart= Cart::content();
+        
+
+            $order = Order::factory()->create([
+                'user_id' => Auth::id(),
+                'created_at' => $date,
+                'order_status' => 'pendiente',
+                'payment_status' => 'sin_pagar',
+
+            ]);
+
+            foreach ($cart as $art) {
+                $order->articles()
+                ->attach($art->id, [
+                'quantity' => $art->qty,
+                'created_at' => $date,
+                'updated_at' => $date,
+
+            ]);
+
+            }
+            $user=Auth::user();
+            $newCredit = $user->credit - Cart::priceTotal();
+            Cart::destroy();
+            $user->credit=$newCredit;
+            $user->save();
+            return redirect('shop')->with('message','¡Encargo pagado!');
+    }
+
+    public function createNewOrder(){
+
+        $date = now();
+        $cart= Cart::content();
+    
+
+        $order = Order::factory()->create([
+            'user_id' => Auth::id(),
+            'created_at' => $date,
+            'order_status' => 'pendiente',
+            'payment_status' => 'ya_pagado',
+
+        ]);
+
+        foreach ($cart as $art) {
+            $order->articles()
+            ->attach($art->id, [
+            'quantity' => $art->qty,
+            'created_at' => $date,
+            'updated_at' => $date,
+
+        ]);
+
+        }
+        Cart::destroy();
+        return redirect('shop')->with('message','¡Encargo Realizado!');
+}
+
+  
 
 }
