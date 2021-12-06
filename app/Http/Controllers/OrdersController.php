@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -38,10 +39,9 @@ class OrdersController extends Controller
             $date = now();
             $cart= Cart::content();
 
-            $order = Order::create([
+            $order = Order::factory()->create([
                 'user_id' => Auth::id(),
                 'created_at' => $date,
-                'order_code' => 'a111',//cambiar
                 'order_status' => 'pendiente',
                 'payment_status' => 'sin_pagar',
 
@@ -67,11 +67,11 @@ class OrdersController extends Controller
         $cart= Cart::content();
         $user=Auth::user();
         $newCredit = $user->credit - Cart::priceTotal();
+        
 
-        $order = Order::create([
-            'user_id' => $user->id,
+        $order = Order::factory()->create([
+            'user_id' => Auth::id(),
             'created_at' => $date,
-            'order_code' => 'a222',
             'order_status' => 'pendiente',
             'payment_status' => 'ya_pagado',
 
@@ -86,6 +86,7 @@ class OrdersController extends Controller
 
         ]);
 
+  
         $user->credit=$newCredit;
         $user->save();
         Cart::destroy();
