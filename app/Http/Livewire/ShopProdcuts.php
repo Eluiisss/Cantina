@@ -15,12 +15,31 @@ class ShopProdcuts extends Component
     public $veg;
     public $allergy;
 
+    public $selectedProduct;
+    public $showShop = '';
+    public $productModal = 'hidden';
+
+
     protected $queryString = [
         'search' => ['except' => ''],
         'category' => ['except' => ''],
         'veg' => ['except' => ''],
         'allergy' => ['except' => ''],
     ];
+
+    public function openProductModal($id)
+    {
+        $this->selectedProduct = $id;
+        $this->productModal = true;
+        $this->showShop = 'hidden';
+    }
+
+    public function closeProductModal()
+    {
+        $this->selectedProduct = null;
+        $this->productModal = 'hidden';
+        $this->showShop = '';
+    }
 
     public function filterCategory($name){
         if($this->category == $name){
