@@ -121,6 +121,16 @@
     }
 
 /* Responsive */
+@media (max-width: 639px) {
+    .products {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    .products > div {
+        width: 16rem;
+    }
+}
 @media (min-width: 992px) {
 
     .extend-width:hover {
