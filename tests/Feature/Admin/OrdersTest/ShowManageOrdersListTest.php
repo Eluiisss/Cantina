@@ -69,13 +69,13 @@ class ShowManageOrdersListTest extends TestCase
             'text-red-300',
             'Pepe López',
             '(2 Articulos)',
-            '35 minutes ago',
+            'hace 35 minutos',
             'border-gray-200',
             'PEDIDO: B340 (RECOGIDO)',
             'green-600',
             'Juan López',
             '(1 Articulos)',
-            '1 second ago',
+            'hace 1 segundo',
         ]);
     }
 

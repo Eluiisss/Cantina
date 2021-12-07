@@ -101,9 +101,30 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        $adminNre = $this->nres->firstWhere('nre', '9999999');
+        $mailMan = User::create([
+            'name' => 'Mail Man',
+            'nre_id' => $adminNre->id,
+            'email' => 'mail_man@mail.com',
+            'email_verified_at' => now(),
+            'phone' => '626123485',
+            'password' => bcrypt('password'),
+            'class' => '2ºDAW',
+            'banned' => 0,
+            'ban_strikes' => 0,
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'credit' => 0,
+        ]);
+        $adminNre->update([
+            'user_id' => $mailMan->id,
+            'updated_at' => now(),
+        ]);
+
         $eluis->attachRole($this->roles->firstWhere('name', 'administrator')->id);
         $manuel->attachRole($this->roles->firstWhere('name', 'administrator')->id);
         $eduardo->attachRole($this->roles->firstWhere('name', 'administrator')->id);
+        $mailMan->attachRole($this->roles->firstWhere('name', 'administrator')->id);
     }
 
     public function createRandomUser()
@@ -127,7 +148,7 @@ class UserSeeder extends Seeder
         $user = User::factory()->create([
             'nre_id' => $userNre->id,
             'banned' => rand(0,1),
-            
+
         ]);
 
         $userNre->update([
