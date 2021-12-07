@@ -1,22 +1,21 @@
 <section>
     <div class="{{$showShop}} container px-5 py-6 mx-auto">
-        <h2 class="text-4xl mb-5 text-right main-color-blue-text dark:main-color-yellow-text transition duration-500">{{trans('shop.title.index')}}</h2>
+        <h2 class="text-4xl mb-10 text-right main-color-blue-text dark:main-color-yellow-text transition duration-500">{{trans('shop.title.index')}}</h2>
         @include('shop._filters')
         <div class="flex flex-col">
+            @if(session('message'))
+                <div class="px-6 main-color-blue-bg main-color-yellow-text text-center py-4 lg:px-4 rounded-md">
+                    <div class="p-2 bg-transparent items-center  leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                        <span class="flex rounded-full main-color-yellow-bg main-color-blue-text uppercase px-2 py-1 text-xs font-bold mr-3">¡Atención!</span>
+                        <span class="font-semibold mr-2 text-center flex-auto"> {{session('message')}}</span>
+                        <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+                    </div>
+                </div>
+            @endif
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                     <div class="overflow-hidden sm:rounded">
                         <div class="container mx-auto px-6">
-
-                            @if(session('message'))
-                                <div class="bg-indigo-900 text-center py-4 lg:px-4">
-                                    <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-                                        <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
-                                        <span class="font-semibold mr-2 text-left flex-auto"> {{session('message')}}</span>
-                                        <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
-                                    </div>
-                                </div>
-                            @endif
                             <div class="products grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
                                 @if ($articles->isNotEmpty())
@@ -29,7 +28,7 @@
                                             </div>
                                             <div class="flex flex-col px-5 py-3">
                                                 <h2 class="text-gray-700 uppercase main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->name}}</h2>
-                                                <div class="flex justify-between items-center">
+                                                <div class="flex justify-between items-center py-4">
                                                     <span class="text-gray-500 mt-2 main-color-blue-text dark:main-color-yellow-text transition duration-500 items-center">
                                                     {{number_format($article->discounted_price,2)}} €
                                                     @if($article->discount>0)
@@ -68,10 +67,12 @@
                                     </p>
                                 @endif
                             </div>
-                            {{$articles->links()}}
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="py-4">
+                {{$articles->links()}}
             </div>
         </div>
     </div>
@@ -81,20 +82,16 @@
         <section>
             <div class="min-h-screen flex items-center justify-center px-4">
                 <div class="max-w-5xl bg-transparent backdrop-filter w-full rounded-lg shadow-xl">
-                    <div class="flex max-h-md mb-5 bg-white shadow-lg rounded-lg overflow-hidden">
-                        <div class="w-1/3 bg-cover" style="background-image: url('{{ $detailProduct->image? asset('storage/img/articles/'. $detailProduct->image): URL::asset('img/no_picture.jpg')}}')"></div>
-                        <div class="w-2/3 p-4 bg-transparent backdrop-filter">
-                            <h1 class="text-gray-900 font-bold text-2xl">{{$detailProduct->name}}</h1>
-                            <p class="mt-2 text-gray-600 text-sm">{{$detailProduct->category->name}}</p>
+                    <div class="flex flex-col md:flex-row max-h-md mb-5 bg-transparent shadow-lg rounded-t-lg overflow-hidden">
+                        <div class="w-full md:w-1/3 bg-cover" style="background-image: url('{{ $detailProduct->image? asset('storage/img/articles/'. $detailProduct->image): URL::asset('img/no_picture.jpg')}}')"></div>
+                        <div class="image-fade w-full md:w-2/3 p-4 backdrop-filter">
+                            <h1 class="main-color-blue-text font-bold text-2xl">{{$detailProduct->name}}</h1>
+                            <p class="main-color-blue-text mt-2 text-sm">{{$detailProduct->category->name}}</p>
                             <div class="flex item-center justify-between mt-3">
-                                <h1 class="text-gray-700 font-bold text-xl">€{{number_format($detailProduct->discounted_price,2)}}</h1>
+                                <h1 class="main-color-blue-text font-bold text-xl">{{number_format($detailProduct->discounted_price,2)}} €</h1>
 
                                 @if ($cart->where('id', $detailProduct->id)->count())
-                                    <x-button class="p-2 rounded-full bg-red-600 text-white mx-5 " disabled>
-                                        <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                        </svg>
-                                    </x-button>
+                                    <a href="{{ route('shop.cart') }}" class="p-2 rounded-full main-color-blue-bg main-color-yellow-text text-xs text-center mx-5 uppercase">Ver Carrito</a>
                                 @else
                                     <form action="{{route('cart.store')}}" method="POST">
                                         @csrf

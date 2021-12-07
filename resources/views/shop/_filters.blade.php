@@ -1,6 +1,6 @@
 <section>
-    <div class="backdrop-filter container mx-auto p-8 shadow-lg">
-        <input class="w-full py-4 px-4 rounded mb-8 focus:outline-none focus:shadow-outline text-sm md:text-base text-right main-color-blue-text dark:main-color-yellow-text transition duration-500 shadow-lg"
+    <div class="flex flex-col backdrop-filter container mx-auto">
+        <input class="py-4 px-4 rounded mb-8 focus:outline-none focus:shadow-outline text-sm md:text-base text-right main-color-blue-text dark:main-color-yellow-text transition duration-500 shadow-lg"
                wire:model.debounce.150ms="search" name="search" placeholder="¿Qué te apetece tomar?" value="{{ request('search') }}">
         <nav class="flex justify-end">
             <select wire:model.lazy="category" name="category" id="category" class="main-color-blue-bg main-color-yellow-text">
@@ -12,7 +12,7 @@
                 @endforeach
             </select>
         </nav>
-        <div class="block md:flex justify-end px-2 pt-4 my-2">
+        <div class="flex-auto text-right px-2 pt-4 my-2">
             <div class="mb-4 mx-2 inline-block">
                 <input id="veg" type="checkbox" wire:model="veg"
                        class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded">

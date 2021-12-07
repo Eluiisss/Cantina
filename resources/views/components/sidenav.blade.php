@@ -24,14 +24,13 @@
                 <a href="/" class="px-8 focus:outline-none text-center ">
                     <img class="shadow-lg" src="{{ URL::asset('img/IdlC.png') }}" alt="Logo Ingeniero de la Cierva" width="200" height="56">
                 </a>
-                <span class="mt-3 font-light text-sm main-color-blue-text dark:main-color-yellow-text transition duration-500">
+                <span class="mt-3 font-light text-sm text-center main-color-blue-text dark:main-color-yellow-text transition duration-500">
                     @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
                         Panel de administración
                     @else
-                        ¡Bienvenido a la cantina!
+                        {{ trans('users.greetings')[array_rand(trans('users.greetings'))] }}
                     @endif
                 </span>
-                <span class="text-xs font-light pt-5 main-color-blue-text dark:main-color-yellow-text transition duration-500">{{ trans('users.greetings')[array_rand(trans('users.greetings'))] }}</span>
             </div>
             <div class="flex flex-col items-center flex-grow px-4 mt-5">
                 <nav class="flex-1 space-y-1 bg-neutral-800">

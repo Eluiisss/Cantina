@@ -90,6 +90,10 @@
     backdrop-filter: blur(1em);
 }
 
+.image-fade {
+    background: linear-gradient(to right, #ffffff 30%, transparent 100%);
+}
+
 /* Animations */
 
     /* Loading Screen */

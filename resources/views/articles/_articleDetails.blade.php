@@ -4,29 +4,29 @@
             Información nutricional
         </h2>
     </div>
-    <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="text-gray-600 main-color-blue-text dark:main-color-yellow-text transition duration-500">Vegetariano</p>
+    <div class="grid grid-cols-2 items-center md:space-y-0 space-y-1 p-4 main-color-blue-border dark:main-color-yellow-border border-b transition duration-500">
+        <p class="text-gray-600 main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold">Vegetariano</p>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-{{$article->nutrition->is_veg?"green":"red"}}-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="{{$article->nutrition->is_veg? "M5 13l4 4L19 7":"M6 18L18 6M6 6l12 12"}}" />
         </svg>
-        <p class="text-gray-600 main-color-blue-text dark:main-color-yellow-text transition duration-500">Libre de alergenos</p>
+        <p class="text-gray-600 main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold">Libre de alergenos</p>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-{{!$article->nutrition->is_allergy?"green":"red"}}-600"
              fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="{{!$article->nutrition->is_allergy? "M5 13l4 4L19 7":"M6 18L18 6M6 6l12 12"}}" />
         </svg>
     </div>
-    <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Proteinas</p>
+    <div class="grid grid-cols-2 md:space-y-0 items-center space-y-1 p-4 main-color-blue-border dark:main-color-yellow-border border-b transition duration-500">
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold">Proteinas</p>
         <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->nutrition->proteins}} g.</p>
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Sal</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold">Sal</p>
         <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->nutrition->sodium}} g.</p>
-        <p class=" main-color-blue-text dark:main-color-yellow-text transition duration-500">Calorías</p>
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold">Calorías</p>
         <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->nutrition->calories}} kcal.</p>
     </div>
-    <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">
+    <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 main-color-blue-border dark:main-color-yellow-border border-b transition duration-500">
+        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold">
             Ingredientes
         </p>
         <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">
@@ -34,16 +34,16 @@
         </p>
     </div>
     @if($article->nutrition->is_allergy)
-        <div class="p-4 border-b">
+        <div class="p-4 main-color-blue-border dark:main-color-yellow-border border-b transition duration-500">
             <h2 class="text-2xl main-color-blue-text dark:main-color-yellow-text transition duration-500">
                 Información sobre alergenos
             </h2>
         </div>
-        <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+        <div class="md:grid grid-cols-2 md:space-y-0 space-y-1 p-4 main-color-blue-border dark:main-color-yellow-border border-b transition duration-500">
             <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">
                 Acerca de alergenos
             </p>
-            <div class="p-6 border-l-4 border-yellow-600 rounded-r-xl bg-yellow-50">
+            <div class="p-6 main-color-yellow-border border-l-4 rounded-r-xl bg-yellow-50">
                 <div class="flex">
                     <div class="flex-shrink-0">
                         <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
