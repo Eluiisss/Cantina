@@ -12,6 +12,8 @@
                    name="user_name" type="text" placeholder="Nombre usuario" value="{{ old('user_name', $user->name) }}">
         </div>
     </div>
+    
+    @if(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee') )
     <div class="w-full lg:w-12/12 px-4">
         <div class="relative w-full mb-3">
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="user_name">
@@ -21,6 +23,7 @@
                    name="user_credit" placeholder="Crédito" value="{{ old('user_credit', $user->credit) }}">
         </div>
     </div>
+    @endif
 
     <div class="w-full lg:w-12/12 px-4">
         <div class="relative w-full mb-3">

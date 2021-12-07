@@ -18,9 +18,16 @@
                             <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="submit">
                                 Editar Usuario
                             </button>
+                            @if(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee') )
                             <a href="{{ route('users.index') }}" class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
                                 Volver
                             </a>
+                            @else
+                            <a href="{{ route('shop.index') }}" class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                Volver
+                            </a>
+                            @endif
+
                         </form>
                     </div>
                 </div>
