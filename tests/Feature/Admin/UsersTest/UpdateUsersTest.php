@@ -6,7 +6,7 @@ use App\Models\{User,Nre,Role};
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UpdateCategoryTest extends TestCase
+class UpdateUsersTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -14,7 +14,8 @@ class UpdateCategoryTest extends TestCase
         'user_name' => 'defaultName',
         'user_phone' => '111111111',
         'user_email' => 'default@mail.es',
-        'user_class' => '1ºDAW'
+        'user_class' => '1ºDAW',
+        'user_credit' => 10
     ];
 
     public function createRandomUser()
@@ -75,7 +76,7 @@ class UpdateCategoryTest extends TestCase
             'name' => 'Usuario test',
             'phone' => '666666666',
             'email' =>'usertTest@mail.es',
-            'class' => '2º DAW',
+            'class' => '2ºDAW',
         ]);
 
         $userNre->update([
@@ -87,20 +88,21 @@ class UpdateCategoryTest extends TestCase
             'name' => 'Usuario test',
             'phone' => '666666666',
             'email' =>'usertTest@mail.es',
-            'class' => '2º DAW',
+            'class' => '2ºDAW',
         ]);
 
         $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
             ->put(route('users.update', ['user' => $oldUser]), $this->withData([
                 'user_phone' => '777777777',
                 'user_email' =>'newusertTest@mail.es',
-                'user_class' => '2º DAM'
+                'user_class' => '2ºDAM',
+                'user_credit' => '32'
             ]))->assertRedirect(route('users.show', ['user' => $oldUser]));
 
         $this->assertDatabaseHas('users', [
             'phone' => '777777777',
             'email' =>'newusertTest@mail.es',
-            'class' => '2º DAM',
+            'class' => '2ºDAM',
         ]);
     }
 

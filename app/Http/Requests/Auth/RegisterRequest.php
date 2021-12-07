@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Models\{Nre, User};
+use App\Models\{Nre, User, Role};
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -77,11 +77,12 @@ class RegisterRequest extends FormRequest
                 'user_id' => $user->id,
                 'updated_at' => now(),
             ]);
-            $user->attachRole('user');
+            $user->attachRole(Role::where('name', 'user')->first());
 
             event(new Registered($user));
 
             Auth::login($user);
         });
     }
+
 }
