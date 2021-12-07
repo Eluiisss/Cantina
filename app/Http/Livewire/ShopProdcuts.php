@@ -19,6 +19,7 @@ class ShopProdcuts extends Component
     public $showShop = '';
     public $productModal = 'hidden';
 
+    public $paginate = 10;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -39,6 +40,11 @@ class ShopProdcuts extends Component
         $this->selectedProduct = null;
         $this->productModal = 'hidden';
         $this->showShop = '';
+    }
+
+    public function loadMoreProducts()
+    {
+        $this->paginate += 10;
     }
 
     public function filterCategory($name){
@@ -63,7 +69,7 @@ class ShopProdcuts extends Component
             ->where('stock','>', 0)
             ->applyFilters($filters)
             ->orderBy('name')
-            ->paginate();
+            ->paginate($this->paginate);
 
         return view('livewire.shop-prodcuts',
             [

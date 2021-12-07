@@ -5,70 +5,86 @@
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="overflow-hidden sm:rounded">
-                        <div class="container mx-auto px-6">
+                    <div class="container mx-auto px-6">
 
-                            @if(session('message'))
-                                <div class="bg-indigo-900 text-center py-4 lg:px-4">
-                                    <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-                                        <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
-                                        <span class="font-semibold mr-2 text-left flex-auto"> {{session('message')}}</span>
-                                        <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
-                                    </div>
+                        @if(session('message'))
+                            <div class="bg-indigo-900 text-center py-4 lg:px-4">
+                                <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                                    <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">New</span>
+                                    <span class="font-semibold mr-2 text-left flex-auto"> {{session('message')}}</span>
+                                    <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
                                 </div>
-                            @endif
-                            <div class="products grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                            </div>
+                        @endif
+                        <div class="products grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
-                                @if ($articles->isNotEmpty())
-                                    @foreach($articles as $article)
-                                        <div wire:click.stop="openProductModal('{{$article->id}}')"
-                                             class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden bg-transparent backdrop-filter
-                                                    transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer">
-                                            <div class="flex items-end justify-end h-56 w-full bg-cover"
-                                                 style="background-image: url('{{ $article->image? asset('storage/img/articles/'. $article->image): URL::asset('img/no_picture.jpg')}}')">
-                                            </div>
-                                            <div class="flex flex-col px-5 py-3">
-                                                <h2 class="text-gray-700 uppercase main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->name}}</h2>
-                                                <div class="flex justify-between items-center">
-                                                    <span class="text-gray-500 mt-2 main-color-blue-text dark:main-color-yellow-text transition duration-500 items-center">
-                                                    {{number_format($article->discounted_price,2)}} €
-                                                    @if($article->discount>0)
-                                                        <span class="line-through text-red-600">{{number_format($article->price,2) . " € "}}</span>
-                                                    @endif
-                                                    </span>
-                                                    @if ($cart->where('id', $article->id)->count())
-                                                        <a href="{{ route('shop.cart') }}" class="p-2 rounded-full main-color-blue-bg main-color-yellow-text text-xs text-center mx-5 uppercase">Ver Carrito</a>
-                                                    @else
-                                                        <form action="{{route('cart.store')}}" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="article_id" value="{{$article->id}}">
-                                                            <x-button x-on:click.stop="" type="submit" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500 main-color-blue-bg transition duration-500">
-                                                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                                                </svg>
-                                                            </x-button>
-                                                        </form>
-                                                    @endif
-                                                    {{--
-                                                     <form action="{{route('article.addToCart', ['id' => $article->id])}}">
-                                                        <x-button type="submit" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
-                                                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                                                </svg>
+                            @if ($articles->isNotEmpty())
+                                @foreach($articles as $article)
+                                    <div wire:click.stop="openProductModal('{{$article->id}}')"
+                                         class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden bg-transparent backdrop-filter
+                                                transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 cursor-pointer">
+                                        <div class="flex items-end justify-end h-56 w-full bg-cover"
+                                             style="background-image: url('{{ $article->image? asset('storage/img/articles/'. $article->image): URL::asset('img/no_picture.jpg')}}')">
+                                        </div>
+                                        <div class="flex flex-col px-5 py-3">
+                                            <h2 class="text-gray-700 uppercase main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$article->name}}</h2>
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-gray-500 mt-2 main-color-blue-text dark:main-color-yellow-text transition duration-500 items-center">
+                                                {{number_format($article->discounted_price,2)}} €
+                                                @if($article->discount>0)
+                                                    <span class="line-through text-red-600">{{number_format($article->price,2) . " € "}}</span>
+                                                @endif
+                                                </span>
+                                                @if ($cart->where('id', $article->id)->count())
+                                                    <a href="{{ route('shop.cart') }}" class="p-2 rounded-full main-color-blue-bg main-color-yellow-text text-xs text-center mx-5 uppercase">Ver Carrito</a>
+                                                @else
+                                                    <form action="{{route('cart.store')}}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="article_id" value="{{$article->id}}">
+                                                        <x-button x-on:click.stop="" type="submit" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500 main-color-blue-bg transition duration-500">
+                                                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                                            </svg>
                                                         </x-button>
                                                     </form>
-                                                    --}}
-                                                </div>
+                                                @endif
+                                                {{--
+                                                 <form action="{{route('article.addToCart', ['id' => $article->id])}}">
+                                                    <x-button type="submit" class="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                                                            <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                                            </svg>
+                                                    </x-button>
+                                                </form>
+                                                --}}
                                             </div>
                                         </div>
-                                    @endforeach
-                                @else
-                                    <p class="text-left md:text-center text-blueGray-700 text-xl">
-                                        {{trans('shop.products.empty')}}
-                                    </p>
+                                    </div>
+                                @endforeach
+                                @if($articles->hasMorePages())
+                                    <div x-data="{
+                                                observe () {
+                                                    let observer = new IntersectionObserver((entries) => {
+                                                        entries.forEach(entry => {
+                                                            if (entry.isIntersecting) {
+                                                                @this.call('loadMoreProducts')
+                                                            }
+                                                        })
+                                                    }, {
+                                                        root: null
+                                                    })
+                                                    observer.observe(this.$el)
+                                                }
+                                            }"
+                                         x-init="observe">
+                                        @include('shared._loading')
+                                    </div>
                                 @endif
-                            </div>
-                            {{$articles->links()}}
+                            @else
+                                <p class="text-left md:text-center text-blueGray-700 text-xl">
+                                    {{trans('shop.products.empty')}}
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>
