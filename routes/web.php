@@ -63,14 +63,15 @@ Route::prefix('admin')->group(function () {
     Route::delete('/users/delete/{id}', [UserController::class , 'destroy'])->middleware(['role:administrator|employee'])->name('users.destroy');
     Route::get('/users/papelera', [UserController::class , 'index'])->middleware(['role:administrator|employee'])->name('users.trashed');
     Route::get('/users/{user}/show', [UserController::class, 'show'])->middleware(['role:administrator|employee'])->name('users.show');
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['role:administrator|employee'])->name('users.edit');
-    Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['role:administrator|employee'])->name('users.update');
     Route::get('/users/bann/{id}', [UserController::class, 'bann'])->middleware(['role:administrator|employee'])->name('users.bann');
     Route::put('/users/{id}/papelera', [UserController::class, 'restore'])->middleware(['role:administrator|employee'])->name('users.restore');
     Route::patch('/users/{user}/papelera', [UserController::class, 'trash'])->middleware(['role:administrator|employee'])->name('users.trash');
     Route::get('/users/createEmployee', [UserController::class, 'createEmployee'])->middleware(['role:administrator'])->name('users.createEmployee');
     Route::post('/users/', [UserController::class, 'storeEmployee'])->name('users.storeEmployee');
 });
+
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['role:administrator|employee|user'])->name('users.edit');
+Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['role:administrator|employee|user'])->name('users.update');
 
 Route::post('paypal/order/create', [PaypalController::class , 'create']);
 Route::post('paypal/order/capture', [PaypalController::class , 'capture']);

@@ -4,7 +4,10 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use App\Models\Nre;
+use App\Models\Role;
+use Illuminate\Validation\Rules\RequiredIf;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUSerRequest extends FormRequest
 {
@@ -15,7 +18,7 @@ class UpdateUSerRequest extends FormRequest
             'user_phone' => ['required','min:9','max:9'],
             'user_email' => ['required','email'],
             'user_class' => ['required'],
-            'user_credit' => ['required','min:0','max:100'],
+            'user_credit' => new RequiredIf(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee')),
 
         ];
     }
@@ -39,8 +42,13 @@ class UpdateUSerRequest extends FormRequest
             'phone' => $this->user_phone,
             'class' => $this->user_class,
             'email' => $this->user_email,
-            'credit' => $this->user_credit,
             'updated_at' => now()
         ]);
+
+        if(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee')){
+            $user->update([
+                'credit'=> $this->credit,
+            ]);
+        }
     }
 }
