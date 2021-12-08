@@ -37,70 +37,83 @@ class OrdersController extends Controller
     }
 
     public function createPayedOrder(){
+        if (Auth::user()->banned){
+            try {
+                DB::transaction(function () {
+                    $date = now();
+                    $cart= Cart::content();
+                    $order = Order::factory()->create([
+                        'user_id' => Auth::id(),
+                        'created_at' => $date,
+                        'order_status' => 'pendiente',
+                        'payment_status' => 'ya_pagado',
+                        'total_payed' => Cart::priceTotal(),
 
+                    ]);
 
+                    foreach ($cart as $art) {
+                        $order->articles()
+                        ->attach($art->id, [
+                        'quantity' => $art->qty,
+                        'created_at' => $date,
+                        'updated_at' => $date,
 
-            DB::transaction(function () {
-                $date = now();
-                $cart= Cart::content();
-                $order = Order::factory()->create([
-                    'user_id' => Auth::id(),
-                    'created_at' => $date,
-                    'order_status' => 'pendiente',
-                    'payment_status' => 'ya_pagado',
-                    'total_payed' => Cart::priceTotal(),
+                    ]);
 
-                ]);
+                    }
 
-                foreach ($cart as $art) {
-                    $order->articles()
-                    ->attach($art->id, [
-                    'quantity' => $art->qty,
-                    'created_at' => $date,
-                    'updated_at' => $date,
-
-                ]);
-
-                }
-                $user=Auth::user();
-                $newCredit = $user->credit - Cart::priceTotal();
-                Cart::destroy();
-                $user->credit=$newCredit;
-                $user->save();
-                return redirect('shop')->with('message','¡Encargo pagado!');
-            });
-            return redirect('shop')->with('message','Error en el encargo');
+                    $user=Auth::user();
+                    $newCredit = $user->credit - Cart::priceTotal();
+                    Cart::destroy();
+                    $user->credit=$newCredit;
+                    $user->save();
+                    
+                });
+            } catch (\Exception $e) {
+                return redirect('shop')->with('message','Error en el encargo');
+            }
+        
+            return redirect('shop')->with('message','¡Encargo pagado!');
+        }else{
+            return redirect('shop')->with('message','Usuario deshabilitado, contacte con cantina');
+        }
+            
     }
 
     public function createNewOrder(){
 
+        if (Auth::user()->banned){ //si está baneado banned = 1
+            try {
+                DB::transaction(function () {
+                    $date = now();
+                    $cart= Cart::content();
+                    $order = Order::factory()->create([
+                        'user_id' => Auth::id(),
+                        'created_at' => $date,
+                        'order_status' => 'pendiente',
+                        'payment_status' => 'sin_pagar',
 
+                    ]);
 
-        DB::transaction(function () {
-            $date = now();
-            $cart= Cart::content();
-            $order = Order::factory()->create([
-                'user_id' => Auth::id(),
-                'created_at' => $date,
-                'order_status' => 'pendiente',
-                'payment_status' => 'sin_pagar',
+                    foreach ($cart as $art) {
+                        $order->articles()
+                        ->attach($art->id, [
+                        'quantity' => $art->qty,
+                        'created_at' => $date,
+                        'updated_at' => $date,
 
-            ]);
+                    ]);
 
-            foreach ($cart as $art) {
-                $order->articles()
-                ->attach($art->id, [
-                'quantity' => $art->qty,
-                'created_at' => $date,
-                'updated_at' => $date,
-
-            ]);
-
+                    }
+                    Cart::destroy();
+                });
+            } catch (\Exception $e) {
+                return redirect('shop')->with('message','Error en el encargo');
             }
-            Cart::destroy();
             return redirect('shop')->with('message','¡Encargo Realizado!');
-        });
-        return redirect('shop')->with('message','Error en el encargo');
+        }else{
+            return redirect('shop')->with('message','Usuario deshabilitado, contacte con cantina');
+        }
     }
 
     public function cancel($id){
