@@ -54,6 +54,15 @@
                    name="user_email" type="text" placeholder="Email del usuario" value="{{ old('user_email', $user->email) }}">
         </div>
     </div>
+    <div class="w-full lg:w-12/12 px-4">
+        <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+                Foto
+            </label>
+            <input type='file'  name="user_image" />
+        </div>
+    </div>
+
 </div>
 
 

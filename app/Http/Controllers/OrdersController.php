@@ -37,7 +37,7 @@ class OrdersController extends Controller
     }
 
     public function createPayedOrder(){
-        if (Auth::user()->banned){
+        if (Auth::user()->banned == 0){
             try {
                 DB::transaction(function () {
                     $date = now();
@@ -82,7 +82,7 @@ class OrdersController extends Controller
 
     public function createNewOrder(){
 
-        if (Auth::user()->banned){ //si está baneado banned = 1
+        if (Auth::user()->banned == 0){ //si está baneado banned = 1
             try {
                 DB::transaction(function () {
                     $date = now();
