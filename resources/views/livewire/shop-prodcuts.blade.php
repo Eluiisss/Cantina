@@ -14,7 +14,7 @@
             @endif
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <div class="container mx-auto px-6">
+                    <div class="overflow-hidden container mx-auto px-6">
                         <div class="products grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
 
                             @if ($articles->isNotEmpty())
@@ -60,6 +60,25 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                @if($articles->hasMorePages())
+                                    <div x-data="{
+                                            observe () {
+                                                let observer = new IntersectionObserver((entries) => {
+                                                    entries.forEach(entry => {
+                                                        if (entry.isIntersecting) {
+                                                            @this.call('loadMoreProducts')
+                                                        }
+                                                    })
+                                                }, {
+                                                    root: null
+                                                })
+                                                observer.observe(this.$el)
+                                            }
+                                        }"
+                                         x-init="observe">
+                                        @include('shared._loading')
+                                    </div>
+                                @endif
                             @else
                                 <p class="text-left md:text-center text-blueGray-700 text-xl">
                                     {{trans('shop.products.empty')}}
@@ -68,9 +87,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="py-4">
-                {{$articles->links()}}
             </div>
         </div>
     </div>
