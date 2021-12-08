@@ -3,7 +3,15 @@
         <div class="flex justify-between items-center h-auto border-b-2 mb-8">
             <div class="flex space-x-4 items-center">
                 <div class="h-auto w-12 rounded-full overflow-hidden">
-                    <img src="{{URL::asset('img/articles/pandilla.jpg')}}" loading="lazy" class="h-full w-full object-cover" />
+                    @if($order->user->image)
+                        <div class="col-span-1 self-center">
+                            <img src="{{asset('storage/img/users/'. $order->user->image)}}" alt="Image" loading="lazy" class="h-full w-full object-cover">
+                        </div>
+                    @else
+                        <div class="col-span-1 self-center">
+                            <img src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="Image" loading="lazy" class="h-full w-full object-cover">
+                        </div>
+                    @endif
                 </div>
                 <div class="flex flex-col">
                     <h3 class="font-semibold text-lg">{{$order->user->name}}</h3>
