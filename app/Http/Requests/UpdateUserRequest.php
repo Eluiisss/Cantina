@@ -15,10 +15,10 @@ class UpdateUSerRequest extends FormRequest
     {
         return [
             'user_name' => ['required','min:2', 'max:20'],
-            'user_phone' => ['required','min:9','max:9'],
+            'user_phone' => ['required','min:9','max:9','regex:/([0-9]{9})/u'],
             'user_email' => ['required','email'],
             'user_class' => ['required'],
-            'user_credit' => new RequiredIf(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee')),
+            'user_credit' => new RequiredIf(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee'))
 
         ];
     }
@@ -47,7 +47,7 @@ class UpdateUSerRequest extends FormRequest
 
         if(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee')){
             $user->update([
-                'credit'=> $this->credit,
+                'credit'=> $this->user_credit,
             ]);
         }
     }

@@ -46,29 +46,7 @@ class ListUsersTest extends TestCase
             $user2->name,
             $user3->name,
         ]);
-
-        //$this->assertNotRepeatedQueries();
     }
-
-      /*  Nunca está vacía ya que al menos hay un admin para poder acceder
-        public function shows_a_default_message_is_user_list_is_empty()
-      {
-        $nre = Nre::factory()->create();
-        $userAd = User::factory()->create([
-            'name' => 'User1',
-            'nre_id' => $nre->id,
-        ]);
-        $admin = Role::create([
-            'name' => 'administrator',
-            'display_name' => 'Administrator ', // optional
-            'description' => 'User allowed to see the index of users', // optional
-        ]);
-        $userAd->attachRole($admin);
-          $this->assertDatabaseEmpty('users');
-          $response = $this->actingAs($userAd)->get(route('users.index'))->assertStatus(200);
-          $response->assertSee('Sin datos');
-      }
-      */
 
        /** @test  */
       public function it_paginate_the_users()
@@ -174,6 +152,36 @@ class ListUsersTest extends TestCase
             'user_id' => $user->id,
             'updated_at' => now(),
         ]);
+    }
+
+    public function createAdmin($name)
+    {
+        $admin = User::factory()->create([
+            'name' => $name,
+            'nre_id' => Nre::factory()->create()->id,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+        ]);
+        $admin->attachRole($adminRole);
+    
+    }
+
+    public function createEmplolyee($name)
+    {
+        $admin = User::factory()->create([
+            'name' => $name,
+            'nre_id' => Nre::factory()->create()->id,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'administrator',
+            'display_name' => 'Administrator ', // optional
+        ]);
+        $admin->attachRole($adminRole);
+    
     }
 
 

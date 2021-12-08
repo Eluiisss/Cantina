@@ -56,10 +56,11 @@ class UpdateUsersTest extends TestCase
     }
 
      /** @test  */
-    function an_user_can_be_updated()
+    function an_admin_can__update_a_user()
     {
         $admin = User::factory()->create([
             'name' => 'User1',
+            'credit' => 0,
             'nre_id' => Nre::factory()->create()->id,
         ]);
 
@@ -77,6 +78,7 @@ class UpdateUsersTest extends TestCase
             'phone' => '666666666',
             'email' =>'usertTest@mail.es',
             'class' => '2ºDAW',
+            'credit' => 4
         ]);
 
         $userNre->update([
@@ -89,46 +91,43 @@ class UpdateUsersTest extends TestCase
             'phone' => '666666666',
             'email' =>'usertTest@mail.es',
             'class' => '2ºDAW',
+            'credit' => 4
         ]);
 
         $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
             ->put(route('users.update', ['user' => $oldUser]), $this->withData([
+                'user_name' => 'nuevo test',
                 'user_phone' => '777777777',
                 'user_email' =>'newusertTest@mail.es',
                 'user_class' => '2ºDAM',
-                'user_credit' => '32'
-            ]))->assertRedirect(route('users.show', ['user' => $oldUser]));
-
+                'user_credit' => 32
+            ]));
+            
         $this->assertDatabaseHas('users', [
+            'name' => 'nuevo test',
             'phone' => '777777777',
             'email' =>'newusertTest@mail.es',
             'class' => '2ºDAM',
+            'credit' => 32
         ]);
+        
     }
-
-     /** @test  */
-    function phone_must_be_valid()
+    /** @test  */
+    function an_user_can_update_his_info()
     {
-        $this->handleValidationExceptions();
-        $this->withExceptionHandling();
-
-        $admin = User::factory()->create([
-            'name' => 'User1',
-            'nre_id' => Nre::factory()->create()->id,
+        $userRole = Role::create([
+            'name' => 'user',
+            'display_name' => 'User ', // optional
         ]);
-
-        $adminRole = Role::create([
-            'name' => 'administrator',
-            'display_name' => 'Administrator ', // optional
-            'description' => 'User allowed to see the index of users', // optional
-        ]);
-        $admin->attachRole($adminRole);
-
+        
         $userNre = Nre::factory()->create();
         $oldUser = User::factory()->create([
             'nre_id' => $userNre->id,
             'name' => 'Usuario test',
             'phone' => '666666666',
+            'email' =>'usertTest@mail.es',
+            'class' => '2ºDAW',
+            'credit' => 4
         ]);
 
         $userNre->update([
@@ -136,21 +135,33 @@ class UpdateUsersTest extends TestCase
             'updated_at' => now(),
         ]);
 
+        $oldUser->attachRole($userRole);
+
         $this->assertDatabaseHas('users', [
+            'name' => 'Usuario test',
             'phone' => '666666666',
+            'email' =>'usertTest@mail.es',
+            'class' => '2ºDAW',
+            'credit' => 4
         ]);
 
-        $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
+        $this->actingAs($oldUser)->from(route('users.edit', ['user' => $oldUser]))
             ->put(route('users.update', ['user' => $oldUser]), $this->withData([
-                'user_phone' => 'formato incrrecto de telefono',
-            ]))->assertSessionHasErrors('user_phone')
-            ->assertRedirect(url()->previous());
-
+                'user_name' => 'nuevo test',
+                'user_phone' => '777777777',
+                'user_email' =>'newusertTest@mail.es',
+                'user_class' => '2ºDAM',
+            ]));
+            
         $this->assertDatabaseHas('users', [
-            'phone' => '666666666',
-
+            'name' => 'nuevo test',
+            'phone' => '777777777',
+            'email' =>'newusertTest@mail.es',
+            'class' => '2ºDAM',
+            'credit' => 4
         ]);
     }
+
      /** @test  */
     function email_must_be_valid()
     {
@@ -196,6 +207,55 @@ class UpdateUsersTest extends TestCase
 
         ]);
     }
+
+       /** @test  */
+       function phone_must_be_valid()
+       {
+           $this->handleValidationExceptions();
+           $this->withExceptionHandling();
+   
+           $admin = User::factory()->create([
+               'name' => 'User1',
+               'nre_id' => Nre::factory()->create()->id,
+           ]);
+   
+           $adminRole = Role::create([
+               'name' => 'administrator',
+               'display_name' => 'Administrator ', // optional
+               'description' => 'User allowed to see the index of users', // optional
+           ]);
+           $admin->attachRole($adminRole);
+   
+           $userNre = Nre::factory()->create();
+           $oldUser = User::factory()->create([
+               'nre_id' => $userNre->id,
+               'name' => 'Usuario test',
+               'phone' =>'666666666',
+           ]);
+   
+           $userNre->update([
+               'user_id' => $oldUser->id,
+               'updated_at' => now(),
+           ]);
+   
+           $this->assertDatabaseHas('users', [
+                'phone' =>'666666666',
+           ]);
+   
+           $this->actingAs($admin)->from(route('users.edit', ['user' => $oldUser]))
+               ->put(route('users.update', ['user' => $oldUser]), $this->withData([
+                   'user_phone' =>'not_valid',
+               ]))->assertSessionHasErrors('user_phone')
+               ->assertRedirect(url()->previous());
+   
+           $this->assertDatabaseHas('users', [
+                'phone' =>'666666666',
+           ]);
+       }
+
+     
+    
+
 
 
 }
