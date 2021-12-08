@@ -28,6 +28,7 @@ class OrderFactory extends Factory
             'payment_status' => ($orderStatus == 'recogido')? 'ya_pagado': 'sin_pagar',
             'payment_date' => ($orderStatus == 'recogido')? now(): null,
             'collected_date' => ($orderStatus == 'recogido')? now(): null,
+            'client_note' => rand(0,3) ? null: $this->faker->sentence(rand(0,30)),
         ];
     }
 

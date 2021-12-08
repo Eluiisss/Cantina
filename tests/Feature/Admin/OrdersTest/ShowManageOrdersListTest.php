@@ -110,6 +110,7 @@ class ShowManageOrdersListTest extends TestCase
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
             'order_code' => 'R23200000',
+            'client_note' => 'Buenas tardes, me gustaria si es posible  que la pizza no tenga pelos si? GRACIAS!!',
             'created_at' => $created_at,
         ]);
         $order->articles()
@@ -129,6 +130,7 @@ class ShowManageOrdersListTest extends TestCase
                 'Pendiente',
                 'Sin pagar',
                 $created_at->toDayDateTimeString(),
+                'Buenas tardes, me gustaria si es posible  que la pizza no tenga pelos si? GRACIAS!!',
                 'Pizza',
                 'Snacks',
                 '1.75',

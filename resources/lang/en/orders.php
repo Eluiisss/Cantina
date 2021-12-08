@@ -18,6 +18,7 @@ return [
         'title' => 'Gestión de pedidos',
         'search' => 'Buscar pedido',
         'nodata' => 'Sin pedidos',
+        'clientNoteText' => 'Nota del cliente',
         'collected' => 'RECOGIDO',
         'notCollected' => 'NO RECOGIDO',
         'cancel' => 'CANCELADO',
