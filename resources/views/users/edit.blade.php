@@ -8,6 +8,15 @@
                         <div class="text-center flex justify-between">
                             <h6 class="text-blueGray-700 text-xl font-bold">
                                 @yield('title')
+                                @if($user->image)
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="{{asset('storage/img/users/'. $user->image)}}" >
+                                    </div>
+                                 @else
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <img class="h-10 w-10 rounded-full" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" >
+                                    </div>
+                                @endif
                             </h6>
                         </div>
                     </div>

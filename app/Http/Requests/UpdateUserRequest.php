@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 
 class UpdateUSerRequest extends FormRequest
 {
@@ -62,9 +64,14 @@ class UpdateUSerRequest extends FormRequest
             'phone' => $this->user_phone,
             'class' => $this->user_class,
             'email' => $this->user_email,
-            'image' => $picName,
             'updated_at' => now()
         ]);
+
+        if($picName != null){
+            $user->update([
+                'image' => $picName,
+            ]);
+        }
 
         if(Auth::user()->hasRole('administrator') || Auth::user()->hasRole('employee')){
             $user->update([

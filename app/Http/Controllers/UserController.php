@@ -43,7 +43,7 @@ class UserController extends Controller
     public function bann($id){
         $user = User::find($id);
         $user->banned = !$user->banned;
-        if($user->banned){
+        if(!$user->banned){
             $user->ban_strikes = 0;
         }
         $user->save();

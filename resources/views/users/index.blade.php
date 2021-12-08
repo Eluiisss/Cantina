@@ -25,9 +25,15 @@
                                     <td class="px-4 py-4 whitespace-nowrap" x-data="{ open: false }">
                                         <button class="cursor-pointer md:cursor-default" @click="open = !open">
                                             <div class="flex items-center">
-                                                <div class="flex-shrink-0 h-10 w-10">
-                                                    <img class="h-10 w-10 rounded-full" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" alt="">
-                                                </div>
+                                                @if($row->image)
+                                                    <div class="flex-shrink-0 h-10 w-10">
+                                                        <img class="h-10 w-10 rounded-full" src="{{asset('storage/img/users/'. $row->image)}}" >
+                                                    </div>
+                                                @else
+                                                    <div class="flex-shrink-0 h-10 w-10">
+                                                        <img class="h-10 w-10 rounded-full" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png" >
+                                                    </div>
+                                                @endif
                                                 <div class="ml-4 main-color-blue-text dark:main-color-yellow-text transition duration-500">
                                                     <div class="flex flex-auto items-center text-xs md:text-lg font-medium font-bold">
                                                         <span>{{strlen($row->name) > 25 ? substr($row->name, 0, 25) . '...' : $row->name}}</span>
@@ -35,7 +41,7 @@
                                                             <span class="rounded-full main-color-blue-bg ml-8 h-2 h-2.5 w-2.5"></span>
                                                         @elseif($row->hasRole('employee'))
                                                             <span class="rounded-full main-color-yellow-bg ml-8 h-2.5 w-2.5"></span>
-                                                        @elseif($row->hasRole('user') && $row->banned == 0)
+                                                        @elseif($row->hasRole('user') && $row->banned == 1)
                                                             <span class="rounded-full bg-red-700 ml-8 h-2.5 w-2.5"></span>
                                                         @else
                                                             <span class="rounded-full bg-green-500 ml-8 h-2.5 w-2.5"></span>
@@ -53,7 +59,7 @@
                                                         @elseif($row->isAn('user'))
                                                             <div class="ml-4">
                                                                 <span>{{ $row->class }}</span>
-                                                                <span class="ml-4">Fidelidad: 0</span>
+                                                                <span class="ml-4">Strikes:{{$row->ban_strikes}}</span>
                                                             </div>
                                                         @endif
                                                     </div>
