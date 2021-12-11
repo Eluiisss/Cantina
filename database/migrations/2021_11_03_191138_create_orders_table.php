@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->float('total_payed')->nullable();
             $table->dateTime('collected_date')->nullable();
             $table->dateTime('payment_date')->nullable();
+            $table->string('client_note', 1000)->nullable();
             $table->timestamps();
         });
     }

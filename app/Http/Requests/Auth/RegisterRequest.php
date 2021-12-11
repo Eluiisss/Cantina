@@ -67,7 +67,7 @@ class RegisterRequest extends FormRequest
     {
         DB::transaction(function () {
             $nre = Nre::where('nre', $this->nre)->first();
-            $user = User::factory()->create([
+            $user = User::create([
                 'name' => $this->name,
                 'nre_id' => $nre->id,
                 'email' => $this->email,

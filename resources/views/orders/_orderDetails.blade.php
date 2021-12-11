@@ -34,6 +34,15 @@
             Datos del pedido
         </h2>
     </div>
+    @if($order->client_note)
+    <div class="flex main-color-blue-bg rounded-lg p-4 mb-4 text-sm text-white">
+        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+        <div>
+            <span class="font-large">{{trans('orders.manage.clientNoteText')}}</span>
+            <p>{{$order->client_note}}</p>
+        </div>
+    </div>
+    @endif
     <div class="md:grid md:grid-cols-1 md:space-y-0 space-y-1 p-4 border-b">
         <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Articulos</p>
         <ul class="py-6 space-y-12 px-3 md:px-8">
@@ -79,26 +88,30 @@
         </ul>
     </div>
     @if (auth()->user()->hasRole(['administrator', 'employee']))
-    <div class="p-4 border-b">
-        <h2 class="text-2xl main-color-blue-text dark:main-color-yellow-text transition duration-500">
-            Datos del cliente
-        </h2>
-    </div>
-    <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Nombre</p>
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->name}}</p>
-    </div>
-    <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Clase</p>
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->class}}</p>
-    </div>
-    <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Correo</p>
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->email}}</p>
-    </div>
-    <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Teléfono</p>
-        <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->phone}}</p>
-    </div>
+        <div class="p-4 border-b">
+            <h2 class="text-2xl main-color-blue-text dark:main-color-yellow-text transition duration-500">
+                Datos del cliente
+            </h2>
+        </div>
+        <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Nombre</p>
+            <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->name}}</p>
+        </div>
+        @if($order->user->class)
+            <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Clase</p>
+                <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->class}}</p>
+            </div>
+        @endif
+        <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+            <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Correo</p>
+            <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->email}}</p>
+        </div>
+        @if($order->user->phone)
+            <div class="md:grid md:grid-cols-2 md:space-y-0 space-y-1 p-4 border-b">
+                <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">Teléfono</p>
+                <p class="main-color-blue-text dark:main-color-yellow-text transition duration-500">{{$order->user->phone}}</p>
+            </div>
+        @endif
     @endif
 </div>

@@ -31,12 +31,12 @@
                             <td class="justify-center sm:justify-end mt-6">
                                 <div class="w-20 h-10 relative flex flex-row justify-center w-full h-8">
                                     <div class="inline-flex">
-                                        <x-button wire:click="moreQty('{{$art->rowId}}')" class="text-base main-color-blue-text dark:main-color-yellow-text">
-                                            +
-                                        </x-button>
-                                        <p class="flex justify-center items-center ml-2 mr-2">{{$art->qty}}</p>
                                         <x-button wire:click="lessQty('{{$art->rowId}}')" class="text-base main-color-blue-text dark:main-color-yellow-text">
                                             -
+                                        </x-button>
+                                        <p class="flex justify-center items-center ml-2 mr-2">{{$art->qty}}</p>
+                                        <x-button wire:click="moreQty('{{$art->rowId}}')" class="text-base main-color-blue-text dark:main-color-yellow-text">
+                                            +
                                         </x-button>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                 <a href="{{route('orders.newPayedOrder')}}">
                                     <button class="flex items-center justify-center w-full px-10 py-3 mt-6 font-medium uppercase main-color-blue-bg main-color-yellow-text transition duration-500 rounded-full shadow item-center focus:shadow-outline focus:outline-none">
                                         <svg aria-hidden="true" data-prefix="far" data-icon="credit-card" class="w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M527.9 32H48.1C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48.1 48h479.8c26.6 0 48.1-21.5 48.1-48V80c0-26.5-21.5-48-48.1-48zM54.1 80h467.8c3.3 0 6 2.7 6 6v42H48.1V86c0-3.3 2.7-6 6-6zm467.8 352H54.1c-3.3 0-6-2.7-6-6V256h479.8v170c0 3.3-2.7 6-6 6zM192 332v40c0 6.6-5.4 12-12 12h-72c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h72c6.6 0 12 5.4 12 12zm192 0v40c0 6.6-5.4 12-12 12H236c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h136c6.6 0 12 5.4 12 12z"/></svg>
-                                        <span class="ml-2 mt-5px">Usar Crétido ( {{Auth::user()->credit}} € )</span>
+                                        <span class="ml-2 mt-5px">Usar Crédito ( {{Auth::user()->credit}} € )</span>
                                     </button>
                                 </a>
                             @else

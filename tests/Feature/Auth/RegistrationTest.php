@@ -20,9 +20,11 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register()
     {
+        $nre = Nre::factory()->create();
+
         $response = $this->post('/register', [
             'name' => 'Test User',
-            'nre' => Nre::factory()->create()->nre,
+            'nre' => $nre->nre,
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
@@ -30,6 +32,18 @@ class RegistrationTest extends TestCase
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'Test User',
+            'nre_id' => $nre->id,
+            'email' => 'test@example.com',
+            'phone' => null,
+            'class' => null,
+            'banned' => 0,
+            'ban_strikes'  => 0,
+            'credit' => 0.00,
+            'image' => null
+        ]);
     }
 
     public function test_new_users_cannot_register_if_nre_is_invalid()

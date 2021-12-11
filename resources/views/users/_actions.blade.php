@@ -29,7 +29,7 @@
         <div class="flex flex-shrink-0 ml-12 items-center justify-start font-medium text-sm md:px-4 md:justify-end md:ml-0">
             <p class="px-2 main-color-blue-text text-2xs font-bold md:hidden dark:main-color-yellow-text transition duration-500">Acciones:</p>
             @if($row->isAn('user'))
-                @if($row->banned)
+                @if(!$row->banned)
                     <a href="{{ route('users.bann', ['id' => $row->id]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 mx-3 bg-red-700 rounded-md">
                         <p class="px-2 text-sm text-white font-bold uppercase hidden">Deshabilitar</p>
                         <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

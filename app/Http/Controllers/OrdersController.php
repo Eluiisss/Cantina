@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Article;
+use App\Util\OrderCodeGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
+    use OrderCodeGenerator;
 
     public function index()
     {
@@ -42,11 +44,13 @@ class OrdersController extends Controller
                 DB::transaction(function () {
                     $date = now();
                     $cart= Cart::content();
-                    $order = Order::factory()->create([
+                    $order = Order::create([
                         'user_id' => Auth::id(),
+                        'order_code' => $this->generateOrderCode(),
                         'created_at' => $date,
                         'order_status' => 'pendiente',
                         'payment_status' => 'ya_pagado',
+                        'payment_date' => now(),
                         'total_payed' => Cart::priceTotal(),
 
                     ]);
@@ -67,17 +71,17 @@ class OrdersController extends Controller
                     Cart::destroy();
                     $user->credit=$newCredit;
                     $user->save();
-                    
+
                 });
             } catch (\Exception $e) {
                 return redirect('shop')->with('message','Error en el encargo');
             }
-        
+
             return redirect('shop')->with('message','¡Encargo pagado!');
         }else{
             return redirect('shop')->with('message','Usuario deshabilitado, contacte con cantina');
         }
-            
+
     }
 
     public function createNewOrder(){
@@ -87,8 +91,9 @@ class OrdersController extends Controller
                 DB::transaction(function () {
                     $date = now();
                     $cart= Cart::content();
-                    $order = Order::factory()->create([
+                    $order = Order::create([
                         'user_id' => Auth::id(),
+                        'order_code' => $this->generateOrderCode(),
                         'created_at' => $date,
                         'order_status' => 'pendiente',
                         'payment_status' => 'sin_pagar',
