@@ -18,12 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('password');
-            $table->string('class');
-            $table->tinyInteger('banned');
-            $table->tinyInteger('ban_strikes');
-            $table->float('credit');
+            $table->string('class')->nullable();
+            $table->tinyInteger('banned')->default(0);
+            $table->tinyInteger('ban_strikes')->default(0);
+            $table->float('credit')->default(0.00);
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
