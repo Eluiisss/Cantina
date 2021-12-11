@@ -126,6 +126,7 @@
             {{$order->user->name}}
         </p>
     </div>
+    @if($order->user->class)
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
         <p class="text-gray-600">
             Clase
@@ -134,6 +135,7 @@
             {{$order->user->class}}
         </p>
     </div>
+    @endif
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
         <p class="text-gray-600">
             Correo
@@ -142,6 +144,7 @@
             {{$order->user->email}}
         </p>
     </div>
+    @if($order->user->phone)
     <div class="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
         <p class="text-gray-600">
             Teléfono
@@ -151,4 +154,5 @@
         </p>
     </div>
     @endif
+        @endif
 </div>
