@@ -53,11 +53,11 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 dark:main-color-yellow-text transition duration-500" href="{{ route('login') }}">
+                <a class="underline text-sm main-color-blue-text dark:main-color-yellow-text transition duration-500" href="{{ route('login') }}">
                     {{ __('¿Ya te has registrado?') }}
                 </a>
 
-                <x-button class="ml-4 dark:main-color-yellow-text dark:main-color-blue-bg transition duration-500">
+                <x-button class="ml-4 main-color-yellow-text main-color-blue-bg transition duration-500">
                     {{ __('¡Regístrate!') }}
                 </x-button>
             </div>

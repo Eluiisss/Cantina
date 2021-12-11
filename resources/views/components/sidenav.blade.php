@@ -1,4 +1,4 @@
-<div class="overflow-x-hidden bg-gray-100 dark:bg-gray-800 border-r-4 border-gray-300 dark:main-color-yellow-border transition duration-500">
+<div class="overflow-x-hidden bg-gray-100 dark:bg-gray-800 border-r-4 border-gray-300 dark:main-color-yellow-border transition duration-500 z-50">
     <div class="flex flex-col w-screen h-screen md:w-96" x-cloak x-show="open"
          x-transition:enter="transition ease-out duration-500"
          x-transition:enter-start="opacity-100 transform -translate-x-full"

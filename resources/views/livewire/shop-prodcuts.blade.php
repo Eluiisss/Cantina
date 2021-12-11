@@ -92,9 +92,9 @@
     </div>
     @if($selectedProduct)
     @php $detailProduct = $articles->filter(function($item) use($selectedProduct) {return $item->id == $selectedProduct;})->first() @endphp
-    <div class="{{$productModal}} container px-5 py-6 mx-auto">
+    <div class="{{$productModal}} min-h-screen flex items-center justify-center px-4 container px-5 py-6 mx-auto">
         <section>
-            <div class="min-h-screen flex items-center justify-center px-4">
+            <div class="flex items-center justify-center px-4">
                 <div class="max-w-5xl bg-transparent backdrop-filter w-full rounded-lg shadow-xl">
                     <div class="flex flex-col md:flex-row max-h-md mb-5 bg-transparent shadow-lg rounded-t-lg overflow-hidden">
                         <div class="w-full md:w-1/3 bg-cover" style="background-image: url('{{ $detailProduct->image? asset('storage/img/articles/'. $detailProduct->image): URL::asset('img/no_picture.jpg')}}')"></div>

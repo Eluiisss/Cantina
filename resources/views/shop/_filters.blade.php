@@ -1,14 +1,12 @@
 <section>
     <div class="flex flex-col backdrop-filter container mx-auto">
-        <input class="py-4 px-4 rounded mb-8 focus:outline-none focus:shadow-outline text-sm md:text-base text-right main-color-blue-text dark:main-color-yellow-text transition duration-500 shadow-lg"
+        <input class="py-4 px-4 rounded mb-8 focus:outline-none focus:shadow-outline text-sm md:text-base text-right bg-transparent border-r-2 border-b-2 main-color-blue-border dark:main-color-yellow-border main-color-blue-text dark:main-color-yellow-text transition duration-500 shadow-lg"
                wire:model.debounce.150ms="search" name="search" placeholder="¿Qué te apetece tomar?" value="{{ request('search') }}">
         <nav class="flex justify-end">
-            <select wire:model.lazy="category" name="category" id="category" class="main-color-blue-bg main-color-yellow-text">
+            <select name="category" wire:model="category" id="category" class="main-color-blue-bg main-color-yellow-text">
                 <option value="null">Escoge una categoría</option>
                 @foreach($categories as $value)
-                    <option wire:key="filterCategory('{{$value->name}}')" value="{{$value->name}}"
-                            class="no-underline py-2 px-4 font-medium mr-3 {{$category == $value->name ? 'main-color-blue-bg main-color-yellow-text' : 'main-color-yellow-bg main-color-blue-text'}} hover:bg-yellow-400 hover:text-black"
-                            {{ request('category') == $value->name ? 'selected' : '' }}>{{ $value->name }}</option>
+                    <option value="{{$value->name}}" class="no-underline py-2 px-4 font-medium mr-3 {{$category == $value->name ? 'main-color-blue-bg main-color-yellow-text' : 'main-color-yellow-bg main-color-blue-text'}} hover:bg-yellow-400 hover:text-black">{{ $value->name }}</option>
                 @endforeach
             </select>
         </nav>

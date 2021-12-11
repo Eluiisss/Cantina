@@ -70,7 +70,6 @@ class ShowManageOrdersListTest extends TestCase
             'Pepe López',
             '(2 Articulos)',
             'hace 35 minutos',
-            'border-gray-200',
             'PEDIDO: B340 (RECOGIDO)',
             'green-600',
             'Juan López',

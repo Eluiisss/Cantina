@@ -1,9 +1,9 @@
-<div class="grid justify-items-end inline-block">
-    <div class="flex flex-auto items-center md:text-3xl">
+<div class="grid justify-items-end inline-block transition duration-500">
+    <div class="flex flex-auto items-center md:text-3xl main-color-blue-text dark:main-color-yellow-text transition duration-500">
         <svg class="md:w-10 md:h-10" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.75 3.75H18.525C18 2.3 16.625 1.25 15 1.25C13.375 1.25 12 2.3 11.475 3.75H6.25C4.875 3.75 3.75 4.875 3.75 6.25V23.75C3.75 25.125 4.875 26.25 6.25 26.25H23.75C25.125 26.25 26.25 25.125 26.25 23.75V6.25C26.25 4.875 25.125 3.75 23.75 3.75ZM15 3.75C15.6875 3.75 16.25 4.3125 16.25 5C16.25 5.6875 15.6875 6.25 15 6.25C14.3125 6.25 13.75 5.6875 13.75 5C13.75 4.3125 14.3125 3.75 15 3.75ZM15 8.75C17.075 8.75 18.75 10.425 18.75 12.5C18.75 14.575 17.075 16.25 15 16.25C12.925 16.25 11.25 14.575 11.25 12.5C11.25 10.425 12.925 8.75 15 8.75ZM22.5 23.75H7.5V22C7.5 19.5 12.5 18.125 15 18.125C17.5 18.125 22.5 19.5 22.5 22V23.75Z" fill="#004467"/>
         </svg>
-        <h1 class="px-1 main-color-blue-text">LISTADO DE USUARIOS</h1>
+        <h1 class="px-1 main-color-blue-text dark:main-color-yellow-text transition duration-500 uppercase">Listado de Usuarios</h1>
     </div>
 </div>
 <form method="get" action="{{ route('users.index') }}">

@@ -57,13 +57,14 @@ class ShowOrderHistoryTest extends TestCase
             ]);
 
         Livewire::test('order-user-history')->assertSee(trans('orders.userHistory.title'))
-            ->assertSeeInOrder([
+            ->assertSee([
                 'PEDIDO: E321',
                 'Total del pedido: (2 Articulos)',
                 'Productos:
                     Pizza x 1 (1.75 €)
                           ,
-                                            Empanada x 1 (2.70 €)',
+                                            Empanada x 1 (2.70 €)
+                                     ',
                 'Sin pagar',
                 'Importe total: €4.45',
         ]);

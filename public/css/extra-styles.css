@@ -69,6 +69,10 @@
         line-height: 0.5rem;
     }
 
+    .selected .selected-title {
+        color: #FFFFFF !important;
+    }
+
 /* Main Logo - IES CIERVA */
 .ieslogo::after {
     content: '';
@@ -95,6 +99,24 @@
 }
 
 /* Animations */
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        transition: all .5s ease-in-out;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #004467;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ffc000;
+    }
 
     /* Loading Screen */
     .loading-screen::before {
