@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 //use App\Http\Requests\CreateUser;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\CreateEmployeeRequest;
-use App\Models\{User,Sortable,UserFilter,Role};
+use App\Models\{User,Sortable,UserFilter,Role,Nre};
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -81,7 +82,6 @@ class UserController extends Controller
 
     public function createEmployee(User $user)
     {
-
         return view('users.employee',['user' => $user]);
     }
 
@@ -90,5 +90,7 @@ class UserController extends Controller
         $request->createEmp();
         return redirect(route('users.index'));
     }
+
+
 
 }

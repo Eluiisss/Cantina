@@ -9,11 +9,13 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Util\SpecialUserCodeGenerator;
 
 
 
 class CreateEmployeeRequest extends FormRequest
 {
+    use SpecialUserCodeGenerator;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,7 +35,7 @@ class CreateEmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'nre' => ['required','min:9','max:9'],
+            'nre' => [],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
@@ -46,8 +48,6 @@ class CreateEmployeeRequest extends FormRequest
             'name.required' => 'El nombre es obligatorio.',
             'name.string' => 'El nombre debe de ser una cadena de caracteres válido.',
             'name.max' => 'El nombre no debe sobrepasar los 255 caracteres.',
-
-            'nre.required' => 'El numero de empleado es obligatorio.',
 
             'email.required' => 'El email es obligatorio.',
             'email.string' => 'El email debe ser de caracter alfanumérico.',
@@ -64,9 +64,9 @@ class CreateEmployeeRequest extends FormRequest
     {
         DB::transaction(function () {
             $nre = Nre::factory()->create([
-                'nre' => $this->nre,
+                'nre' => $this->generateSpecialUserCode(),
             ]);
-            $user = User::factory()->create([
+            $user = User::create([
                 'name' => $this->name,
                 'nre_id' => $nre->id,
                 'email' => $this->email,
