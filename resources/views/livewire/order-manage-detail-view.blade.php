@@ -52,14 +52,14 @@
             <div class="flex space-x-4 items-center">
                 <div class="flex flex-col">
                     <h3 class="font-semibold text-sm md:text-lg main-color-blue-text dark:main-color-yellow-text transition duration-500">{{trans('orders.manage.clientDataHeader')}}</h3>
-                    <p class="text-sm text-light text-gray-400">{{trans('orders.manage.selectOrder')}}</p>
+                    <p class="text-sm font-light text-gray-400">{{trans('orders.manage.selectOrder')}}</p>
                 </div>
             </div>
         </div>
         <section class="flex items-top justify-center py-5 px-4">
             <div class="max-w-lg h-40 w-full rounded-lg shadow-lg p-4 main-color-blue-bg main-color-yellow-text">
-                <h3 class="font-semibold text-lg tracking-wide">{{trans('orders.manage.selectOrder')}}</h3>
-                <p class="font-light my-1">{{trans('orders.manage.selectOrderDetailed')}}</p>
+                <h3 class="font-semibold text-sm md:text-lg tracking-wide">{{trans('orders.manage.selectOrder')}}</h3>
+                <p class="text-sm font-light my-1">{{trans('orders.manage.selectOrderDetailed')}}</p>
             </div>
         </section>
     @endif

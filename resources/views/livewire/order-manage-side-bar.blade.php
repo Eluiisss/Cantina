@@ -1,7 +1,7 @@
 <div>
     <div>
         <div class="grid justify-items-end inline-block transition duration-500 py-4 text-3xl">
-            <h1 class="px-1 main-color-blue-text dark:main-color-yellow-text transition duration-500 uppercase text-right">Control de pedidos</h1>
+            <h1 class="px-2 main-color-blue-text dark:main-color-yellow-text transition duration-500 uppercase text-right">Control de pedidos</h1>
         </div>
         <label class="flex w-full justify-end px-3">
             <input class="rounded-lg p-4 bg-transparent transition duration-500 focus:outline-none focus:ring-2 md:w-1/2 border-r-2 border-b-2 main-color-blue-text dark:main-color-yellow-text main-color-blue-border dark:main-color-yellow-border text-right"
@@ -38,11 +38,9 @@
                         <div class="content">
                             <div class="flex justify-between items-center">
                                 <h3 class="selected-title text-sm md:text-lg w-48 py-2 font-semibold main-color-blue-text dark:main-color-yellow-text transition duration-500">PEDIDO: {{substr($row->order_code, 0 ,4)}} @if ($row->order_status =='recogido')({{trans('orders.manage.collected')}})@elseif ($row->order_status=='no_recogido')({{trans('orders.manage.notCollected')}})@elseif ($row->order_status=='cancelado')({{trans('orders.manage.cancel')}})@endif</h3>
-                                <p class="text-{{($row->payment_status=='ya_pagado')? 'green-600':'red-300'}}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </p>
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="{{ ($row->payment_status=='ya_pagado') ? 'green' : 'red' }}">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </div>
                             <div class="text-md italic text-gray-400 text-xs md:text-base">{{$row->user->name}} ({{$row->articles->count()}} Articulos)</div>
                             <div class="text-md text-gray-400 text-right text-xs md:text-base">{{$row->created_at->diffForHumans()}}</div>

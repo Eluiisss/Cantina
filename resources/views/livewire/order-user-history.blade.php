@@ -9,7 +9,7 @@
                         {{trans('orders.userHistory.currentOrders')}}
                     </li>
                     @foreach($orders->filter(function($item) {return $item->order_status == 'pendiente';})->all() as $row)
-                        @include('orders.user_history._userOrderRow', ['color' => "blue", 'hover' => "yellow", 'orderStatus'=> null])
+                        @include('orders.user_history._userOrderRow', ['color' => "blue", 'hover' => "blue", 'orderStatus'=> null])
                     @endforeach
                     <li class="text-base md:text-lg uppercase border-b border-gray border-solid py-2 px-2 md:px-5 mb-2 main-color-blue-text dark:main-color-yellow-text transition duration-500">
                         {{trans('orders.userHistory.processedOrders')}}
@@ -58,7 +58,7 @@
                     @if($selectedOrder)
                         @if($detailOrder->order_status == 'pendiente')
                         <a href="{{route('orders.cancel',['order' => $selectedOrder ])}}">
-                            <button id="submit" class="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none">
+                            <button id="submit" class="rounded-md px-3 py-1 bg-red-700 hover:bg-red-900-500 text-white focus:shadow-outline focus:outline-none">
                                 {{trans('orders.userHistory.modalCancelOrder')}}
                             </button>
                         </a>

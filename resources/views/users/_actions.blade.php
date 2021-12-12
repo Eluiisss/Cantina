@@ -51,12 +51,35 @@
                     <path d="M4.99996 1.875C2.91663 1.875 1.13746 3.17083 0.416626 5C1.13746 6.82917 2.91663 8.125 4.99996 8.125C7.08329 8.125 8.86246 6.82917 9.58329 5C8.86246 3.17083 7.08329 1.875 4.99996 1.875ZM4.99996 7.08333C3.84996 7.08333 2.91663 6.15 2.91663 5C2.91663 3.85 3.84996 2.91667 4.99996 2.91667C6.14996 2.91667 7.08329 3.85 7.08329 5C7.08329 6.15 6.14996 7.08333 4.99996 7.08333ZM4.99996 3.75C4.30829 3.75 3.74996 4.30833 3.74996 5C3.74996 5.69167 4.30829 6.25 4.99996 6.25C5.69163 6.25 6.24996 5.69167 6.24996 5C6.24996 4.30833 5.69163 3.75 4.99996 3.75Z" fill="#FFC000"/>
                 </svg>
             </a>
-            <a href="{{ route('users.edit', ['user' => $row]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 {{ $row->isAn('employee') | $row->isAn('user') ? 'mr-1' : ''}} main-color-blue-bg rounded-md">
-                <p class="px-2 text-sm main-color-yellow-text font-bold uppercase hidden">Editar</p>
-                <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.25 7.1875V8.75H2.8125L7.42083 4.14167L5.85833 2.57917L1.25 7.1875ZM8.62917 2.93334C8.79167 2.77084 8.79167 2.50834 8.62917 2.34584L7.65417 1.37084C7.49167 1.20834 7.22917 1.20834 7.06667 1.37084L6.30417 2.13334L7.86667 3.69584L8.62917 2.93334Z" fill="#FFC000"/>
-                </svg>
-            </a>
+            @if($row->isAn('administrator') && (Auth::user())->isAn('administrator') && (Auth::user())->id === $row->id)
+                <a href="{{ route('users.edit', ['user' => $row]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 {{ $row->isAn('employee') | $row->isAn('user') ? 'mr-1' : ''}} main-color-blue-bg rounded-md">
+                    <p class="px-2 text-sm main-color-yellow-text font-bold uppercase hidden">Editar</p>
+                    <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.25 7.1875V8.75H2.8125L7.42083 4.14167L5.85833 2.57917L1.25 7.1875ZM8.62917 2.93334C8.79167 2.77084 8.79167 2.50834 8.62917 2.34584L7.65417 1.37084C7.49167 1.20834 7.22917 1.20834 7.06667 1.37084L6.30417 2.13334L7.86667 3.69584L8.62917 2.93334Z" fill="#FFC000"/>
+                    </svg>
+                </a>
+            @elseif($row->isAn('employee') && (Auth::user())->isAn('administrator'))
+                <a href="{{ route('users.edit', ['user' => $row]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 {{ $row->isAn('employee') | $row->isAn('user') ? 'mr-1' : ''}} main-color-blue-bg rounded-md">
+                    <p class="px-2 text-sm main-color-yellow-text font-bold uppercase hidden">Editar</p>
+                    <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.25 7.1875V8.75H2.8125L7.42083 4.14167L5.85833 2.57917L1.25 7.1875ZM8.62917 2.93334C8.79167 2.77084 8.79167 2.50834 8.62917 2.34584L7.65417 1.37084C7.49167 1.20834 7.22917 1.20834 7.06667 1.37084L6.30417 2.13334L7.86667 3.69584L8.62917 2.93334Z" fill="#FFC000"/>
+                    </svg>
+                </a>
+            @elseif($row->isAn('employee') && (Auth::user())->isAn('employee') && (Auth::user())->id === $row->id)
+                <a href="{{ route('users.edit', ['user' => $row]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 {{ $row->isAn('employee') | $row->isAn('user') ? 'mr-1' : ''}} main-color-blue-bg rounded-md">
+                    <p class="px-2 text-sm main-color-yellow-text font-bold uppercase hidden">Editar</p>
+                    <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.25 7.1875V8.75H2.8125L7.42083 4.14167L5.85833 2.57917L1.25 7.1875ZM8.62917 2.93334C8.79167 2.77084 8.79167 2.50834 8.62917 2.34584L7.65417 1.37084C7.49167 1.20834 7.22917 1.20834 7.06667 1.37084L6.30417 2.13334L7.86667 3.69584L8.62917 2.93334Z" fill="#FFC000"/>
+                    </svg>
+                </a>
+            @elseif($row->isAn('user') && (Auth::user())->isAn('administrator') | (Auth::user())->isAn('employee'))
+                <a href="{{ route('users.edit', ['user' => $row]) }}" class="extend-width flex items-center justify-center p-1 md:p-2 {{ $row->isAn('employee') | $row->isAn('user') ? 'mr-1' : ''}} main-color-blue-bg rounded-md">
+                    <p class="px-2 text-sm main-color-yellow-text font-bold uppercase hidden">Editar</p>
+                    <svg class="w-3 h-3 md:w-5 md:h-5" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.25 7.1875V8.75H2.8125L7.42083 4.14167L5.85833 2.57917L1.25 7.1875ZM8.62917 2.93334C8.79167 2.77084 8.79167 2.50834 8.62917 2.34584L7.65417 1.37084C7.49167 1.20834 7.22917 1.20834 7.06667 1.37084L6.30417 2.13334L7.86667 3.69584L8.62917 2.93334Z" fill="#FFC000"/>
+                    </svg>
+                </a>
+            @endif
             @if($row->isAn('employee') | $row->isAn('user'))
                 <button type="submit" class="extend-width flex items-center justify-center p-1 md:p-2 bg-red-700 rounded-md">
                     <p class="px-2 text-sm text-white font-bold uppercase hidden">A la papelera</p>
