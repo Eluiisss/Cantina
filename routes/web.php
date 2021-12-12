@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\{ArticlesController, CategoriesController, PaypalController, OrdersController, ShopController, UserController, CartController};
+use App\Http\Controllers\{NreController,ArticlesController, CategoriesController, PaypalController, OrdersController, ShopController, UserController, CartController};
 use App\Http\Livewire\OrderUserHistory;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +60,7 @@ Route::delete('/categories/{id}', [CategoriesController::class, 'destroy'])->mid
 
 Route::prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->middleware(['role:administrator|employee'])->name('users.index');
+    Route::get('/users/newKey', [NreController::class, 'createSpecialUserCode'])->middleware(['role:administrator|employee'])->name('nres.createSpecialUserCode');
     Route::delete('/users/delete/{id}', [UserController::class , 'destroy'])->middleware(['role:administrator|employee'])->name('users.destroy');
     Route::get('/users/papelera', [UserController::class , 'index'])->middleware(['role:administrator|employee'])->name('users.trashed');
     Route::get('/users/{user}/show', [UserController::class, 'show'])->middleware(['role:administrator|employee'])->name('users.show');

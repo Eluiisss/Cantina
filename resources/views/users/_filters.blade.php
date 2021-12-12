@@ -40,9 +40,15 @@
                             </defs>
                         </svg>
                     </a>
-                    <a href="{{route('users.createEmployee')}}" class="px-1 py-1 md:px-2 md:py-2 main-color-blue-bg main-color-yellow-text rounded-r-md">
+                    <a href="{{route('users.createEmployee')}}" class="px-1 py-1 md:px-2 md:py-2 main-color-blue-bg main-color-yellow-text ">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.8333 10.8333H10.8333V15.8333H9.16663V10.8333H4.16663V9.16666H9.16663V4.16666H10.8333V9.16666H15.8333V10.8333Z" fill="#FFC000"/>
+                            <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                            <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+                        </svg>
+                    </a>
+                    <a href="{{route('nres.createSpecialUserCode')}}" class="px-1 py-1 md:px-2 md:py-2 main-color-blue-bg main-color-yellow-text rounded-r-md">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" />
                         </svg>
                     </a>
                 </div>
