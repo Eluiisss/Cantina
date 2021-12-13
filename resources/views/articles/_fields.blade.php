@@ -1,5 +1,5 @@
 {{ csrf_field() }}
-<h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+<h6 class="flex justify-end md:justify-start text-sm mt-2 px-4 mb-6 font-bold uppercase">
     Detalles
 </h6>
 <div class="flex flex-wrap">
@@ -8,8 +8,8 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_name">
                 Nombre del producto
             </label>
-            <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                   name="article_name" type="text" placeholder="Nombre del prodcuto" value="{{ old('article_name', $article->name) }}">
+            <input type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                   name="article_name" type="text" placeholder="Nombre del producto" value="{{ old('article_name', $article->name) }}">
         </div>
     </div>
     <div class="w-full lg:w-12/12 px-4">
@@ -17,21 +17,21 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_category">
                 Categoría
             </label>
-            <select class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <select class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent main-color-blue-text dark:main-color-yellow-text rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-500"
                     name="article_category">
-                <option value="">Selecciona una categoría</option>
+                <option value="" class="backdrop-filter bg-transparent main-color-blue-text dark:main-color-yellow-text">Selecciona una categoría</option>
                 @foreach($categories as $value)
-                    <option value="{{ $value->id }}" {{(old('article_category', $article->category_id) == $value->id ) ? ' selected' : '' }}>{{$value->name }}</option>
+                    <option value="{{ $value->id }}" class="backdrop-filter bg-transparent main-color-blue-text dark:main-color-yellow-text" {{(old('article_category', $article->category_id) == $value->id ) ? ' selected' : '' }}>{{$value->name }}</option>
                 @endforeach
             </select>
         </div>
     </div>
     <div class="w-full lg:w-4/12 px-4">
         <div class="relative w-full mb-3">
-            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_price">
+            <label class="block uppercase text-xs font-bold mb-2" for="article_price">
                 Precio
             </label>
-            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_price" type="number" min="0" max="10000" step="0.01" placeholder="Precio" value="{{ old('article_price', $article->price) }}">
         </div>
     </div>
@@ -40,7 +40,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_stock">
                 Stock
             </label>
-            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_stock" type="number" min="0" max="1000" placeholder="0-1000" value="{{ old('article_stock', $article->stock) ?? 0 }}">
         </div>
     </div>
@@ -49,7 +49,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_discount">
                 Descuento %
             </label>
-            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_discount" type="number" min="0" max="100"  placeholder="0% - 100%" value="{{ old('article_discount', $article->discount ?? 0) }}">
         </div>
     </div>
@@ -60,10 +60,10 @@
             </label>
             @if($article->image)
                 <div class="col-span-1 self-center">
-                    <img src="{{asset('storage/img/articles/'. $article->image)}}" alt="Image" class="rounded transform scale-20">
+                    <img src="{{asset('storage/img/articles/'. $article->image)}}" alt="Image" class="my-2 rounded transform scale-20">
                 </div>
             @endif
-            <input type='file'  name="article_image" />
+            <input type='file' class="bg-transparent" name="article_image" />
         </div>
     </div>
 
@@ -80,7 +80,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_calories">
                 Calorías
             </label>
-            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_calories" type="number" min="0" max="5000" step="0.01" placeholder="Ej. 1000 kcal" value="{{ old('article_calories', optional($article->nutrition)->calories) }}">
         </div>
     </div>
@@ -89,7 +89,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_sodium">
                 Sal
             </label>
-            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_sodium" type="number" min="0" max="500" step="0.01" placeholder="Ej. 2.5g" value="{{ old('article_sodium', optional($article->nutrition)->sodium) }}">
         </div>
     </div>
@@ -98,7 +98,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="article_proteins">
                 Proteínas
             </label>
-            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <input type="number" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                    name="article_proteins" type="number" min="0" max="200" step="0.01" placeholder="Ej. 100g" value="{{ old('article_proteins', optional($article->nutrition)->proteins) }}">
         </div>
     </div>
@@ -123,7 +123,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                 Ingredientes
             </label>
-            <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       name="article_ingredients_description" rows="4" placeholder="Opcional* Descripción detallada">{{old('article_ingredients_description', optional($article->nutrition)->ingredients_description)}}</textarea>
         </div>
     </div>
@@ -156,7 +156,7 @@
             <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
                 Descripción
             </label>
-            <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            <textarea type="text" class="border-0 px-3 py-3 placeholder-blueGray-300 bg-transparent rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       name="article_allergy_description" rows="4" placeholder="Descripción minuciosa">{{old('article_allergy_description', optional($article->nutrition)->allergy_description)}}</textarea>
         </div>
     </div>

@@ -4,7 +4,7 @@
             @include('users._filters')
         </div>
         @if(session('key'))
-        <div class="px-6 main-color-blue-bg main-color-yellow-text text-center py-4 lg:px-4 rounded-md">
+        <div class="px-6 my-4 main-color-blue-bg main-color-yellow-text text-center py-4 lg:px-4 rounded-md">
             <div class="p-2 bg-transparent items-center  leading-none lg:rounded-full flex lg:inline-flex" role="alert">
                 <span class="flex rounded-full main-color-yellow-bg main-color-blue-text uppercase px-2 py-1 text-xs font-bold mr-3">¡Apunte la clave!</span>
                 <span class="font-semibold mr-2 text-center flex-auto"> {{session('key')}}</span>

@@ -1,25 +1,27 @@
 <x-app-layout>
     @include('shared._errors')
-    <section class=" py-1 bg-blueGray-50">
-        <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
-            <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-                <div class="rounded-t bg-white mb-0 px-6 py-6">
-                    <div class="text-center flex justify-between">
-                        <h6 class="text-blueGray-700 text-xl font-bold">
+    <section class="py-1">
+        <div class="backdrop-filter w-full md:w-8/12 px-4 mx-auto mt-6 shadow-lg rounded-lg border-0">
+            <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
+                <div class="rounded-t bg-transparent mb-0 px-6 py-6">
+                    <div class="flex justify-end">
+                        <h6 class="px-1 main-color-blue-text dark:main-color-yellow-text transition duration-500 font-bold md:text-3xl uppercase">
                             {{ trans('articles.edit.title') }}
                         </h6>
                     </div>
                 </div>
-                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0 main-color-blue-text dark:main-color-yellow-text transition duration-500">
                     <form method="post" action="{{ route('articles.update', $article) }}" enctype="multipart/form-data">
                         {{ method_field('PUT') }}
                         @include('articles._fields')
-                        <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="submit">
-                            Editar artículo
-                        </button>
-                        <a href="{{ route('articles.index') }}" class="bg-blue-500 text-white active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
-                            Volver
-                        </a>
+                        <div class="flex flex-auto justify-end items-center">
+                            <button class="main-color-yellow-text main-color-blue-bg active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150" type="submit">
+                                Editar artículo
+                            </button>
+                            <a href="{{ route('articles.index') }}" class="bg-red-700 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                Volver
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>

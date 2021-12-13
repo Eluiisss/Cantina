@@ -37,8 +37,7 @@
                             <p class="text-sm font-bold">Teléfono</p>
                             <p>{{$user->phone}}</p>
                         </div>
-
-                        <div class="md:grid md:grid-cols-6 md:space-y-2 space-y-1 p-4">
+                        <div class="flex flex-auto justify-end items-center md:space-y-2 space-y-1 p-4">
                             <a href="{{ (url()->previous() == route('users.index'))?  route('users.index') : url()->previous() }}"
                                class="main-color-blue-bg main-color-yellow-text text-center active:bg-blue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow outline-none focus:outline-none mr-1 ease-linear transition-all duration-500">
                                 Volver
