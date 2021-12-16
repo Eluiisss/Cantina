@@ -32,6 +32,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ((Auth::user())->isAn('administrator|employee')) return redirect(route('orders.manage'));
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

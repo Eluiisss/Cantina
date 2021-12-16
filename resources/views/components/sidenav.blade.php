@@ -37,11 +37,11 @@
                     @if(Auth::user() && (Auth::user())->isAn('administrator|employee'))
                         <ul>
                             <li>
-                                <a class="{{ (request()->routeIs('dashboard.index')) | (request()->is('dashboard/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('home') }}" style="width: 200px">
+                                <a class="{{ (request()->routeIs('orders.manage')) | (request()->is('manageOrders/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('orders.manage') }}">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3 13H11V3H3V13ZM3 21H11V15H3V21ZM13 21H21V11H13V21ZM13 3V9H21V3H13Z" fill="#004467"/>
+                                        <path d="M20 6H17V4C17 2.89 16.11 2 15 2H9C7.89 2 7 2.89 7 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM9 4H15V6H9V4ZM20 19H4V17H20V19ZM20 14H4V8H7V10H9V8H15V10H17V8H20V14Z" fill="#004467"/>
                                     </svg>
-                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Dashboard</span>
+                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Administrar Pedidos</span>
                                 </a>
                             </li>
                             <li>
@@ -58,14 +58,6 @@
                                         <path d="M18.06 22.99H19.72C20.56 22.99 21.25 22.35 21.35 21.53L23 5.05H18V1H16.03V5.05H11.06L11.36 7.39C13.07 7.86 14.67 8.71 15.63 9.65C17.07 11.07 18.06 12.54 18.06 14.94V22.99ZM1 21.99V21H16.03V21.99C16.03 22.54 15.58 22.99 15.02 22.99H2.01C1.45 22.99 1 22.54 1 21.99ZM16.03 14.99C16.03 6.99 1 6.99 1 14.99H16.03ZM1.02 17H16.02V19H1.02V17Z" fill="#004467"/>
                                     </svg>
                                     <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Artículos</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="{{ (request()->routeIs('orders.manage')) | (request()->is('manageOrders/*')) ? 'currentActive transform translate-x-3 transition duration-500' : 'transform hover:translate-x-3 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} inline-flex items-center w-full px-4 py-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('orders.manage') }}">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M20 6H17V4C17 2.89 16.11 2 15 2H9C7.89 2 7 2.89 7 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM9 4H15V6H9V4ZM20 19H4V17H20V19ZM20 14H4V8H7V10H9V8H15V10H17V8H20V14Z" fill="#004467"/>
-                                    </svg>
-                                    <span class="ml-4 font-light text-xs main-color-blue-text uppercase dark:main-color-yellow-text transition duration-500"> Administrar Pedidos</span>
                                 </a>
                             </li>
                         </ul>
