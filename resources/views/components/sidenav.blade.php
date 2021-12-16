@@ -145,9 +145,9 @@
                             </a>
                         </li>
                         <li>
-                            <a class="transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg inline-flex items-center w-full p-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="#">
+                            <a class="{{ (request()->routeIs('users.show')) | (request()->is('users/*')) ? 'currentActive transform translate-y-2 transition duration-500' : 'transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg' }} transform hover:translate-y-2 transition-transform ease-in duration-200 bg-white dark:main-color-yellow-text dark:main-color-blue-bg inline-flex items-center w-full p-2 mt-1 text-base rounded-lg focus:shadow-outline" white="" 70="" href="{{ route('users.show', ['user' => Auth::user()]) }}">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M22.6999 19L13.5999 9.9C14.4999 7.6 13.9999 4.9 12.0999 3C10.0999 0.999997 7.09994 0.599997 4.69994 1.7L8.99994 6L5.99994 9L1.59994 4.7C0.399939 7.1 0.899939 10.1 2.89994 12.1C4.79994 14 7.49994 14.5 9.79994 13.6L18.8999 22.7C19.2999 23.1 19.8999 23.1 20.2999 22.7L22.5999 20.4C23.0999 20 23.0999 19.3 22.6999 19Z" fill="#004467"/>
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z" fill="#004467"/>
                                 </svg>
                             </a>
                         </li>
