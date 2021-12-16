@@ -102,7 +102,7 @@ class ManageOrdersTest extends TestCase
 
         $userPepe = $this->createUser('Pepe López', 'pepe@mail.com');
 
-        foreach (range(1,4) as $i){
+        foreach (range(1,3) as $i){
 
             $order = Order::factory()->readyToCollect()->notPayedYet()->create([
                 'id' => $i,
@@ -119,7 +119,7 @@ class ManageOrdersTest extends TestCase
                 'payment_status' => 'sin_pagar'
             ]);
 
-                if($i == 4){
+                if($i == 3){
                     $this->assertDatabaseHas('users', [
                         'id' => $userPepe->id,
                         'banned' => 1,
