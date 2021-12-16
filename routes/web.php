@@ -26,9 +26,8 @@ Route::get('/cart', [CartController::class, 'cart'])->name('shop.cart');
 
 Route::get('/orders', [OrdersController::class, 'index'])->middleware(['role:employee|administrator'])->name('orders.index');
 Route::get('/manageOrders', [OrdersController::class, 'manageOrders'])->middleware(['role:employee|administrator'])->name('orders.manage');
-Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->name('orders.show');
-Route::get('/orders/{order}/cancel', [OrdersController::class, 'cancel'])->name('orders.cancel');
-Route::delete('/orders/{id}', [OrdersController::class, 'destroy'])->name('orders.destroy');
+Route::get('/orders/{order}/show', [OrdersController::class, 'show'])->middleware(['role:employee|administrator'])->name('orders.show');
+Route::get('/orders/{order}/cancel', [OrdersController::class, 'cancel'])->name('orders.cancel');   
 Route::get('/orders/createNotPayed', [OrdersController::class, 'createNewOrder'])->name('orders.newOrder');
 Route::get('/orders/createPayed', [OrdersController::class, 'createPayedOrder'])->name('orders.newPayedOrder');
 
@@ -69,8 +68,5 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['role:administrator|employee|user'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['role:administrator|employee|user'])->name('users.update');
-
-Route::post('paypal/order/create', [PaypalController::class , 'create']);
-Route::post('paypal/order/capture', [PaypalController::class , 'capture']);
 
 require __DIR__.'/auth.php';
