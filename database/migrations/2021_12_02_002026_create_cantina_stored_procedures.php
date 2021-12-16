@@ -43,7 +43,7 @@ class CreateCantinaStoredProcedures extends Migration
             DECLARE v_user_reports int;
             SELECT ban_strikes FROM users u WHERE u.id = in_user_id INTO v_user_reports;
 
-            IF v_user_reports >= 3 THEN
+            IF v_user_reports >= 2 THEN
                 UPDATE `users` SET `banned` = '1', `ban_strikes` = '0', `deleted_at` = NULL WHERE `users`.`id` = in_user_id;
             ELSE
                 UPDATE `users` SET `ban_strikes` = (v_user_reports + 1), `deleted_at` = NULL WHERE `users`.`id` = in_user_id AND banned = 0;

@@ -15,16 +15,11 @@ return [
         'administrator' => [
             'users' => 'c,r,u,d',
             'nres' => 'c,r,u,d',
-            'payments' => 'c,r,u,d',
-            'profile' => 'c,r,u,d',
         ],
         'employee' => [
             'users' => 'c,r,u,d',
-            'payments' => 'c,r,u,d',
-            'profile' => 'r,u',
         ],
         'user' => [
-            'profile' => 'r,u',
             'users' => 'r,u',
         ],
     ],
