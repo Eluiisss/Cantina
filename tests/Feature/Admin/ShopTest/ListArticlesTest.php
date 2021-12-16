@@ -57,25 +57,5 @@ class ListArticlesTest extends TestCase
         ->assertDontSee('Pizza');
     }
 
-    /** @test  */
-    public function it_paginate_the_shop_articles()
-    {
-        $category = Category::factory()->create(['name' => 'Comida']);
-
-        Article::factory()->create(['name' => 'Pizza', 'category_id' => $category->id]);
-        Article::factory()->create(['name' => 'Zumo Brick', 'category_id' => $category->id]);
-        Article::factory()->times(15)->create(['category_id' => $category->id]);
-        Article::factory()->create(['name' => 'Agua', 'category_id' => $category->id]);
-
-        $response = $this->get(route('shop.index', ['page'=>'1']))->assertStatus(200);
-        $response->assertSeeInOrder(['Agua', 'Pizza']);
-        $response->assertDontSee('Zumo Brick');
-
-        $response = $this->get(route('shop.index', ['page'=>'2']))->assertStatus(200);
-        $response->assertSee('Zumo Brick');
-        $response->assertDontSee('Agua');
-        $response->assertDontSee('Pizza');
-
-    }
-
+    
 }
