@@ -126,17 +126,21 @@ class OrdersController extends Controller
     }
 
     public function cancel($id){
+
         $order= Order::find($id);
-        $order->order_status = 'cancelado';
-        $user = User::find($order->user_id);
-        if($order->total_payed){
-            $user->credit += $order->total_payed;
-            $user->save();
+        if(auth()->user()->id == $order->user_id){
+            $order->order_status = 'cancelado';
+            $user = User::find($order->user_id);
+            if($order->total_payed){
+                $user->credit += $order->total_payed;
+                $user->save();
+            }
+            $order->save();
+            return redirect('pedidos');
+        }else{
+            return abort('403');
         }
-        $order->save();
-        return redirect('pedidos');
+
     }
-
-
 
 }

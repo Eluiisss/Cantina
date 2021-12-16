@@ -69,7 +69,4 @@ Route::prefix('admin')->group(function () {
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware(['role:administrator|employee|user'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->middleware(['role:administrator|employee|user'])->name('users.update');
 
-Route::post('paypal/order/create', [PaypalController::class , 'create']);
-Route::post('paypal/order/capture', [PaypalController::class , 'capture']);
-
 require __DIR__.'/auth.php';
