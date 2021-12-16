@@ -52,6 +52,7 @@ class OrdersController extends Controller
                         'payment_status' => 'ya_pagado',
                         'payment_date' => now(),
                         'total_payed' => Cart::priceTotal(),
+                        'client_note' => session('client_note')
 
                     ]);
 
@@ -69,6 +70,7 @@ class OrdersController extends Controller
                     $user=Auth::user();
                     $newCredit = $user->credit - Cart::priceTotal();
                     Cart::destroy();
+                    session(['client_note' => null]);
                     $user->credit=$newCredit;
                     $user->save();
 
@@ -97,6 +99,7 @@ class OrdersController extends Controller
                         'created_at' => $date,
                         'order_status' => 'pendiente',
                         'payment_status' => 'sin_pagar',
+                        'client_note' => session('client_note')
 
                     ]);
 
@@ -111,6 +114,7 @@ class OrdersController extends Controller
 
                     }
                     Cart::destroy();
+                    session(['client_note' => null]);
                 });
             } catch (\Exception $e) {
                 return redirect('shop')->with('message','Error en el encargo');
