@@ -6,7 +6,7 @@
             <select name="category" wire:model="category" id="category" class="main-color-blue-bg main-color-yellow-text">
                 <option value="null">Escoge una categoría</option>
                 @foreach($categories as $value)
-                    <option value="{{$value->name}}" class="no-underline py-2 px-4 font-medium mr-3 {{$category == $value->name ? 'main-color-blue-bg main-color-yellow-text' : 'main-color-yellow-bg main-color-blue-text'}} hover:bg-yellow-400 hover:text-black">{{ $value->name }}</option>
+                    <option value="{{$value->name}}" class="no-underline py-2 px-4 font-medium mr-3 hover:bg-yellow-400 hover:text-black">{{ $value->name }}</option>
                 @endforeach
             </select>
         </nav>

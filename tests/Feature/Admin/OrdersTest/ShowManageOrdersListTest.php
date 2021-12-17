@@ -30,6 +30,8 @@ class ShowManageOrdersListTest extends TestCase
 
         $articles = Article::inRandomOrder()->take(2)->pluck('id');
 
+        Carbon::setTestNow(Carbon::create(2021, 12, 17, 14));
+
         $order = Order::factory()->readyToCollect()->notPayedYet()->create([
             'user_id' => $userPepe->id,
             'order_code' => 'A10000000',
